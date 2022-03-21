@@ -44,7 +44,8 @@ export default function VirtualKeyboard({
         <View key={i} style={styles.row}>
           {row.map((key, j) => (
             <Pressable
-              hitSlop={{ top: 5, bottom: 5, left: 5, right: 5 }}
+              unstable_pressDelay={0}
+              hitSlop={2}
               style={({ pressed }) => ({
                 backgroundColor: pressed
                   ? "rgba(58, 12, 163, .1)"
@@ -62,7 +63,7 @@ export default function VirtualKeyboard({
                 marginLeft: 3,
                 marginRight: 3,
               })}
-              onPress={() => {
+              onPressIn={() => {
                 if (key === "DEL") {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   onBackspace();
@@ -74,6 +75,7 @@ export default function VirtualKeyboard({
                   onKey(key);
                 }
               }}
+              delayLongPress={300}
               onLongPress={() => {
                 if (key === "DEL") {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -102,6 +104,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 2,
+    marginRight: 2,
     padding: 2,
   },
   key: {
