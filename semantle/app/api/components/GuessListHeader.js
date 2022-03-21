@@ -1,18 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
-// tableHead: ["#", "Guess", "Similarity", "	Getting close?"],
 function GuessListHeader(props) {
   return (
     <View
       style={{
         width: "100%",
-        // height: 30,
         alignItems: "center",
         flexDirection: "row",
-        // justifyContent: "space-around",
-        padding: 5,
-        // overflow: "Visible",
+        padding: 7,
         backgroundColor: "rgba(58, 12, 163, .1)",
       }}
     >
