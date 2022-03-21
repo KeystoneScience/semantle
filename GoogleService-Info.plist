@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>550017886361-45fi65e4vjvfl26cju2ul488q3mfetbb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.550017886361-45fi65e4vjvfl26cju2ul488q3mfetbb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC90DCZ0xLfq9uFlXpKujYYF0l33vWnokg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>550017886361</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.nateastone.FlixPix</string>
+	<key>PROJECT_ID</key>
+	<string>flixpix-c0aac</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flixpix-c0aac.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:550017886361:ios:609385e7ac592f679db008</string>
+</dict>
+</plist>
