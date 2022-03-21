@@ -123,6 +123,7 @@ function Home({ navigation, route }) {
           semantleGame.submit(inputField, "test");
           setInputField("");
         }}
+        onClear={() => setInputField("")}
         onBackspace={() => setInputField(inputField.slice(0, -1))}
       />
     </View>

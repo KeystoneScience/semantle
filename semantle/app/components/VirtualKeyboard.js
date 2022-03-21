@@ -11,6 +11,7 @@ import {
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 import colors from "../configs/colors";
+import * as Haptics from "expo-haptics";
 
 var keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -20,7 +21,12 @@ var keys = [
   ["DEL", "Z", "X", "C", "V", "B", "N", "M", "ENTER"],
 ];
 
-export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
+export default function VirtualKeyboard({
+  onKey,
+  onBackspace,
+  onEnter,
+  onClear,
+}) {
   return (
     <View
       intensity={100}
@@ -44,6 +50,10 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
                   ? "rgba(58, 12, 163, .1)"
                   : "rgba(58, 12, 163, .6)",
                 minWidth: "8%",
+                height: 50,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
                 paddingTop: 5,
                 paddingBottom: 5,
                 paddingLeft: 5,
@@ -54,10 +64,25 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
               })}
               onPress={() => {
                 if (key === "DEL") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   onBackspace();
                 } else if (key === "ENTER") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                   onEnter();
                 } else {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  onKey(key);
+                }
+              }}
+              onLongPress={() => {
+                if (key === "DEL") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                  onClear();
+                } else if (key === "ENTER") {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                  onEnter();
+                } else {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                   onKey(key);
                 }
               }}
@@ -77,7 +102,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "center",
-    padding: 7,
+    padding: 2,
   },
   key: {
     minWidth: "8%",
