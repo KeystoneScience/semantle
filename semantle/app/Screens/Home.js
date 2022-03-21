@@ -94,7 +94,13 @@ function Home({ navigation, route }) {
           Semantle
         </Text> */}
       {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-      <MainInput input={inputField} />
+      <MainInput
+        input={inputField}
+        onSubmit={() => {
+          semantleGame.submit(inputField, "test");
+          setInputField("");
+        }}
+      />
       <View
         style={{
           borderBottomEndRadius: 5,
