@@ -29,7 +29,7 @@ function MainInput(props) {
         ]}
         value={value}
         placeholder="Enter your guess"
-        returnKeyType="send"
+        returnKeyType="go"
         keyboardType="default"
         placeholderTextColor={"rgba(0,0,0,0.5)"}
       />

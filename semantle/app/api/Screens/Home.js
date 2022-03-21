@@ -1,8 +1,34 @@
 import React, { useRef, useState } from "react";
 import MainInput from "../components/MainInput";
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
+const guessArray = [
+  {
+    index: 1,
+    guess: "A",
+    similarity: "0.9",
+    close: "Yes",
+  },
+  {
+    index: 2,
+    guess: "B",
+    similarity: "0.8",
+    close: "Yes",
+  },
+  {
+    index: 3,
+    guess: "C",
+    similarity: "0.7",
+    close: "Yes",
+  },
+  {
+    index: 4,
+    guess: "D",
+    similarity: "0.6",
+    close: "Yes",
+  },
+];
 function Home(props) {
   return (
     <SafeAreaView
@@ -29,7 +55,11 @@ function Home(props) {
         }}
       >
         <GuessListHeader />
-        <GuessList index={1} guess={"apple"} similarity={0.5} close="cold" />
+        <ScrollView>
+          {guessArray.map((obj, index) => (
+            <GuessList key={index} {...obj} />
+          ))}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
