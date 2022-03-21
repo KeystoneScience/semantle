@@ -30,7 +30,7 @@ const guessArray = [
     close: "Yes",
   },
 ];
-function Home(props) {
+function Home({ navigation, route }) {
   return (
     <SafeAreaView
       style={{
@@ -39,7 +39,9 @@ function Home(props) {
         backgroundColor: "rgba(58, 12, 163, .1)",
       }}
     >
-      <Text style={styles.title}>Semantle</Text>
+      <Text onPress={() => navigation.navigate("Drawer")} style={styles.title}>
+        Semantle
+      </Text>
       <Text style={styles.subtitle}>can you guess the word?</Text>
       <MainInput />
       <View
