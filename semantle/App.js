@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import Home from "./app/api/Screens/Home";
+import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
 var statusBarHeight = StatusBar.currentHeight;
 export default function App() {

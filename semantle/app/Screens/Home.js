@@ -3,6 +3,7 @@ import MainInput from "../components/MainInput";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
+import semantle from "../functions/semantle";
 const guessArray = [
   {
     index: 1,
