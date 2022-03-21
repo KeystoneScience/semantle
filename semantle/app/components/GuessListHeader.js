@@ -53,7 +53,7 @@ function GuessListHeader(props) {
           },
         ]}
       >
-        close
+        Distance
       </Text>
     </View>
   );

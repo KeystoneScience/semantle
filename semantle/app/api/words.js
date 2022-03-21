@@ -1,21 +1,41 @@
 import client from "./client";
 
-const getPrimaryWord = (primaryWood) => {
-  return client.get(`/${primaryWood}/${primaryWood}`);
-};
+//returns the 10 nearest words.
+async function getNearby(word) {
+  const url = "nearby/" + word;
+  const response = await client.get(url);
+  try {
+    return await response.json();
+  } catch (e) {
+    return null;
+  }
+}
 
-const getOtherWords = (primaryWord, otherWord) => {
-  return client.get(`/${primaryWord}/${otherWord}`);
-};
+async function getModel(word, secret) {
+  console.log("getModel", word, secret);
+  const url = "model2/" + secret + "/" + word.replace(/\ /gi, "_");
+  const response = await client.get(url);
+  try {
+    return await response.json();
+  } catch (e) {
+    return null;
+  }
+}
 
-const getNearbyWords = (word) => {
-  return client.get(`/nearby/${word}`);
-};
+async function getSimilarityStory(secret) {
+  const url = BASE_URL + "similarity/" + secret;
+  const response = await client.get(url);
+  try {
+    return await response.json();
+  } catch (e) {
+    return null;
+  }
+}
 
 export default {
-  getPrimaryWord,
-  getOtherWords,
-  getNearbyWords,
+  getNearby,
+  getModel,
+  getSimilarityStory,
 };
 
 // export const makeGroup = (

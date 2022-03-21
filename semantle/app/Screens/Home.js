@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import MainInput from "../components/MainInput";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import GuessList from "../components/GuessList";
@@ -31,6 +31,11 @@ const guessArray = [
   },
 ];
 function Home({ navigation, route }) {
+  const semantleGame = semantle();
+
+  // useEffect(() => {
+  //   semantleGame.submit("test", "home");
+  // }, []);
   return (
     <SafeAreaView
       style={{
@@ -43,7 +48,11 @@ function Home({ navigation, route }) {
         Semantle
       </Text>
       <Text style={styles.subtitle}>can you guess the word?</Text>
-      <MainInput />
+      <MainInput
+        onSubmit={(value) => {
+          semantleGame.submit(value, "test");
+        }}
+      />
       <View
         style={{
           borderBottomEndRadius: 5,
@@ -59,7 +68,7 @@ function Home({ navigation, route }) {
       >
         <GuessListHeader />
         <ScrollView>
-          {guessArray.map((obj, index) => (
+          {semantleGame.guesses.map((obj, index) => (
             <GuessList key={index} {...obj} />
           ))}
         </ScrollView>

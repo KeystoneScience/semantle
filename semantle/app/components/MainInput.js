@@ -28,6 +28,11 @@ function MainInput(props) {
           },
         ]}
         value={value}
+        onChangeText={(text) => setValue(text)}
+        onSubmitEditing={() => {
+          props.onSubmit(value);
+          setValue("");
+        }}
         placeholder="Enter your guess"
         returnKeyType="go"
         keyboardType="default"

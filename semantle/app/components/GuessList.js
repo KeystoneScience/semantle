@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 // tableHead: ["#", "Guess", "Similarity", "	Getting close?"],
-function GuessList({ index, guess, similarity, close }) {
+function GuessList({ guessCount, guess, similarity, percentile }) {
   return (
     <View
       style={{
@@ -45,7 +45,7 @@ function GuessList({ index, guess, similarity, close }) {
           },
         ]}
       >
-        {similarity}
+        {Math.round(similarity * 100) / 100 + "%"}
       </Text>
       <Text
         style={[
@@ -55,7 +55,11 @@ function GuessList({ index, guess, similarity, close }) {
           },
         ]}
       >
-        {close}
+        {percentile
+          ? percentile == 1000
+            ? "FOUND"
+            : percentile + "/1000"
+          : "far"}
       </Text>
     </View>
   );
