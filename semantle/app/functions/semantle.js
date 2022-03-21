@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 const BASE_URL = "https://semantle.novalis.org/model2";
 
 function mag(a) {
