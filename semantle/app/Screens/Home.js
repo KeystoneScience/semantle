@@ -12,40 +12,67 @@ import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
 import semantle from "../functions/semantle";
 import Header from "../components/Header";
+import cache from "../utility/cache";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
-const guessArray = [
-  {
-    index: 1,
-    guess: "A",
-    similarity: "0.9",
-    close: "Yes",
-  },
-  {
-    index: 2,
-    guess: "B",
-    similarity: "0.8",
-    close: "Yes",
-  },
-  {
-    index: 3,
-    guess: "C",
-    similarity: "0.7",
-    close: "Yes",
-  },
-  {
-    index: 4,
-    guess: "D",
-    similarity: "0.6",
-    close: "Yes",
-  },
-];
+
 function Home({ navigation, route }) {
   const semantleGame = semantle();
+  const [pushToken, setPushToken] = useState("");
+  const [inputField, setInputField] = useState("");
 
-  // useEffect(() => {
-  //   semantleGame.submit("test", "home");
-  // }, []);
+  async function getAndPushToken() {
+    const previousToken = await cache.getData("FLIXPIX::PUSH_TOKEN", false);
+    if (previousToken) {
+      setPushToken(previousToken);
+      return;
+    }
+    const token = await registerForPushNotificationsAsync();
+    if (token) {
+      await tokenApi.request(token);
+      setPushToken(token);
+      cache.storeData("FLIXPIX::PUSH_TOKEN", token);
+    }
+  }
+
+  const registerForPushNotificationsAsync = async () => {
+    var token = null;
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(
+        Permissions.NOTIFICATIONS
+      );
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Permissions.askAsync(
+          Permissions.NOTIFICATIONS
+        );
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        return token;
+      }
+      token = (
+        await Notifications.getExpoPushTokenAsync({
+          experienceId: "@nateastone/FlixPix",
+        })
+      ).data;
+    } else {
+      // console.warn("NO NOTIFICATIONS ARE SENT TO NON-PHYSICAL DEVICES!")
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
+    return token;
+  };
+
   return (
     <View
       style={{
@@ -73,11 +100,7 @@ function Home({ navigation, route }) {
           Semantle
         </Text> */}
         {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-        <MainInput
-          onSubmit={(value) => {
-            semantleGame.submit(value, "test");
-          }}
-        />
+        <MainInput input={inputField} />
         <View
           style={{
             borderBottomEndRadius: 5,
@@ -101,7 +124,14 @@ function Home({ navigation, route }) {
             </BlurView>
           </ScrollView>
         </View>
-        <VirtualKeyboard />
+        <VirtualKeyboard
+          onKey={(key) => setInputField(inputField + key)}
+          onEnter={() => {
+            semantleGame.submit(inputField, "test");
+            setInputField("");
+          }}
+          onBackspace={() => setInputField(inputField.slice(0, -1))}
+        />
       </ImageBackground>
     </View>
   );

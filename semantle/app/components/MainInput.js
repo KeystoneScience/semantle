@@ -31,7 +31,19 @@ function MainInput(props) {
           marginBottom: 20,
         }}
       >
-        <TextInput
+        <Text
+          style={[
+            {
+              width: "100%",
+              fontSize: 18,
+              padding: 9,
+              color: props.input ? "#000" : "rgba(0,0,0,0.5)",
+            },
+          ]}
+        >
+          {props.input || "Enter your guess"}
+        </Text>
+        {/* <TextInput
           ref={textInputRef}
           style={[
             {
@@ -50,7 +62,7 @@ function MainInput(props) {
           returnKeyType="go"
           keyboardType="default"
           placeholderTextColor={"rgba(0,0,0,0.5)"}
-        />
+        /> */}
       </BlurView>
     </View>
   );

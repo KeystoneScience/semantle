@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 
@@ -11,7 +18,7 @@ var keys = [
   ["DEL", "Z", "X", "C", "V", "B", "N", "M", "ENTER"],
 ];
 
-export default function VirtualKeyboard() {
+export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
   return (
     <BlurView
       intensity={100}
@@ -28,15 +35,27 @@ export default function VirtualKeyboard() {
       {keys.map((row, i) => (
         <View key={i} style={styles.row}>
           {row.map((key, j) => (
-            <Text
-              key={j}
-              style={[
-                styles.key,
-                { width: key === "ENTER" || key === "DEL" ? null : null },
-              ]}
+            <TouchableOpacity
+              onPress={() => {
+                if (key === "DEL") {
+                  onBackspace();
+                } else if (key === "ENTER") {
+                  onEnter();
+                } else {
+                  onKey(key);
+                }
+              }}
             >
-              {key}
-            </Text>
+              <Text
+                key={j}
+                style={[
+                  styles.key,
+                  { width: key === "ENTER" || key === "DEL" ? null : null },
+                ]}
+              >
+                {key}
+              </Text>
+            </TouchableOpacity>
           ))}
         </View>
       ))}
