@@ -17,6 +17,7 @@
     "apisauce": "^2.1.5",
     "dayjs": "^1.11.0",
     "expo": "~44.0.0",
+    "expo-constants": "^13.0.2",
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
     "node-fetch": "^3.2.3",
