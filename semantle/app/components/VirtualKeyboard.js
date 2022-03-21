@@ -62,21 +62,19 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
     padding: 7,
   },
   key: {
-    fontSize: 20,
     backgroundColor: "rgba(58, 12, 163, .6)",
-    minWidth: 30,
+    minWidth: "8%",
     paddingTop: 5,
     paddingBottom: 5,
-    paddingLeft: 2,
-    paddingRight: 2,
+    paddingLeft: 5,
+    paddingRight: 5,
     borderRadius: 12,
-    // width: 30,
-    textAlign: "center",
-    fontWeight: "bold",
+    marginLeft: 3,
+    marginRight: 3,
   },
   keyText: {
     fontSize: 20,
