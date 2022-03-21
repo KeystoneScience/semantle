@@ -36,6 +36,7 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
         <View key={i} style={styles.row}>
           {row.map((key, j) => (
             <TouchableOpacity
+                
               onPress={() => {
                 if (key === "DEL") {
                   onBackspace();
