@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
@@ -36,8 +37,20 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
       {keys.map((row, i) => (
         <View key={i} style={styles.row}>
           {row.map((key, j) => (
-            <TouchableOpacity
-              style={[styles.key]}
+            <Pressable
+              style={({ pressed }) => ({
+                backgroundColor: pressed
+                  ? "rgba(58, 12, 163, .1)"
+                  : "rgba(58, 12, 163, .6)",
+                minWidth: "8%",
+                paddingTop: 5,
+                paddingBottom: 5,
+                paddingLeft: 5,
+                paddingRight: 5,
+                borderRadius: 12,
+                marginLeft: 3,
+                marginRight: 3,
+              })}
               onPress={() => {
                 if (key === "DEL") {
                   onBackspace();
@@ -51,7 +64,7 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
               <Text key={j} style={[styles.keyText]}>
                 {key}
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       ))}
@@ -66,7 +79,6 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   key: {
-    backgroundColor: "rgba(58, 12, 163, .6)",
     minWidth: "8%",
     paddingTop: 5,
     paddingBottom: 5,
