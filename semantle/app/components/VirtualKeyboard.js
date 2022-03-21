@@ -38,6 +38,7 @@ export default function VirtualKeyboard({ onKey, onBackspace, onEnter }) {
         <View key={i} style={styles.row}>
           {row.map((key, j) => (
             <Pressable
+              hitSlop={{ top: 5, bottom: 5, left: 5, right: 5 }}
               style={({ pressed }) => ({
                 backgroundColor: pressed
                   ? "rgba(58, 12, 163, .1)"
