@@ -1,9 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
+import { BlurView } from "expo-blur";
 function GuessListHeader(props) {
   return (
-    <View
+    <BlurView
+      tint="light"
+      intensity={50}
       style={{
         width: "100%",
         alignItems: "center",
@@ -55,7 +58,7 @@ function GuessListHeader(props) {
       >
         Distance
       </Text>
-    </View>
+    </BlurView>
   );
 }
 

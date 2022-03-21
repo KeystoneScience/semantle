@@ -1,11 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import MainInput from "../components/MainInput";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  ImageBackground,
+} from "react-native";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
 import semantle from "../functions/semantle";
 import Header from "../components/Header";
 import VirtualKeyboard from "../components/VirtualKeyboard";
+import { BlurView } from "expo-blur";
 const guessArray = [
   {
     index: 1,
@@ -39,49 +47,69 @@ function Home({ navigation, route }) {
   //   semantleGame.submit("test", "home");
   // }, []);
   return (
-    <View>
-      <Header navigation={navigation} route={route} />
-      <SafeAreaView
+    <View
+      style={{
+        // backgroundColor: "rgba(58, 12, 163, 1)",
+        backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        flex: 1,
+      }}
+    >
+      <ImageBackground
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(58, 12, 163, .1)",
         }}
+        source={require("../../assets/back.jpg")}
       >
-        {/* <Text
+        <Header navigation={navigation} route={route} />
+        <SafeAreaView
+          style={{
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(58, 12, 163, .1)",
+          }}
+        >
+          {/* <Text
           onPress={() => navigation.navigate("Drawer")}
           style={styles.title}
         >
           Semantle
         </Text> */}
-        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-        <MainInput
-          onSubmit={(value) => {
-            semantleGame.submit(value, "test");
-          }}
-        />
-        <View
-          style={{
-            borderBottomEndRadius: 5,
-            borderBottomStartRadius: 5,
-            borderTopLeftRadius: 5,
-            borderTopRightRadius: 5,
-            overflow: "hidden",
-            width: "95%",
-            alignSelf: "center",
-            height: "auto",
-            backgroundColor: "rgba(58, 12, 163, .1)",
-          }}
-        >
-          <GuessListHeader />
-          <ScrollView>
-            {semantleGame.guesses.map((obj, index) => (
-              <GuessList key={index} {...obj} />
-            ))}
-          </ScrollView>
-        </View>
-        <VirtualKeyboard />
-      </SafeAreaView>
+          {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
+          <MainInput
+            onSubmit={(value) => {
+              semantleGame.submit(value, "test");
+            }}
+          />
+          <View
+            style={{
+              borderBottomEndRadius: 5,
+              borderBottomStartRadius: 5,
+              borderTopLeftRadius: 5,
+              borderTopRightRadius: 5,
+              overflow: "hidden",
+              width: "95%",
+              alignSelf: "center",
+              height: "auto",
+              backgroundColor: "rgba(58, 12, 163, .1)",
+              // backgroundColor: "rgba(0,0,0,0)",
+            }}
+          >
+            <GuessListHeader />
+            <ScrollView>
+              <BlurView tint="light" intensity={30}>
+                {semantleGame.guesses.map((obj, index) => (
+                  <GuessList key={index} {...obj} />
+                ))}
+              </BlurView>
+            </ScrollView>
+          </View>
+          <VirtualKeyboard />
+        </SafeAreaView>
+      </ImageBackground>
     </View>
   );
 }

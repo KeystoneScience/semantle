@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { StyleSheet, Text, View, TextInput } from "react-native";
+import { BlurView } from "expo-blur";
 
 function MainInput(props) {
   var textInputRef = useRef();
@@ -13,31 +14,44 @@ function MainInput(props) {
         // justifyContent: "center",
       }}
     >
-      <TextInput
-        ref={textInputRef}
-        style={[
-          {
-            borderRadius: 10,
-            width: "100%",
-            fontSize: 16,
-            padding: 9,
-            margin: 10,
-            width: "80%",
-            color: "#000",
-            backgroundColor: "rgba(0,0,0,0.18)",
-          },
-        ]}
-        value={value}
-        onChangeText={(text) => setValue(text)}
-        onSubmitEditing={() => {
-          props.onSubmit(value);
-          setValue("");
+      <BlurView
+        tint="light"
+        intensity={70}
+        style={{
+          borderRadius: 10,
+          overflow: "hidden",
+          width: "100%",
+
+          margin: 10,
+          width: "80%",
+          color: "#000",
+          // backgroundColor: "rgba(255,255,255,1)",
+
+          marginTop: 50,
+          marginBottom: 20,
         }}
-        placeholder="Enter your guess"
-        returnKeyType="go"
-        keyboardType="default"
-        placeholderTextColor={"rgba(0,0,0,0.5)"}
-      />
+      >
+        <TextInput
+          ref={textInputRef}
+          style={[
+            {
+              width: "100%",
+              fontSize: 18,
+              padding: 9,
+            },
+          ]}
+          value={value}
+          onChangeText={(text) => setValue(text)}
+          onSubmitEditing={() => {
+            props.onSubmit(value);
+            setValue("");
+          }}
+          placeholder="Enter your guess"
+          returnKeyType="go"
+          keyboardType="default"
+          placeholderTextColor={"rgba(0,0,0,0.5)"}
+        />
+      </BlurView>
     </View>
   );
 }

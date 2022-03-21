@@ -12,11 +12,13 @@
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.2",
     "@react-native-async-storage/async-storage": "^1.17.0",
+    "@react-native-community/blur": "^3.6.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
     "apisauce": "^2.1.5",
     "dayjs": "^1.11.0",
     "expo": "~44.0.0",
+    "expo-blur": "~11.0.0",
     "expo-constants": "^13.0.2",
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",

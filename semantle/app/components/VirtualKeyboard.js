@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
-
+import { BlurView } from "expo-blur";
 var keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
 
@@ -11,8 +11,18 @@ var keys = [
 
 export default function VirtualKeyboard() {
   return (
-    <View>
-      <Text>VirtualKeyboard</Text>
+    <BlurView
+      intensity={100}
+      style={{
+        position: "absolute",
+        width: "100%",
+        bottom: 50,
+
+        alignSelf: "center",
+        backgroundColor: "rgba(0,0,0,0.5)",
+        paddingBottom: 20,
+      }}
+    >
       {keys.map((row, i) => (
         <View key={i} style={styles.row}>
           {row.map((key, j) => (
@@ -28,7 +38,7 @@ export default function VirtualKeyboard() {
           ))}
         </View>
       ))}
-    </View>
+    </BlurView>
   );
 }
 
