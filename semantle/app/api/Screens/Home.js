@@ -15,8 +15,22 @@ function Home(props) {
       <Text style={styles.title}>Semantle</Text>
       <Text style={styles.subtitle}>can you guess the word?</Text>
       <MainInput />
-      <GuessListHeader />
-      <GuessList index={1} guess={"apple"} similarity={0.5} close="cold" />
+      <View
+        style={{
+          borderBottomEndRadius: 5,
+          borderBottomStartRadius: 5,
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
+          overflow: "hidden",
+          width: "95%",
+          alignSelf: "center",
+          height: "auto",
+          backgroundColor: "rgba(58, 12, 163, .1)",
+        }}
+      >
+        <GuessListHeader />
+        <GuessList index={1} guess={"apple"} similarity={0.5} close="cold" />
+      </View>
     </SafeAreaView>
   );
 }
