@@ -15,7 +15,7 @@ import {
 import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
 import Screen from "./app/components/Screen";
 import colors from "./app/configs/colors";
-
+import "react-native-gesture-handler";
 var statusBarHeight = StatusBar.currentHeight;
 export default function App() {
   let [fontsLoaded] = useFonts({
