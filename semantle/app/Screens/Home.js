@@ -76,7 +76,7 @@ function Home({ navigation, route }) {
   return (
     <View
       style={{
-        // backgroundColor: "rgba(58, 12, 163, 1)",
+        backgroundColor: "rgba(58, 12, 163, .1)",
         // backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -84,55 +84,47 @@ function Home({ navigation, route }) {
         flex: 1,
       }}
     >
-      <ImageBackground
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-        source={require("../../assets/back.jpg")}
-      >
-        <Header navigation={navigation} route={route} />
+      <Header navigation={navigation} route={route} />
 
-        {/* <Text
+      {/* <Text
           onPress={() => navigation.navigate("Drawer")}
           style={styles.title}
         >
           Semantle
         </Text> */}
-        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-        <MainInput input={inputField} />
-        <View
-          style={{
-            borderBottomEndRadius: 5,
-            borderBottomStartRadius: 5,
-            borderTopLeftRadius: 5,
-            borderTopRightRadius: 5,
-            overflow: "hidden",
-            width: "95%",
-            alignSelf: "center",
-            height: "auto",
-            backgroundColor: "rgba(58, 12, 163, .1)",
-            // backgroundColor: "rgba(0,0,0,0)",
-          }}
-        >
-          <GuessListHeader />
-          <ScrollView>
-            <BlurView tint="light" intensity={30}>
-              {semantleGame.guesses.map((obj, index) => (
-                <GuessList key={index} {...obj} />
-              ))}
-            </BlurView>
-          </ScrollView>
-        </View>
-        <VirtualKeyboard
-          onKey={(key) => setInputField(inputField + key)}
-          onEnter={() => {
-            semantleGame.submit(inputField, "test");
-            setInputField("");
-          }}
-          onBackspace={() => setInputField(inputField.slice(0, -1))}
-        />
-      </ImageBackground>
+      {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
+      <MainInput input={inputField} />
+      <View
+        style={{
+          borderBottomEndRadius: 5,
+          borderBottomStartRadius: 5,
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
+          overflow: "hidden",
+          width: "95%",
+          alignSelf: "center",
+          height: "auto",
+          backgroundColor: "rgba(58, 12, 163, .1)",
+          // backgroundColor: "rgba(0,0,0,0)",
+        }}
+      >
+        <GuessListHeader />
+        <ScrollView>
+          <BlurView tint="light" intensity={30}>
+            {semantleGame.guesses.map((obj, index) => (
+              <GuessList key={index} {...obj} />
+            ))}
+          </BlurView>
+        </ScrollView>
+      </View>
+      <VirtualKeyboard
+        onKey={(key) => setInputField(inputField + key)}
+        onEnter={() => {
+          semantleGame.submit(inputField, "test");
+          setInputField("");
+        }}
+        onBackspace={() => setInputField(inputField.slice(0, -1))}
+      />
     </View>
   );
 }
