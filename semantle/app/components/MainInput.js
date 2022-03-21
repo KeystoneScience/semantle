@@ -38,6 +38,7 @@ function MainInput(props) {
               fontSize: 18,
               padding: 9,
               color: props.input ? "#000" : "rgba(0,0,0,0.5)",
+              textTransform: "lowercase",
             },
           ]}
         >

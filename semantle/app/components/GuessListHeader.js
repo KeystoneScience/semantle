@@ -18,17 +18,18 @@ function GuessListHeader(props) {
         borderBottomColor: "rgba(58, 12, 163, .5)",
       }}
     >
-      {/* <Text
-        style={[
-          styles.tableHead,
-          {
-            width: "15%",
-            backgroundColor: "rgba(58, 120, 255, 1)",
-          },
-        ]}
-      >
-        #
-      </Text> */}
+      <View>
+        <AppText
+          style={[
+            styles.tableHead,
+            {
+              width: 15,
+            },
+          ]}
+        >
+          #
+        </AppText>
+      </View>
       <AppText
         style={[
           styles.tableHead,

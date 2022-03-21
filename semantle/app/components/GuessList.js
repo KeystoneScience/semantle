@@ -17,17 +17,18 @@ function GuessList({ guessCount, guess, similarity, percentile }) {
         backgroundColor: "rgba(58, 12, 163, .1)",
       }}
     >
-      {/* <Text
-        style={[
-          styles.tableHead,
-          {
-            width: "15%",
-            backgroundColor: "rgba(58, 120, 255, 1)",
-          },
-        ]}
-      >
-        #
-      </Text> */}
+      <View>
+        <AppText
+          style={[
+            styles.tableHead,
+            {
+              width: 15,
+            },
+          ]}
+        >
+          {guessCount}
+        </AppText>
+      </View>
       <AppText
         style={[
           styles.tableHead,

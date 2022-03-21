@@ -17,6 +17,7 @@ import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
+import PagerView from "react-native-pager-view";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
@@ -76,7 +77,7 @@ function Home({ navigation, route }) {
   return (
     <View
       style={{
-        backgroundColor: "rgba(58, 12, 163, .1)",
+        backgroundColor: "rgba(58, 12, 163, .01)",
         // backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -116,6 +117,31 @@ function Home({ navigation, route }) {
             ))}
           </BlurView>
         </ScrollView>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "red",
+            width: "100%",
+            height: 500,
+          }}
+        >
+          <PagerView
+            style={{ flex: 1 }}
+            initialPage={1}
+            showPageIndicator={true}
+          >
+            <View style={styles.page} key="1">
+              <Text>First page</Text>
+              <Text>Swipe ➡️</Text>
+            </View>
+            <View style={styles.page} key="2">
+              <Text>Second page</Text>
+            </View>
+            <View style={styles.page} key="3">
+              <Text>Third page</Text>
+            </View>
+          </PagerView>
+        </View>
       </View>
       <VirtualKeyboard
         onKey={(key) => setInputField(inputField + key)}

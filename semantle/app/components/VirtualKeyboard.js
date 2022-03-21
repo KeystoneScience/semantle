@@ -12,13 +12,14 @@ import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 import colors from "../configs/colors";
 import * as Haptics from "expo-haptics";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 var keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
 
   ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
 
-  ["DEL", "Z", "X", "C", "V", "B", "N", "M", "ENTER"],
+  ["Z", "X", "C", "V", "B", "N", "M", "DELETE"],
 ];
 
 export default function VirtualKeyboard({
@@ -48,8 +49,8 @@ export default function VirtualKeyboard({
               hitSlop={2}
               style={({ pressed }) => ({
                 backgroundColor: pressed
-                  ? "rgba(58, 12, 163, .1)"
-                  : "rgba(58, 12, 163, .6)",
+                  ? "rgba(58, 12, 163, .6)"
+                  : colors.darkenColor(colors.colors.grooveColorPallet[2], 30),
                 minWidth: "8%",
                 height: 50,
                 display: "flex",
@@ -57,14 +58,14 @@ export default function VirtualKeyboard({
                 alignItems: "center",
                 paddingTop: 5,
                 paddingBottom: 5,
-                paddingLeft: 5,
-                paddingRight: 5,
+                paddingLeft: key === "DELETE" ? 10 : 5,
+                paddingRight: key === "DELETE" ? 10 : 5,
                 borderRadius: 12,
                 marginLeft: 3,
                 marginRight: 3,
               })}
               onPressIn={() => {
-                if (key === "DEL") {
+                if (key === "DEL" || key === "DELETE") {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   onBackspace();
                 } else if (key === "ENTER") {
@@ -77,7 +78,7 @@ export default function VirtualKeyboard({
               }}
               delayLongPress={300}
               onLongPress={() => {
-                if (key === "DEL") {
+                if (key === "DEL" || key === "DELETE") {
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                   onClear();
                 } else if (key === "ENTER") {
@@ -89,9 +90,13 @@ export default function VirtualKeyboard({
                 }
               }}
             >
-              <Text key={j} style={[styles.keyText]}>
-                {key}
-              </Text>
+              {key === "DELETE" ? (
+                <FontAwesome5 name="backspace" size={24} color="white" />
+              ) : (
+                <Text key={j} style={[styles.keyText]}>
+                  {key}
+                </Text>
+              )}
             </Pressable>
           ))}
         </View>

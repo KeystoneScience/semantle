@@ -26,7 +26,7 @@ export default function Header() {
         <AppText
           style={{
             color: colors.colors.white,
-            fontSize: 21,
+            fontSize: 23,
             marginLeft: 10,
             textAlign: "center",
             marginRight: 10,
