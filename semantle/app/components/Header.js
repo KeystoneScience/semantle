@@ -6,12 +6,12 @@ import AppText from "./AppText";
 export default function Header() {
   return (
     <View style={{ zIndex: 1 }}>
-      <View
+      {/* <View
         style={{
           backgroundColor: colors.colors.grooveColorPallet[2],
           height: Constants.statusBarHeight,
         }}
-      />
+      /> */}
       <View
         style={{
           alignItems: "center",

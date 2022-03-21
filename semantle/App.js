@@ -13,6 +13,8 @@ import {
   BalooBhaina2_800ExtraBold,
 } from "@expo-google-fonts/baloo-bhaina-2";
 import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
+import Screen from "./app/components/Screen";
+import colors from "./app/configs/colors";
 
 var statusBarHeight = StatusBar.currentHeight;
 export default function App() {
@@ -29,19 +31,20 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <AppNavigator />
-        <StatusBar style="auto" />
-      </View>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <StatusBar style="light" />
+      <Screen>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    marginTop: statusBarHeight,
+    backgroundColor: colors.colors.grooveColorPallet[2],
   },
 });
