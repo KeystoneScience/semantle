@@ -10,6 +10,8 @@ function GuessListHeader(props) {
         flexDirection: "row",
         padding: 7,
         backgroundColor: "rgba(58, 12, 163, .1)",
+        borderBottomWidth: 1,
+        borderBottomColor: "rgba(58, 12, 163, .5)",
       }}
     >
       {/* <Text
