@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import { BlurView } from "expo-blur";
+import AppText from "./AppText";
 function GuessListHeader(props) {
   return (
     <BlurView
@@ -28,7 +29,7 @@ function GuessListHeader(props) {
       >
         #
       </Text> */}
-      <Text
+      <AppText
         style={[
           styles.tableHead,
           {
@@ -37,8 +38,8 @@ function GuessListHeader(props) {
         ]}
       >
         Guess
-      </Text>
-      <Text
+      </AppText>
+      <AppText
         style={[
           styles.tableHead,
           {
@@ -47,8 +48,8 @@ function GuessListHeader(props) {
         ]}
       >
         Similarity
-      </Text>
-      <Text
+      </AppText>
+      <AppText
         style={[
           styles.tableHead,
           {
@@ -57,7 +58,7 @@ function GuessListHeader(props) {
         ]}
       >
         Distance
-      </Text>
+      </AppText>
     </BlurView>
   );
 }
@@ -66,11 +67,12 @@ export default GuessListHeader;
 
 const styles = StyleSheet.create({
   tableHead: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    // fontWeight: "bold",
     color: "black",
     // marginBottom: 5,
     textAlign: "center",
+
     flex: 1,
   },
 });
