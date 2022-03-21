@@ -4,22 +4,26 @@ import { StatusBar } from "expo-status-bar";
 // import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AppNavigator from "./app/navigation/AppNavigator";
+import Screen from "./app/components/Screen";
+import colors from "./app/configs/colors";
+
 var statusBarHeight = StatusBar.currentHeight;
 export default function App() {
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <AppNavigator />
-        <StatusBar style="auto" />
-      </View>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <StatusBar style="light" />
+      <Screen>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </Screen>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    marginTop: statusBarHeight,
+    backgroundColor: colors.colors.grooveColorPallet[2],
   },
 });

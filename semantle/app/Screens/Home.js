@@ -65,50 +65,43 @@ function Home({ navigation, route }) {
         source={require("../../assets/back.jpg")}
       >
         <Header navigation={navigation} route={route} />
-        <SafeAreaView
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(58, 12, 163, .1)",
-          }}
-        >
-          {/* <Text
+
+        {/* <Text
           onPress={() => navigation.navigate("Drawer")}
           style={styles.title}
         >
           Semantle
         </Text> */}
-          {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-          <MainInput
-            onSubmit={(value) => {
-              semantleGame.submit(value, "test");
-            }}
-          />
-          <View
-            style={{
-              borderBottomEndRadius: 5,
-              borderBottomStartRadius: 5,
-              borderTopLeftRadius: 5,
-              borderTopRightRadius: 5,
-              overflow: "hidden",
-              width: "95%",
-              alignSelf: "center",
-              height: "auto",
-              backgroundColor: "rgba(58, 12, 163, .1)",
-              // backgroundColor: "rgba(0,0,0,0)",
-            }}
-          >
-            <GuessListHeader />
-            <ScrollView>
-              <BlurView tint="light" intensity={30}>
-                {semantleGame.guesses.map((obj, index) => (
-                  <GuessList key={index} {...obj} />
-                ))}
-              </BlurView>
-            </ScrollView>
-          </View>
-          <VirtualKeyboard />
-        </SafeAreaView>
+        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
+        <MainInput
+          onSubmit={(value) => {
+            semantleGame.submit(value, "test");
+          }}
+        />
+        <View
+          style={{
+            borderBottomEndRadius: 5,
+            borderBottomStartRadius: 5,
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
+            overflow: "hidden",
+            width: "95%",
+            alignSelf: "center",
+            height: "auto",
+            backgroundColor: "rgba(58, 12, 163, .1)",
+            // backgroundColor: "rgba(0,0,0,0)",
+          }}
+        >
+          <GuessListHeader />
+          <ScrollView>
+            <BlurView tint="light" intensity={30}>
+              {semantleGame.guesses.map((obj, index) => (
+                <GuessList key={index} {...obj} />
+              ))}
+            </BlurView>
+          </ScrollView>
+        </View>
+        <VirtualKeyboard />
       </ImageBackground>
     </View>
   );

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { BlurView } from "expo-blur";
+import Constants from "expo-constants";
+
 var keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
 
@@ -16,7 +18,7 @@ export default function VirtualKeyboard() {
       style={{
         position: "absolute",
         width: "100%",
-        bottom: 50,
+        bottom: 60,
 
         alignSelf: "center",
         backgroundColor: "rgba(0,0,0,0.5)",
