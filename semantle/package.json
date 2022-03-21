@@ -20,6 +20,8 @@
     "expo-constants": "^13.0.2",
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
+    "framer": "^2.0.0",
+    "framer-motion": "^6.2.8",
     "node-fetch": "^3.2.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",

@@ -5,6 +5,7 @@ import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
 import semantle from "../functions/semantle";
 import Header from "../components/Header";
+import VirtualKeyboard from "../components/VirtualKeyboard";
 const guessArray = [
   {
     index: 1,
@@ -47,13 +48,13 @@ function Home({ navigation, route }) {
           backgroundColor: "rgba(58, 12, 163, .1)",
         }}
       >
-        <Text
+        {/* <Text
           onPress={() => navigation.navigate("Drawer")}
           style={styles.title}
         >
           Semantle
-        </Text>
-        <Text style={styles.subtitle}>can you guess the word?</Text>
+        </Text> */}
+        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
         <MainInput
           onSubmit={(value) => {
             semantleGame.submit(value, "test");
@@ -79,6 +80,7 @@ function Home({ navigation, route }) {
             ))}
           </ScrollView>
         </View>
+        <VirtualKeyboard />
       </SafeAreaView>
     </View>
   );
