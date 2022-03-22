@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
@@ -13,6 +14,7 @@ import colors from "../configs/colors";
 function MainInput(props) {
   var textInputRef = useRef();
   const [value, setValue] = useState("");
+  const [isPressed, setIsPressed] = useState(false);
   return (
     <View
       style={{
@@ -77,11 +79,18 @@ function MainInput(props) {
         /> */}
       </BlurView>
       <TouchableOpacity
+        activeOpacity={1}
+        onPressIn={() => {
+          setIsPressed(true);
+        }}
         onPress={() => {
           props.onSubmit(value);
         }}
+        onPressOut={() => {
+          setIsPressed(false);
+        }}
         style={{
-          backgroundColor: colors.colors.grooveColorPallet[8],
+          backgroundColor: colors.colors.grooveColorPallet[7],
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
@@ -89,6 +98,22 @@ function MainInput(props) {
           width: "20%",
           margin: 10,
           borderRadius: 10,
+          shadowOffset: {
+            width: 0,
+            height: isPressed ? 4 : 8,
+          },
+          shadowColor: colors.darkenColor(
+            colors.colors.grooveColorPallet[7],
+            50
+          ),
+          transform: [
+            {
+              translateY: isPressed ? 4 : 0,
+            },
+          ],
+          shadowOpacity: 1,
+          shadowRadius: 0,
+          elevation: 5,
         }}
       >
         <Text
