@@ -37,6 +37,7 @@ const colors = {
   backgroundColor: "rgba(215, 193, 251, 1)",
   checkButtonColor: "rgba(162, 199, 251, 1)",
   keybordBttnColor: "rgba(137,  174,  226, 1)",
+  fadeListColor: "#5ada44",
 };
 
 function convertColorToRGBA(color, alpha = 1) {

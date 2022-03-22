@@ -38,7 +38,7 @@ export default function VirtualKeyboard({
 
         alignSelf: "center",
         // backgroundColor: "rgba(0,0,0,0.5)",
-        paddingBottom: 20,
+        paddingBottom: 10,
       }}
     >
       {keys.map((row, i) => (
@@ -63,7 +63,7 @@ export default function VirtualKeyboard({
                 borderRadius: 12,
                 marginLeft: 3,
                 marginRight: 3,
-                marginBottom: 4.5,
+                marginBottom: 3.5,
                 shadowOffset: {
                   width: 0,
                   height: pressed ? 2 : 6,

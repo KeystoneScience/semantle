@@ -16,7 +16,7 @@ export default function Header({ navigation }) {
         style={{
           alignItems: "center",
           backgroundColor: colors.colors.backgroundColor,
-          height: 40,
+          height: 35,
           flexDirection: "row",
           justifyContent: "flex-start",
           width: "100%",
