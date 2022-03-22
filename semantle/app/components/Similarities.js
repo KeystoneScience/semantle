@@ -18,7 +18,10 @@ export default function Similarities({ top, top10, rest }) {
         style={{
           width: "90%",
           alignSelf: "center",
-          backgroundColor: colors.colors.backgroundColor,
+          backgroundColor: colors.darkenColor(
+            colors.colors.backgroundColor,
+            32
+          ),
           borderRadius: 10,
           height: 100,
           display: "flex",
@@ -33,7 +36,7 @@ export default function Similarities({ top, top10, rest }) {
             height: "70%",
             width: 0,
             borderWidth: 1.5,
-            borderColor: colors.lightenColor(colors.colors.backgroundColor, 20),
+            borderColor: colors.colors.white,
           }}
         />
         <Segment n="10th" percent={top10} />
@@ -42,7 +45,7 @@ export default function Similarities({ top, top10, rest }) {
             height: "70%",
             width: 0,
             borderWidth: 1.5,
-            borderColor: colors.lightenColor(colors.colors.backgroundColor, 20),
+            borderColor: colors.colors.white,
           }}
         />
         <Segment n="1000th" percent={rest} />
@@ -64,30 +67,19 @@ function Segment({ n, percent }) {
       }}
     >
       <AppText
-        style={{
-          color: colors.lightenColor(colors.colors.backgroundColor, 40),
-          fontSize: 17,
-        }}
+        style={{ color: colors.colors.yellow, fontSize: 17 }}
         fontWeight={900}
       >
         {n}
       </AppText>
       <AppText
-        style={{
-          color: colors.lightenColor(colors.colors.backgroundColor, 70),
-          fontSize: 25,
-          lineHeight: 40,
-        }}
+        style={{ color: colors.colors.white, fontSize: 25, lineHeight: 40 }}
         fontWeight={900}
       >
         {(percent * 100).toFixed(1)}%
       </AppText>
       <AppText
-        style={{
-          color: colors.lightenColor(colors.colors.backgroundColor, 40),
-          fontSize: 14,
-          lineHeight: 20,
-        }}
+        style={{ color: colors.colors.white, fontSize: 14, lineHeight: 20 }}
       >
         Similarity
       </AppText>
