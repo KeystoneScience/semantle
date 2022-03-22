@@ -29,34 +29,36 @@ function MainInput(props) {
         // justifyContent: "center",
       }}
     >
-      <BlurView
-        tint="light"
-        intensity={70}
+      <View
+        // tint="light"
+        // intensity={70}
         style={{
-          borderRadius: 10,
+          // borderRadius: 10,
+          borderBottomColor: "black",
+          borderBottomWidth: 2,
           overflow: "hidden",
           width: "70%",
           display: "flex",
           flexDirection: "row",
-
+          paddingLeft: 10,
           margin: 10,
           color: "#000",
           // backgroundColor: "rgba(255,255,255,1)",
         }}
       >
-        <Text
+        <AppText
           style={[
             {
               width: "70%",
-              fontSize: 18,
-              padding: 9,
+              fontSize: 21,
+              // padding: 2,
               color: props.input ? "#000" : "rgba(0,0,0,0.5)",
               textTransform: "lowercase",
             },
           ]}
         >
           {props.input || "Enter your guess"}
-        </Text>
+        </AppText>
         {/* <TextInput
           ref={textInputRef}
           style={[
@@ -77,7 +79,7 @@ function MainInput(props) {
           keyboardType="default"
           placeholderTextColor={"rgba(0,0,0,0.5)"}
         /> */}
-      </BlurView>
+      </View>
       <TouchableOpacity
         activeOpacity={1}
         onPressIn={() => {
