@@ -9,11 +9,12 @@ function GuessList({ guessCount, guess, similarity, percentile }) {
     <View
       style={{
         width: "100%",
-        // height: 30,
+        height: 40,
         alignItems: "center",
         flexDirection: "row",
         // justifyContent: "space-around",
-        padding: 5,
+        // padding: 2,
+        paddingHorizontal: 5,
 
         backgroundColor: percentile
           ? percentile < 100

@@ -115,42 +115,48 @@ function Home({ navigation, route }) {
           overflow: "hidden",
           width: "95%",
           alignSelf: "center",
-          height: "40%",
+
           backgroundColor: "rgba(58, 12, 163, .1)",
           // backgroundColor: "rgba(0,0,0,0)",
         }}
       >
         <GuessListHeader />
-        <ScrollView>
-          {semantleGame.guesses.map((obj, index) => (
-            <GuessList key={index} {...obj} />
-          ))}
+        <View
+          style={{
+            height: 200,
+          }}
+        >
+          <ScrollView>
+            {semantleGame.guesses.map((obj, index) => (
+              <GuessList key={index} {...obj} />
+            ))}
 
-          <GuessList percentile={1000} />
-          <GuessList percentile={999} />
-          <GuessList percentile={989} />
-          <GuessList percentile={979} />
-          <GuessList percentile={969} />
-          <GuessList percentile={949} />
-          <GuessList percentile={899} />
-          <GuessList percentile={799} />
-          <GuessList percentile={699} />
-          <GuessList percentile={599} />
-          <GuessList percentile={499} />
-          <GuessList percentile={399} />
-          <GuessList percentile={299} />
-          <GuessList percentile={199} />
-          <GuessList percentile={99} />
-          <GuessList percentile={1} />
+            <GuessList percentile={1000} />
+            <GuessList percentile={999} />
+            <GuessList percentile={989} />
+            <GuessList percentile={979} />
+            <GuessList percentile={969} />
+            <GuessList percentile={949} />
+            <GuessList percentile={899} />
+            <GuessList percentile={799} />
+            <GuessList percentile={699} />
+            <GuessList percentile={599} />
+            <GuessList percentile={499} />
+            <GuessList percentile={399} />
+            <GuessList percentile={299} />
+            <GuessList percentile={199} />
+            <GuessList percentile={99} />
+            <GuessList percentile={1} />
 
-          {/* <View style={{ height: 500 }} /> */}
-        </ScrollView>
+            {/* <View style={{ height: 500 }} /> */}
+          </ScrollView>
+        </View>
         <View
           style={{
             flex: 1,
             backgroundColor: "red",
             width: "100%",
-            height: 500,
+            height: 200,
           }}
         >
           <PagerView
