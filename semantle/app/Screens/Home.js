@@ -18,11 +18,16 @@ import * as Permissions from "expo-permissions";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
 import PagerView from "react-native-pager-view";
+import Similarities from "../components/Similarities";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
   const [pushToken, setPushToken] = useState("");
   const [inputField, setInputField] = useState("");
+
+  useEffect(() => {
+    semantleGame.initialize();
+  }, []);
 
   async function getAndPushToken() {
     const previousToken = await cache.getData("FLIXPIX::PUSH_TOKEN", false);
@@ -166,6 +171,8 @@ function Home({ navigation, route }) {
           </PagerView>
         </View>
       </View>
+      <Similarities {...semantleGame.similarityStory} />
+
       <VirtualKeyboard
         onKey={(key) => setInputField(inputField + key)}
         onEnter={() => {

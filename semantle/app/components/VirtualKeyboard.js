@@ -34,7 +34,7 @@ export default function VirtualKeyboard({
       style={{
         position: "absolute",
         width: "100%",
-        bottom: 60,
+        bottom: 0,
 
         alignSelf: "center",
         // backgroundColor: "rgba(0,0,0,0.5)",

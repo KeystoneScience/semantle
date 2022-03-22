@@ -1,6 +1,7 @@
 // import { getNearby, getModel, getSimilarityStory } from "../api/words.js";
 import { useState } from "react";
 import client from "../api/client";
+import secretWords from "../configs/secretWords";
 
 //returns the 10 nearest words.
 async function getNearby(word) {
@@ -16,7 +17,7 @@ async function getModel(word, secret) {
 }
 
 async function getSimilarityStory(secret) {
-  const url = BASE_URL + "similarity/" + secret;
+  const url = "similarity/" + secret;
   const response = await client.get(url);
   return response?.data;
 }
@@ -74,6 +75,7 @@ const guessed = new Set();
 export default function semantle() {
   const [guesses, setGuesses] = useState([]);
   const [secret, setSecret] = useState("");
+  const [similarityStory, setSimilarityStory] = useState(null);
 
   async function submit(guess, secret) {
     if (secretVec === null) {
@@ -141,6 +143,14 @@ export default function semantle() {
     return false;
   }
 
+  async function initialize() {
+    const similarity = await getSimilarityStory("test");
+    setSimilarityStory(similarity);
+    // secretVec = (await getModel(secret, secret)).vec;
+    // const guesses = await getNearby(secret);
+    // setGuesses(guesses);
+  }
+
   async function init() {
     secret = secretWords[puzzleNumber].toLowerCase();
     const yesterday = secretWords[yesterdayPuzzleNumber].toLowerCase();
@@ -204,6 +214,8 @@ similarity of ${(similarityStory.rest * 100).toFixed(2)}.
     project_along,
     init,
     submit,
+    initialize,
+    similarityStory,
     guesses,
   };
 }
