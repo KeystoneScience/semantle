@@ -117,11 +117,28 @@ function Home({ navigation, route }) {
       >
         <GuessListHeader />
         <ScrollView>
-          <BlurView tint="light" intensity={30}>
-            {semantleGame.guesses.map((obj, index) => (
-              <GuessList key={index} {...obj} />
-            ))}
-          </BlurView>
+          {semantleGame.guesses.map((obj, index) => (
+            <GuessList key={index} {...obj} />
+          ))}
+
+          <GuessList percentile={1000} />
+          <GuessList percentile={999} />
+          <GuessList percentile={989} />
+          <GuessList percentile={979} />
+          <GuessList percentile={969} />
+          <GuessList percentile={949} />
+          <GuessList percentile={899} />
+          <GuessList percentile={799} />
+          <GuessList percentile={699} />
+          <GuessList percentile={599} />
+          <GuessList percentile={499} />
+          <GuessList percentile={399} />
+          <GuessList percentile={299} />
+          <GuessList percentile={199} />
+          <GuessList percentile={99} />
+          <GuessList percentile={1} />
+
+          <View style={{ height: 500 }} />
         </ScrollView>
         <View
           style={{
