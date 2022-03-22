@@ -6,9 +6,14 @@ import AppText from "./AppText";
 export default function Similarities({ top, top10, rest }) {
   return (
     <View
-      style={{ width: "100%", justifyContent: "center", alignItems: "center" }}
+      style={{
+        width: "100%",
+        justifyContent: "center",
+        marginTop: 10,
+        alignItems: "center",
+      }}
     >
-      <AppText>Closest Words</AppText>
+      {/* <AppText>Closest Words</AppText> */}
       <View
         style={{
           width: "90%",
