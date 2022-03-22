@@ -34,6 +34,9 @@ const colors = {
   darkBrown: "#a52a2a",
   lightBlue: "#add8e6",
   lightGreen: "#90ee90",
+  backgroundColor: "rgba(215, 193, 251, 1)",
+  checkButtonColor: "rgba(162, 199, 251, 1)",
+  keybordBttnColor: "rgba(137,  174,  226, 1)",
 };
 
 function convertColorToRGBA(color, alpha = 1) {

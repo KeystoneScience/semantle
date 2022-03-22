@@ -49,8 +49,8 @@ export default function VirtualKeyboard({
               hitSlop={2}
               style={({ pressed }) => ({
                 backgroundColor: pressed
-                  ? "rgba(58, 12, 163, 1)"
-                  : colors.darkenColor(colors.colors.grooveColorPallet[2], 30),
+                  ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
+                  : colors.colors.keybordBttnColor,
                 minWidth: "8%",
                 height: 42,
                 display: "flex",
@@ -66,11 +66,11 @@ export default function VirtualKeyboard({
                 marginBottom: 4.5,
                 shadowOffset: {
                   width: 0,
-                  height: pressed ? 4 : 8,
+                  height: pressed ? 2 : 6,
                 },
                 shadowColor: colors.darkenColor(
-                  colors.colors.grooveColorPallet[2],
-                  20
+                  colors.colors.keybordBttnColor,
+                  65
                 ),
                 transform: [
                   {
@@ -79,7 +79,7 @@ export default function VirtualKeyboard({
                 ],
                 shadowOpacity: 1,
                 shadowRadius: 0,
-                elevation: 5,
+                elevation: 2,
               })}
               onPressIn={() => {
                 if (key === "DEL" || key === "DELETE") {

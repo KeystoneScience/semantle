@@ -19,6 +19,7 @@ import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
 import PagerView from "react-native-pager-view";
 import Similarities from "../components/Similarities";
+import colors from "../configs/colors";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
@@ -82,7 +83,7 @@ function Home({ navigation, route }) {
   return (
     <View
       style={{
-        backgroundColor: "rgba(194, 138, 255, 1)",
+        backgroundColor: colors.colors.backgroundColor,
         // backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

@@ -23,7 +23,7 @@ function MainInput(props) {
         alignItems: "center",
         justifyContent: "center",
         display: "flex",
-        marginTop: 20,
+        marginTop: 0,
         marginBottom: 10,
         flexDirection: "row",
         // justifyContent: "center",
@@ -34,7 +34,7 @@ function MainInput(props) {
         // intensity={70}
         style={{
           // borderRadius: 10,
-          borderBottomColor: "black",
+          borderBottomColor: "rgba(0,0,0,0.4)",
           borderBottomWidth: 2,
           overflow: "hidden",
           width: "70%",
@@ -42,7 +42,7 @@ function MainInput(props) {
           flexDirection: "row",
           paddingLeft: 10,
           margin: 10,
-          color: "#000",
+          color: "rgba(0,0,0,0.4)",
           // backgroundColor: "rgba(255,255,255,1)",
         }}
       >
@@ -52,7 +52,9 @@ function MainInput(props) {
               width: "70%",
               fontSize: 21,
               // padding: 2,
-              color: props.input ? "#000" : "rgba(0,0,0,0.5)",
+              color: props.input
+                ? colors.darkenColor(colors.colors.backgroundColor, 32)
+                : "rgba(0,0,0,0.5)",
               textTransform: "lowercase",
             },
           ]}
@@ -92,7 +94,7 @@ function MainInput(props) {
           setIsPressed(false);
         }}
         style={{
-          backgroundColor: colors.colors.grooveColorPallet[7],
+          backgroundColor: colors.colors.checkButtonColor,
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
@@ -102,12 +104,9 @@ function MainInput(props) {
           borderRadius: 10,
           shadowOffset: {
             width: 0,
-            height: isPressed ? 4 : 8,
+            height: isPressed ? 2 : 6,
           },
-          shadowColor: colors.darkenColor(
-            colors.colors.grooveColorPallet[7],
-            50
-          ),
+          shadowColor: colors.darkenColor(colors.colors.checkButtonColor, 65),
           transform: [
             {
               translateY: isPressed ? 4 : 0,
@@ -115,7 +114,7 @@ function MainInput(props) {
           ],
           shadowOpacity: 1,
           shadowRadius: 0,
-          elevation: 5,
+          elevation: 2,
         }}
       >
         <Text
