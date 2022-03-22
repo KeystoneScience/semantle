@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   keyText: {
     fontSize: 20,
-    color: colors.colors.white,
+    color: colors.lightenColor(colors.colors.keybordBttnColor, 85),
     textAlign: "center",
     fontWeight: "bold",
   },

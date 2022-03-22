@@ -119,7 +119,7 @@ function MainInput(props) {
       >
         <Text
           style={{
-            color: "white",
+            color: colors.lightenColor(colors.colors.checkButtonColor, 85),
             fontSize: 20,
             textAlign: "center",
             justifyContent: "center",
