@@ -9,7 +9,7 @@ const fonts = [
   "BalooBhaina2_700Bold",
   "BalooBhaina2_800ExtraBold",
 ];
-function AppText({ style, onPress, children }) {
+function AppText({ style, onPress, children, ...props }) {
   return (
     <Text
       onPress={onPress}
