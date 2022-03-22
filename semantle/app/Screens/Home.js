@@ -84,10 +84,6 @@ function Home({ navigation, route }) {
     <View
       style={{
         backgroundColor: colors.colors.backgroundColor,
-        // backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
         flex: 1,
       }}
     >

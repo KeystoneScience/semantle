@@ -97,7 +97,7 @@ function GuessList({ guessCount, guess, similarity = 0, percentile }) {
         {percentile
           ? percentile == 1000
             ? "FOUND"
-            : percentile + "/1000"
+            : 1000 - percentile
           : "far"}
       </AppText>
     </View>
