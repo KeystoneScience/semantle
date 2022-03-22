@@ -127,28 +127,11 @@ function Home({ navigation, route }) {
           }}
         >
           <ScrollView>
-            {semantleGame.guesses.map((obj, index) => (
-              <GuessList key={index} {...obj} />
-            ))}
-
-            {/* <GuessList similarity={1} percentile={1000} />
-            <GuessList similarity={0.6} percentile={999} />
-            <GuessList similarity={0.5} percentile={989} />
-            <GuessList similarity={0.4} percentile={979} />
-            <GuessList similarity={0.4} percentile={969} />
-            <GuessList similarity={0.3} percentile={949} />
-            <GuessList similarity={0.4} percentile={899} />
-            <GuessList similarity={0.4} percentile={799} />
-            <GuessList similarity={0.4} percentile={699} />
-            <GuessList similarity={0.4} percentile={599} />
-            <GuessList similarity={0.4} percentile={499} />
-            <GuessList similarity={0.4} percentile={399} />
-            <GuessList similarity={0.3} percentile={299} />
-            <GuessList similarity={0.4} percentile={199} />
-            <GuessList similarity={0.4} percentile={99} />
-            <GuessList similarity={0.1} percentile={0} /> */}
-
-            {/* <View style={{ height: 500 }} /> */}
+            {[semantleGame.lastGuess, ...semantleGame.guesses].map(
+              (obj, index) => (
+                <GuessList key={index} {...obj} />
+              )
+            )}
           </ScrollView>
         </View>
         <View
