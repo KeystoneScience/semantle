@@ -16,7 +16,7 @@ function GuessListHeader(props) {
         padding: 7,
         backgroundColor: colors.darkenColor(colors.colors.backgroundColor, 90),
         borderBottomWidth: 1,
-        borderBottomColor: "rgba(58, 12, 163, .5)",
+        borderBottomColor: colors.colors.backgroundColor,
       }}
     >
       <View>
