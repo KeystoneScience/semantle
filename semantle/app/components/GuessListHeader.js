@@ -3,17 +3,18 @@ import { StyleSheet, Text, View } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
+import colors from "../configs/colors";
 function GuessListHeader(props) {
   return (
-    <BlurView
-      tint="light"
-      intensity={50}
+    <View
+      // tint="light"
+      // intensity={50}
       style={{
         width: "100%",
         alignItems: "center",
         flexDirection: "row",
         padding: 7,
-        backgroundColor: "rgba(58, 12, 163, .1)",
+        backgroundColor: colors.darkenColor(colors.colors.backgroundColor, 90),
         borderBottomWidth: 1,
         borderBottomColor: "rgba(58, 12, 163, .5)",
       }}
@@ -60,7 +61,7 @@ function GuessListHeader(props) {
       >
         Distance
       </AppText>
-    </BlurView>
+    </View>
   );
 }
 
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   tableHead: {
     fontSize: 18,
     // fontWeight: "bold",
-    color: "black",
+    color: colors.lightenColor(colors.colors.backgroundColor, 75),
     // marginBottom: 5,
     textAlign: "center",
 

@@ -3,6 +3,8 @@ import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
 // import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+// import { createStackNavigator } from "@react-navigation/stack";
+import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AppLoading from "expo-app-loading";
 import {
@@ -34,7 +36,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="light" />
       <Screen>
-        <NavigationContainer>
+        <NavigationContainer theme={navigationTheme}>
           <AppNavigator />
         </NavigationContainer>
       </Screen>
@@ -45,6 +47,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.colors.grooveColorPallet[2],
+    backgroundColor: colors.colors.backgroundColor,
   },
 });

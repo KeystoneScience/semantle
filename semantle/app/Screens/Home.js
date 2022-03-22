@@ -19,6 +19,7 @@ import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
 import PagerView from "react-native-pager-view";
 import Similarities from "../components/Similarities";
+import colors from "../configs/colors";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
@@ -82,11 +83,7 @@ function Home({ navigation, route }) {
   return (
     <View
       style={{
-        backgroundColor: "rgba(194, 138, 255, 1)",
-        // backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
+        backgroundColor: colors.colors.backgroundColor,
         flex: 1,
       }}
     >
@@ -115,25 +112,51 @@ function Home({ navigation, route }) {
           overflow: "hidden",
           width: "95%",
           alignSelf: "center",
-          height: "auto",
-          backgroundColor: "rgba(58, 12, 163, .1)",
+
+          backgroundColor: colors.darkenColor(
+            colors.colors.backgroundColor,
+            90
+          ),
           // backgroundColor: "rgba(0,0,0,0)",
         }}
       >
         <GuessListHeader />
-        <ScrollView>
-          <BlurView tint="light" intensity={30}>
+        <View
+          style={{
+            height: 200,
+          }}
+        >
+          <ScrollView>
             {semantleGame.guesses.map((obj, index) => (
               <GuessList key={index} {...obj} />
             ))}
-          </BlurView>
-        </ScrollView>
+
+            {/* <GuessList similarity={1} percentile={1000} />
+            <GuessList similarity={0.6} percentile={999} />
+            <GuessList similarity={0.5} percentile={989} />
+            <GuessList similarity={0.4} percentile={979} />
+            <GuessList similarity={0.4} percentile={969} />
+            <GuessList similarity={0.3} percentile={949} />
+            <GuessList similarity={0.4} percentile={899} />
+            <GuessList similarity={0.4} percentile={799} />
+            <GuessList similarity={0.4} percentile={699} />
+            <GuessList similarity={0.4} percentile={599} />
+            <GuessList similarity={0.4} percentile={499} />
+            <GuessList similarity={0.4} percentile={399} />
+            <GuessList similarity={0.3} percentile={299} />
+            <GuessList similarity={0.4} percentile={199} />
+            <GuessList similarity={0.4} percentile={99} />
+            <GuessList similarity={0.1} percentile={0} /> */}
+
+            {/* <View style={{ height: 500 }} /> */}
+          </ScrollView>
+        </View>
         <View
           style={{
             flex: 1,
             backgroundColor: "red",
             width: "100%",
-            height: 500,
+            height: 200,
           }}
         >
           <PagerView

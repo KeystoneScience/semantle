@@ -38,7 +38,7 @@ export default function VirtualKeyboard({
 
         alignSelf: "center",
         // backgroundColor: "rgba(0,0,0,0.5)",
-        paddingBottom: 20,
+        paddingBottom: 10,
       }}
     >
       {keys.map((row, i) => (
@@ -49,8 +49,8 @@ export default function VirtualKeyboard({
               hitSlop={2}
               style={({ pressed }) => ({
                 backgroundColor: pressed
-                  ? "rgba(58, 12, 163, 1)"
-                  : colors.darkenColor(colors.colors.grooveColorPallet[2], 30),
+                  ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
+                  : colors.colors.keybordBttnColor,
                 minWidth: "8%",
                 height: 42,
                 display: "flex",
@@ -63,14 +63,14 @@ export default function VirtualKeyboard({
                 borderRadius: 12,
                 marginLeft: 3,
                 marginRight: 3,
-                marginBottom: 4.5,
+                marginBottom: 3.5,
                 shadowOffset: {
                   width: 0,
-                  height: pressed ? 4 : 8,
+                  height: pressed ? 2 : 6,
                 },
                 shadowColor: colors.darkenColor(
-                  colors.colors.grooveColorPallet[2],
-                  20
+                  colors.colors.keybordBttnColor,
+                  65
                 ),
                 transform: [
                   {
@@ -79,7 +79,7 @@ export default function VirtualKeyboard({
                 ],
                 shadowOpacity: 1,
                 shadowRadius: 0,
-                elevation: 5,
+                elevation: 2,
               })}
               onPressIn={() => {
                 if (key === "DEL" || key === "DELETE") {

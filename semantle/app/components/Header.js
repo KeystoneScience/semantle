@@ -15,8 +15,8 @@ export default function Header({ navigation }) {
       <View
         style={{
           alignItems: "center",
-          backgroundColor: colors.colors.grooveColorPallet[2],
-          height: 40,
+          backgroundColor: colors.colors.backgroundColor,
+          height: 35,
           flexDirection: "row",
           justifyContent: "flex-start",
           width: "100%",
@@ -28,7 +28,7 @@ export default function Header({ navigation }) {
             navigation.navigate("Drawer");
           }}
           style={{
-            color: colors.colors.white,
+            color: colors.darkenColor(colors.colors.backgroundColor, 45),
             fontSize: 23,
             marginLeft: 10,
             textAlign: "center",
