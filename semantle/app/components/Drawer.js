@@ -36,27 +36,13 @@ function Drawer({ navigation, route }) {
           <View style={{ height: 64 }} />
         </ScrollView>
         <SafeAreaView style={styles.bottomwhole}>
-          <Accordian
-            // expanded={true}
-            title={"Support Semantle"}
-            data={"sdfsfdsdasdfsd"}
-            titleIcon={
-              <AntDesign
-                name="heart"
-                size={22}
-                color={colors.darkenColor(colors.colors.backgroundColor, 80)}
-                style={{ marginRight: -36 }}
-              />
-            }
-            children={
-              <View>
-                <View
-                  style={{
-                    justifyContent: "space-around",
-                    flexDirection: "row",
-                  }}
-                >
-                  {/* <TouchableOpacity
+          <View
+            style={{
+              justifyContent: "space-around",
+              flexDirection: "row",
+            }}
+          >
+            {/* <TouchableOpacity
                 onPress={() =>
                   Linking.openURL(
                     "https://www.facebook.com/FlixPix-113664830823363"
@@ -81,72 +67,64 @@ function Drawer({ navigation, route }) {
                 </View>
               </TouchableOpacity> */}
 
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL(
-                        "https://www.linkedin.com/company/red-avocado-llc"
-                      )
-                    }
-                  >
-                    <View
-                      style={{
-                        backgroundColor: "#2867B2",
-                        width: 50,
-                        height: 50,
-                        borderRadius: 50,
-                        justifyContent: "center",
-                      }}
-                    >
-                      <FontAwesome5
-                        name="linkedin-in"
-                        size={25}
-                        color={"black"}
-                        style={{ alignSelf: "center" }}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL("https://instagram.com/flixpix.app")
-                    }
-                  >
-                    <View
-                      style={{
-                        backgroundColor: "#cc2366",
-                        width: 50,
-                        height: 50,
-                        borderRadius: 50,
-                        justifyContent: "center",
-                      }}
-                    >
-                      <AntDesign
-                        name="instagram"
-                        size={25}
-                        color={"black"}
-                        style={{ alignSelf: "center" }}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  {/* <TouchableOpacity onPress={ ()=> Linking.openURL('https://discord.gg/PACd5jXfKp') }>
-                <View
-                  style={{
-                    backgroundColor: "#7289DA",
-                    width: 50,
-                    height: 50,
-                    borderRadius: 50,
-                    justifyContent: "center",
-                  }}
-                >
-                  <FontAwesome5
-                    name="discord"
-                    size={25}
-                    color={'black'}
-                    style={{ alignSelf: "center" }}
-                  />
-                </View>
-              </TouchableOpacity> */}
-                </View>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL("https://www.reddit.com/r/Semantle/")
+              }
+            >
+              <View
+                style={{
+                  backgroundColor: "#FF5700",
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  justifyContent: "center",
+                }}
+              >
+                <FontAwesome5
+                  name="reddit-alien"
+                  size={25}
+                  color={"white"}
+                  style={{ alignSelf: "center" }}
+                />
+              </View>
+            </TouchableOpacity>
 
+            <TouchableOpacity
+              onPress={() => Linking.openURL("https://discord.gg/csKG67pw9F")}
+            >
+              <View
+                style={{
+                  backgroundColor: "#7289DA",
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  justifyContent: "center",
+                }}
+              >
+                <FontAwesome5
+                  name="discord"
+                  size={25}
+                  color={"white"}
+                  style={{ alignSelf: "center" }}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Accordian
+            // expanded={true}
+            title={"Support Semantle"}
+            data={"sdfsfdsdasdfsd"}
+            titleIcon={
+              <AntDesign
+                name="heart"
+                size={22}
+                color={colors.darkenColor(colors.colors.backgroundColor, 80)}
+                style={{ marginRight: -36 }}
+              />
+            }
+            children={
+              <View>
                 <TouchableOpacity
                   onPress={() =>
                     Platform.OS === "ios"
@@ -209,7 +187,7 @@ function Drawer({ navigation, route }) {
               <Entypo
                 name="help"
                 size={22}
-                color={"black"}
+                color={colors.darkenColor(colors.colors.backgroundColor, 80)}
                 style={{ marginRight: "-50%" }}
               />
             }
