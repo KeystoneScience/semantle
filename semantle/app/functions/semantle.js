@@ -76,6 +76,7 @@ export default function semantle() {
   const [guesses, setGuesses] = useState([]);
   const [secret, setSecret] = useState("");
   const [similarityStory, setSimilarityStory] = useState(null);
+  const [lastGuess, setLastGuess] = useState(null);
 
   async function submit(guess, secret) {
     if (secretVec === null) {
@@ -93,6 +94,11 @@ export default function semantle() {
     const guessData = await getModel(guess, secret);
     if (!guessData) {
       //word not found
+      setLastGuess({
+        guess: `'${guess}' not found in our dictionary.`,
+        lastGuess: true,
+        notFound: true,
+      });
       return false;
     }
     //may be null if word not in top 1000;
@@ -112,6 +118,7 @@ export default function semantle() {
         percentile,
         guessCount: guesses.length,
       };
+      setLastGuess({ ...newEntry, lastGuess: true });
       let newGuesses = [...guesses, newEntry];
       newGuesses.sort((a, b) => b.similarity - a.similarity);
       setGuesses(newGuesses);
@@ -144,6 +151,8 @@ export default function semantle() {
   }
 
   async function initialize() {
+    // check to see if there is information cached.
+    setLastGuess(null);
     const similarity = await getSimilarityStory("test");
     setSimilarityStory(similarity);
     // secretVec = (await getModel(secret, secret)).vec;
@@ -215,6 +224,7 @@ similarity of ${(similarityStory.rest * 100).toFixed(2)}.
     init,
     submit,
     initialize,
+    lastGuess,
     similarityStory,
     guesses,
   };
