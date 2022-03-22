@@ -77,7 +77,7 @@ function Home({ navigation, route }) {
   return (
     <View
       style={{
-        backgroundColor: "rgba(58, 12, 163, .01)",
+        backgroundColor: "rgba(194, 138, 255, 1)",
         // backgroundImage: "url('https://i.imgur.com/qXZQZQJ.jpg')",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
