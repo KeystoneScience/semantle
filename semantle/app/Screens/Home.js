@@ -115,7 +115,7 @@ function Home({ navigation, route }) {
           overflow: "hidden",
           width: "95%",
           alignSelf: "center",
-          height: "auto",
+          height: "40%",
           backgroundColor: "rgba(58, 12, 163, .1)",
           // backgroundColor: "rgba(0,0,0,0)",
         }}
@@ -143,7 +143,7 @@ function Home({ navigation, route }) {
           <GuessList percentile={99} />
           <GuessList percentile={1} />
 
-          <View style={{ height: 500 }} />
+          {/* <View style={{ height: 500 }} /> */}
         </ScrollView>
         <View
           style={{
