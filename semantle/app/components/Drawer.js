@@ -23,18 +23,12 @@ import {
 
 import Constants from "expo-constants";
 import Accordian from "./Accordion";
+import colors from "../configs/colors";
+
 function Drawer({ navigation, route }) {
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <View style={styles.leftWhole}>
-        <View
-          style={{
-            backgroundColor: "red",
-            height: Constants.statusBarHeight,
-            zIndex: 100,
-          }}
-        />
-
         <View
           style={{ width: "100%", display: "flex", alignItems: "flex-end" }}
         ></View>
@@ -43,18 +37,19 @@ function Drawer({ navigation, route }) {
         </ScrollView>
         <SafeAreaView style={styles.bottomwhole}>
           <Accordian
-            title={"Support FlixPix"}
+            // expanded={true}
+            title={"Support Semantle"}
             data={"sdfsfdsdasdfsd"}
             titleIcon={
               <AntDesign
                 name="heart"
                 size={22}
-                color={"black"}
+                color={colors.darkenColor(colors.colors.backgroundColor, 80)}
                 style={{ marginRight: -36 }}
               />
             }
             children={
-              <View style={{ backgroundColor: "#121212" }}>
+              <View>
                 <View
                   style={{
                     justifyContent: "space-around",
@@ -150,32 +145,6 @@ function Drawer({ navigation, route }) {
                   />
                 </View>
               </TouchableOpacity> */}
-                  {/* <TouchableOpacity
-                    onPress={() =>
-                      Linking.openURL("https://www.tiktok.com/@flixpixapp")
-                    }
-                  >
-                    <View
-                      style={{
-                        backgroundColor: "black",
-                        width: 50,
-                        height: 50,
-                        borderRadius: 50,
-                        justifyContent: "center",
-                        overflow: "hidden",
-                      }}
-                    >
-                      <Image
-                        style={{
-                          resizeMode: "contain",
-                          height: "90%",
-                          width: "90%",
-                          alignSelf: "center",
-                        }}
-                        source={require("../../assets/logos/TikTok.png")}
-                      />
-                    </View>
-                  </TouchableOpacity> */}
                 </View>
 
                 <TouchableOpacity
@@ -198,10 +167,13 @@ function Drawer({ navigation, route }) {
                     <FontAwesome
                       name="star"
                       size={30}
-                      color={"black"}
+                      color={colors.darkenColor(
+                        colors.colors.backgroundColor,
+                        80
+                      )}
                       style={{ marginLeft: 10 }}
                     />
-                    <Text style={styles.tutorialText}>Rate FlixPix</Text>
+                    <Text style={styles.tutorialText}>Rate Semantle</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -212,13 +184,16 @@ function Drawer({ navigation, route }) {
                   <View
                     style={[
                       styles.tutorialwhole,
-                      { backgroundColor: "rgba(0,0,0,1)", marginTop: 0 },
+                      { backgroundColor: "rgba(255,255,255,.3)", marginTop: 0 },
                     ]}
                   >
                     <FontAwesome5
                       name="lightbulb"
                       size={30}
-                      color={"black"}
+                      color={colors.darkenColor(
+                        colors.colors.backgroundColor,
+                        80
+                      )}
                       style={{ marginLeft: 10 }}
                     />
                     <Text style={styles.tutorialText}>Request Feature</Text>
@@ -239,7 +214,7 @@ function Drawer({ navigation, route }) {
               />
             }
             children={
-              <View style={{ backgroundColor: "#121212" }}>
+              <View>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("Tutorial")}
                 >
@@ -247,7 +222,10 @@ function Drawer({ navigation, route }) {
                     <Foundation
                       name="guide-dog"
                       size={44}
-                      color={"black"}
+                      color={colors.darkenColor(
+                        colors.colors.backgroundColor,
+                        80
+                      )}
                       style={{ marginLeft: 10 }}
                     />
                     <Text style={styles.tutorialText}>Tutorial</Text>
@@ -260,12 +238,15 @@ function Drawer({ navigation, route }) {
                   }
                 >
                   <View
-                    style={[styles.tutorialwhole, { backgroundColor: "green" }]}
+                    style={[
+                      styles.tutorialwhole,
+                      { backgroundColor: colors.colors.fadeListColor },
+                    ]}
                   >
                     <Entypo
                       name="bug"
                       size={26}
-                      color={"black"}
+                      color={"rgba(255,255,255,.8)"}
                       style={{ marginLeft: 10 }}
                     />
                     <Text style={styles.tutorialText}>Report Problem</Text>
@@ -291,7 +272,7 @@ const styles = StyleSheet.create({
   leftWhole: {
     width: "80%",
     height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 40),
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
   },
@@ -300,7 +281,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "rgba(0, 0, 0, .2)",
   },
   tutorialwhole: {
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(255,255,255,.3)",
     height: 70,
     width: "80%",
     alignSelf: "center",
@@ -314,7 +295,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     fontSize: 20,
     paddingTop: 7,
-    color: "black",
+    color: colors.darkenColor(colors.colors.backgroundColor, 30),
   },
 });
 export default Drawer;

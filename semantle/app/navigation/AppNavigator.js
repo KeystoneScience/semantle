@@ -67,7 +67,7 @@ const forSlide = ({ current, next, inverted, layouts: { screen } }) => {
 };
 
 const AppNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator detachInactiveScreens={false}>
     <Stack.Screen
       name="Home"
       component={Home}
@@ -77,7 +77,7 @@ const AppNavigator = () => (
     <Stack.Screen
       name="Drawer"
       component={Drawer}
-      headerTransparent={true}
+      // headerTransparent={true}
       options={{
         headerShown: false,
         cardStyle: { backgroundColor: "transparent" },
@@ -97,9 +97,9 @@ const AppNavigator = () => (
         }),
         cardStyleInterpolator: forSlide,
         gestureDirection: "horizontal-inverted",
-        gestureResponseDistance: {
-          horizontal: 300,
-        },
+        // gestureResponseDistance: {
+        //   horizontal: 300,
+        // },
       }}
     />
   </Stack.Navigator>

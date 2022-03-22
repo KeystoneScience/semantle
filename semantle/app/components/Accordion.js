@@ -10,6 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import colors from "../configs/colors";
 // import colors from "../../../config/colors";
 export default class Accordian extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export default class Accordian extends Component {
               styles.row,
               {
                 backgroundColor: this.state.expanded
-                  ? "rgba(18, 18, 18, 0.66)"
+                  ? "rgba(0,0,0,0)"
                   : "rgba(18, 18, 18, 0)",
               },
             ]}
@@ -53,7 +54,7 @@ export default class Accordian extends Component {
                   : "keyboard-arrow-down"
               }
               size={30}
-              color={"white"}
+              color={colors.darkenColor(colors.colors.backgroundColor, 80)}
             />
           </View>
         </TouchableOpacity>
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "500",
-    color: "white",
+    color: colors.darkenColor(colors.colors.backgroundColor, 20),
   },
   row: {
     flexDirection: "row",
