@@ -98,8 +98,8 @@ function MainInput(props) {
           justifyContent: "center",
           alignItems: "center",
           display: "flex",
-          height: 50,
-          width: "20%",
+          height: 40,
+          width: "21%",
           margin: 10,
           borderRadius: 10,
           shadowOffset: {
@@ -117,20 +117,20 @@ function MainInput(props) {
           elevation: 2,
         }}
       >
-        <Text
+        <AppText
           style={{
             color: colors.lightenColor(colors.colors.checkButtonColor, 85),
-            fontSize: 20,
+            fontSize: 23,
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",
             anchor: "center",
-            fontWeight: "700",
+            // fontWeight: "700",
             padding: 0,
           }}
         >
           CHECK
-        </Text>
+        </AppText>
       </TouchableOpacity>
     </View>
   );
