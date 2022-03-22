@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import Constants from "expo-constants";
 import colors from "../configs/colors";
 import AppText from "./AppText";
-export default function Header() {
+export default function Header({ navigation }) {
   return (
     <View style={{ zIndex: 1 }}>
       {/* <View
@@ -24,6 +24,9 @@ export default function Header() {
         }}
       >
         <AppText
+          onPress={() => {
+            navigation.navigate("Drawer");
+          }}
           style={{
             color: colors.colors.white,
             fontSize: 23,

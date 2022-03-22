@@ -49,20 +49,37 @@ export default function VirtualKeyboard({
               hitSlop={2}
               style={({ pressed }) => ({
                 backgroundColor: pressed
-                  ? "rgba(58, 12, 163, .6)"
+                  ? "rgba(58, 12, 163, 1)"
                   : colors.darkenColor(colors.colors.grooveColorPallet[2], 30),
                 minWidth: "8%",
-                height: 50,
+                height: 42,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                paddingTop: 5,
-                paddingBottom: 5,
+                paddingTop: 2,
+                paddingBottom: 2,
                 paddingLeft: key === "DELETE" ? 10 : 5,
                 paddingRight: key === "DELETE" ? 10 : 5,
                 borderRadius: 12,
                 marginLeft: 3,
                 marginRight: 3,
+                marginBottom: 4.5,
+                shadowOffset: {
+                  width: 0,
+                  height: pressed ? 4 : 8,
+                },
+                shadowColor: colors.darkenColor(
+                  colors.colors.grooveColorPallet[2],
+                  20
+                ),
+                transform: [
+                  {
+                    translateY: pressed ? 4 : 0,
+                  },
+                ],
+                shadowOpacity: 1,
+                shadowRadius: 0,
+                elevation: 5,
               })}
               onPressIn={() => {
                 if (key === "DEL" || key === "DELETE") {
@@ -123,6 +140,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginLeft: 3,
     marginRight: 3,
+
+    shadowColor: "#000",
   },
   keyText: {
     fontSize: 20,

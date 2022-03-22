@@ -82,6 +82,7 @@ const AppNavigator = () => (
         headerShown: false,
         cardStyle: { backgroundColor: "transparent" },
         cardOverlayEnabled: true,
+        // resentation: "transparentModal",
         cardStyleInterpolator: ({ current: { progress, next } }) => ({
           overlayStyle: {
             opacity: progress.interpolate({

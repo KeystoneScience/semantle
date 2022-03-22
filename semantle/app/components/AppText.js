@@ -9,9 +9,10 @@ const fonts = [
   "BalooBhaina2_700Bold",
   "BalooBhaina2_800ExtraBold",
 ];
-function AppText(props) {
+function AppText({ style, onPress, children }) {
   return (
     <Text
+      onPress={onPress}
       style={[
         {
           fontFamily:
@@ -25,10 +26,10 @@ function AppText(props) {
               ? fonts[3]
               : fonts[4],
         },
-        props.style,
+        style,
       ]}
     >
-      {props.children}
+      {children}
     </Text>
   );
 }
