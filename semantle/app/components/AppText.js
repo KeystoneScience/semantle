@@ -9,20 +9,20 @@ const fonts = [
   "BalooBhaina2_700Bold",
   "BalooBhaina2_800ExtraBold",
 ];
-function AppText({ style, onPress, children, ...props }) {
+function AppText({ style, onPress, children, fontWeight }) {
   return (
     <Text
       onPress={onPress}
       style={[
         {
           fontFamily:
-            props.fontWeight < 450
+            fontWeight < 450
               ? fonts[0]
-              : props.fontWeight < 550
+              : fontWeight < 550
               ? fonts[1]
-              : props.fontWeight < 650
+              : fontWeight < 650
               ? fonts[2]
-              : props.fontWeight < 750
+              : fontWeight < 750
               ? fonts[3]
               : fonts[4],
         },
