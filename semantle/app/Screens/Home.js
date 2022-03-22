@@ -131,7 +131,7 @@ function Home({ navigation, route }) {
               <GuessList key={index} {...obj} />
             ))}
 
-            <GuessList similarity={1} percentile={1000} />
+            {/* <GuessList similarity={1} percentile={1000} />
             <GuessList similarity={0.6} percentile={999} />
             <GuessList similarity={0.5} percentile={989} />
             <GuessList similarity={0.4} percentile={979} />
@@ -146,7 +146,7 @@ function Home({ navigation, route }) {
             <GuessList similarity={0.3} percentile={299} />
             <GuessList similarity={0.4} percentile={199} />
             <GuessList similarity={0.4} percentile={99} />
-            <GuessList similarity={0.1} percentile={0} />
+            <GuessList similarity={0.1} percentile={0} /> */}
 
             {/* <View style={{ height: 500 }} /> */}
           </ScrollView>

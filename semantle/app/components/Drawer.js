@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   },
   rightWhole: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    // backgroundColor: "rgba(0, 0, 0, .2)",
   },
   tutorialwhole: {
     backgroundColor: "rgba(0,0,0,0.5)",

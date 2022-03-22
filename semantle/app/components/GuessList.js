@@ -74,7 +74,6 @@ function GuessList({ guessCount, guess, similarity = 0, percentile }) {
         ]}
       >
         {guess}
-        {a}
       </AppText>
       <AppText
         style={[
