@@ -117,7 +117,10 @@ function Home({ navigation, route }) {
           width: "95%",
           alignSelf: "center",
 
-          backgroundColor: "rgba(58, 12, 163, .1)",
+          backgroundColor: colors.darkenColor(
+            colors.colors.backgroundColor,
+            90
+          ),
           // backgroundColor: "rgba(0,0,0,0)",
         }}
       >
@@ -132,9 +135,9 @@ function Home({ navigation, route }) {
               <GuessList key={index} {...obj} />
             ))}
 
-            <GuessList similarity={0.4} percentile={1000} />
-            <GuessList similarity={0.4} percentile={999} />
-            <GuessList similarity={0.4} percentile={989} />
+            <GuessList similarity={1} percentile={1000} />
+            <GuessList similarity={0.6} percentile={999} />
+            <GuessList similarity={0.5} percentile={989} />
             <GuessList similarity={0.4} percentile={979} />
             <GuessList similarity={0.4} percentile={969} />
             <GuessList similarity={0.3} percentile={949} />
