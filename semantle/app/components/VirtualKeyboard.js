@@ -70,7 +70,7 @@ export default function VirtualKeyboard({
                 },
                 shadowColor: colors.darkenColor(
                   colors.colors.grooveColorPallet[2],
-                  40
+                  20
                 ),
                 transform: [
                   {
