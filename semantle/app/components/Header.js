@@ -1,8 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import Constants from "expo-constants";
 import colors from "../configs/colors";
 import AppText from "./AppText";
+import { Octicons } from "@expo/vector-icons";
 export default function Header({ navigation }) {
   return (
     <View style={{ zIndex: 1 }}>
@@ -37,6 +45,25 @@ export default function Header({ navigation }) {
         >
           Semantle
         </AppText>
+
+        <View
+          style={{
+            position: "absolute",
+            right: 20,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Drawer");
+            }}
+          >
+            <Octicons
+              name="three-bars"
+              size={26}
+              color={colors.darkenColor(colors.colors.backgroundColor, 45)}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
