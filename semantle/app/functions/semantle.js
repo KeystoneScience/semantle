@@ -189,6 +189,10 @@ export default function semantle() {
     const guessData = await cache.getData("SEMANTLE_" + day, false);
     if (guessData) {
       setGuesses(guessData);
+      //for each guess in guessData, add it to guessed
+      for (let i = 0; i < guessData.length; i++) {
+        guessed.add(guessData[i].guess);
+      }
     }
   }
 
