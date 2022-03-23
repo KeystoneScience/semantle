@@ -154,15 +154,18 @@ export default function semantle() {
       newGuesses.sort((a, b) => b.similarity - a.similarity);
       cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
       setGuesses(newGuesses);
-    }
-    if (guess.toLowerCase() === secret.toLowerCase()) {
-      //Word Found.
-      const data = await cache.getData("SEMANTLE_STREAK", true);
-      if (data) {
-        cache.storeData("SEMANTLE_STREAK", { streak: data.streak + 1 });
-      } else {
-        cache.storeData("SEMANTLE_STREAK", { streak: 1 });
+      const foundWord = guess.toLowerCase() === secret.toLowerCase();
+      if (foundWord) {
+        //Word Found.
+        const data = await cache.getData("SEMANTLE_STREAK", true);
+        if (data) {
+          cache.storeData("SEMANTLE_STREAK", { streak: data.streak + 1 });
+        } else {
+          cache.storeData("SEMANTLE_STREAK", { streak: 1 });
+        }
       }
+
+      editStats(newEntry, foundWord);
     }
 
     return false;
@@ -192,6 +195,36 @@ export default function semantle() {
         },
       },
     ]);
+  }
+
+  async function getStats() {
+    const data = cache.getData("SEMANTLE_ACTIVE_DAYS", true);
+    if (data) {
+      return data.daysMap;
+    }
+    return {};
+  }
+
+  async function editStats(newestGuess, isFound = false) {
+    const data = await cache.getData("SEMANTLE_STATS", false);
+    var daysMap = data?.daysMap ? data.daysMap : {};
+    const existingData = daysMap["STATS_DAY_" + puzzleNumber] || {};
+    if (existingData.found) {
+      return;
+    }
+    //assemble data
+    existingData.found = isFound;
+    existingData.numberOfGuesses = existingData.numberOfGuesses
+      ? existingData.numberOfGuesses + 1
+      : 1;
+    existingData.averageSimilarity =
+      ((existingData.averageSimilarity || 0) *
+        (existingData.numberOfGuesses - 1)) /
+        existingData.numberOfGuesses +
+      newestGuess.similarity / existingData.numberOfGuesses;
+
+    daysMap["STATS_DAY_" + puzzleNumber] = existingData;
+    cache.storeData("SEMANTLE_STATS", { daysMap: daysMap });
   }
 
   async function initialize() {
@@ -284,7 +317,7 @@ similarity of ${(similarityStory.rest * 100).toFixed(2)}.
     initialize,
     getStreak,
     checkEasterEggs,
-    hardReset,
+    getStats,
     lastGuess,
     similarityStory,
     puzzleNumber,
