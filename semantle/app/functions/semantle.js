@@ -198,7 +198,7 @@ export default function semantle() {
   }
 
   async function getStats() {
-    const data = cache.getData("SEMANTLE_ACTIVE_DAYS", true);
+    const data = await cache.getData("SEMANTLE_STATS", true);
     if (data) {
       return data.daysMap;
     }

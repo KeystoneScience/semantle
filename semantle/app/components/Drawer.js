@@ -29,12 +29,30 @@ import AppText from "./AppText";
 function Drawer({ navigation, route }) {
   const semantleGame = route.params.semantleGame;
   const [streak, setStreak] = useState(0);
+  const [totalGames, setTotalGames] = useState(0);
+  const [averageGuesses, setAverageGuesses] = useState("∞");
+
+  async function updateStats() {
+    const stats = await semantleGame.getStats();
+    let wins = 0;
+    let guesses = 0;
+
+    for (var i in stats) {
+      if (stats[i].found) {
+        wins++;
+        guesses += stats[i].numberOfGuesses;
+      }
+    }
+    setAverageGuesses(Math.round((guesses / wins) * 10) / 10);
+    setTotalGames(wins);
+  }
 
   //every time the drawer is opened, run a useEffect to update the streak
   useEffect(() => {
     semantleGame.getStreak().then((streak) => {
       setStreak(streak);
     });
+    updateStats();
   }, []);
 
   return (
@@ -54,7 +72,7 @@ function Drawer({ navigation, route }) {
               <View
                 style={{
                   backgroundColor: colors.colors.lightGray,
-                  margin: 50,
+                  marginTop: 50,
                   width: "80%",
                   borderRadius: 10,
                   aspectRatio: 1.5,
@@ -66,10 +84,75 @@ function Drawer({ navigation, route }) {
                   position: "relative",
                 }}
               >
-                <Text style={{ fontSize: "100%" }}>‎️‍🔥</Text>
+                <Text style={{ fontSize: "100%", lineHeight: 0 }}>‎️‍🔥</Text>
                 <AppText style={{ fontSize: 20 }}>{streak} DAY STREAK</AppText>
               </View>
             )}
+            <View
+              style={{
+                backgroundColor: colors.colors.lightGray,
+                marginTop: 50,
+                width: "80%",
+                borderRadius: 10,
+                aspectRatio: 1.5,
+                display: "flex",
+                padding: 0,
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
+              }}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  height: "70%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "40%",
+                  }}
+                >
+                  <AppText style={{ fontSize: 50, height: 70 }}>
+                    {totalGames}
+                  </AppText>
+                  <AppText>
+                    {totalGames == 1 ? "GAME SOLVED" : "GAMES SOLVED"}
+                  </AppText>
+                </View>
+                <View
+                  style={{
+                    height: "80%",
+                    borderColor: colors.colors.black,
+                    borderWidth: 1,
+                    margin: 5,
+                  }}
+                />
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "40%",
+                  }}
+                >
+                  <AppText style={{ fontSize: 50, height: 70 }}>
+                    {averageGuesses}
+                  </AppText>
+                  <AppText style={{ textAlign: "center" }}>AVG GUESSES</AppText>
+                </View>
+              </View>
+              <AppText style={{ fontSize: "20%" }}>🧪 STATS</AppText>
+            </View>
           </View>
         </ScrollView>
 

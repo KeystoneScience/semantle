@@ -56,6 +56,7 @@ export default function Header({ navigation, semantleGame }) {
             onPress={() => {
               navigation.navigate("Drawer", { semantleGame });
             }}
+            style={{ width: 30, height: 30 }}
           >
             <Octicons
               name="three-bars"
