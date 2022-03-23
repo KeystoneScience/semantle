@@ -10,7 +10,7 @@ import {
   Platform,
   SafeAreaView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Foundation,
@@ -24,22 +24,61 @@ import {
 import Constants from "expo-constants";
 import Accordian from "./Accordion";
 import colors from "../configs/colors";
+import AppText from "./AppText";
 
 function Drawer({ navigation, route }) {
+  const semantleGame = route.params.semantleGame;
+  const [streak, setStreak] = useState(0);
+
+  //every time the drawer is opened, run a useEffect to update the streak
+  useEffect(() => {
+    semantleGame.getStreak().then((streak) => {
+      setStreak(streak);
+    });
+  }, []);
+
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <View style={styles.leftWhole}>
-        <View
-          style={{ width: "100%", display: "flex", alignItems: "flex-end" }}
-        ></View>
         <ScrollView>
-          <View style={{ height: 64 }} />
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              paddingBottom: 200,
+            }}
+          >
+            {streak > 0 && (
+              <View
+                style={{
+                  backgroundColor: colors.colors.lightGray,
+                  margin: 50,
+                  width: "80%",
+                  borderRadius: 10,
+                  aspectRatio: 1.5,
+                  display: "flex",
+                  padding: 0,
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                }}
+              >
+                <Text style={{ fontSize: "100%" }}>‎️‍🔥</Text>
+                <AppText style={{ fontSize: 20 }}>{streak} DAY STREAK</AppText>
+              </View>
+            )}
+          </View>
         </ScrollView>
+
         <SafeAreaView style={styles.bottomwhole}>
           <View
             style={{
               justifyContent: "space-around",
               flexDirection: "row",
+              paddingTop: 20,
             }}
           >
             {/* <TouchableOpacity
@@ -246,6 +285,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
+    backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 60),
+    borderBottomEndRadius: 10,
   },
   leftWhole: {
     width: "80%",

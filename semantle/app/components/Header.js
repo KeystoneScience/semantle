@@ -11,7 +11,7 @@ import Constants from "expo-constants";
 import colors from "../configs/colors";
 import AppText from "./AppText";
 import { Octicons } from "@expo/vector-icons";
-export default function Header({ navigation }) {
+export default function Header({ navigation, semantleGame }) {
   return (
     <View style={{ zIndex: 1 }}>
       {/* <View
@@ -33,7 +33,7 @@ export default function Header({ navigation }) {
       >
         <AppText
           onPress={() => {
-            navigation.navigate("Drawer");
+            navigation.navigate("Drawer", { semantleGame });
           }}
           style={{
             color: colors.darkenColor(colors.colors.backgroundColor, 45),
@@ -54,7 +54,7 @@ export default function Header({ navigation }) {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Drawer");
+              navigation.navigate("Drawer", { semantleGame });
             }}
           >
             <Octicons

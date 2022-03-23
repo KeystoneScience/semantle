@@ -87,7 +87,11 @@ function Home({ navigation, route }) {
         flex: 1,
       }}
     >
-      <Header navigation={navigation} route={route} />
+      <Header
+        navigation={navigation}
+        route={route}
+        semantleGame={semantleGame}
+      />
 
       {/* <Text
           onPress={() => navigation.navigate("Drawer")}

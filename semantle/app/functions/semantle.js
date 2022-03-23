@@ -4,6 +4,7 @@ import client from "../api/client";
 import secretWords from "../data/secretWords";
 import similarStory from "../data/quickSimilars";
 import cache from "../utility/cache";
+import { Alert } from "react-native";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643436000000;
 
@@ -89,7 +90,7 @@ function project_along(v1, v2, t) {
   return num / denom;
 }
 var secretVec = null;
-const guessed = new Set();
+var guessed = new Set();
 export default function semantle() {
   const [guesses, setGuesses] = useState([]);
   const [secret, setSecret] = useState("");
@@ -98,6 +99,10 @@ export default function semantle() {
   const [lastGuess, setLastGuess] = useState(null);
 
   async function submit(guess) {
+    if (guess.toLowerCase() === "hardreset") {
+      hardReset();
+      return;
+    }
     if (secretVec === null) {
       secretVec = (await getModel(secret, secret)).vec;
     }
@@ -152,11 +157,11 @@ export default function semantle() {
     }
     if (guess.toLowerCase() === secret.toLowerCase()) {
       //Word Found.
-      const data = cache.getData("SEMANTLE_STREAK", true);
+      const data = await cache.getData("SEMANTLE_STREAK", true);
       if (data) {
-        cache.storeData("SEMANTLE_STREAK", data + 1);
+        cache.storeData("SEMANTLE_STREAK", { streak: data.streak + 1 });
       } else {
-        cache.storeData("SEMANTLE_STREAK", 1);
+        cache.storeData("SEMANTLE_STREAK", { streak: 1 });
       }
     }
 
@@ -166,13 +171,32 @@ export default function semantle() {
   async function getStreak() {
     const data = await cache.getData("SEMANTLE_STREAK", true);
     if (data) {
-      return data;
+      return data.streak;
     }
     return 0;
   }
 
+  function hardReset() {
+    //prompt user to confirm
+    Alert.alert("Reset all data?", "this will reset all your in-app data.", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          cache.clearAsyncStorage();
+          initialize();
+        },
+      },
+    ]);
+  }
+
   async function initialize() {
     // check to see if there is information cached.
+    guessed = new Set();
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
@@ -187,8 +211,12 @@ export default function semantle() {
       for (let i = 0; i < guessData.length; i++) {
         guessed.add(guessData[i].guess);
       }
+    } else {
+      setGuesses([]);
     }
   }
+
+  function checkEasterEggs(guess) {}
 
   async function init() {
     secret = secretWords[puzzleNumber].toLowerCase();
@@ -255,6 +283,8 @@ similarity of ${(similarityStory.rest * 100).toFixed(2)}.
     submit,
     initialize,
     getStreak,
+    checkEasterEggs,
+    hardReset,
     lastGuess,
     similarityStory,
     puzzleNumber,

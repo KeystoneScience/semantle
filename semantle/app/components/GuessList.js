@@ -67,7 +67,7 @@ function GuessList({
           style={[
             styles.tableHead,
             {
-              width: 15,
+              width: 20,
             },
           ]}
         >
