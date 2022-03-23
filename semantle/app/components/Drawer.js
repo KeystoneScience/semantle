@@ -125,7 +125,7 @@ function Drawer({ navigation, route }) {
             }
             children={
               <View>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() =>
                     Platform.OS === "ios"
                       ? Linking.openURL(
@@ -153,7 +153,7 @@ function Drawer({ navigation, route }) {
                     />
                     <Text style={styles.tutorialText}>Rate Semantle</Text>
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity
                   onPress={() =>
                     Linking.openURL("https://flixpix.app/requestfeature")
@@ -218,13 +218,16 @@ function Drawer({ navigation, route }) {
                   <View
                     style={[
                       styles.tutorialwhole,
-                      { backgroundColor: colors.colors.fadeListColor },
+                      { backgroundColor: "rgba(255,255,255,.3)" },
                     ]}
                   >
                     <Entypo
                       name="bug"
                       size={26}
-                      color={"rgba(255,255,255,.8)"}
+                      color={colors.darkenColor(
+                        colors.colors.backgroundColor,
+                        80
+                      )}
                       style={{ marginLeft: 10 }}
                     />
                     <Text style={styles.tutorialText}>Report Problem</Text>
