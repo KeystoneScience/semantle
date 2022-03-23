@@ -149,32 +149,26 @@ export default function semantle() {
       newGuesses.sort((a, b) => b.similarity - a.similarity);
       cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
       setGuesses(newGuesses);
-      // guesses.push(newEntry);
-
-      // if (handleStats) {
-      //   const stats = getStats();
-      //   if (!gameOver) {
-      //     stats["totalGuesses"] += 1;
-      //   }
-      //   storage.setItem("stats", JSON.stringify(stats));
-      // }
     }
-    //
+    if (guess.toLowerCase() === secret.toLowerCase()) {
+      //Word Found.
+      const data = cache.getData("SEMANTLE_STREAK", true);
+      if (data) {
+        cache.storeData("SEMANTLE_STREAK", data + 1);
+      } else {
+        cache.storeData("SEMANTLE_STREAK", 1);
+      }
+    }
 
-    // if (!gameOver) {
-    //   saveGame(-1, -1);
-    // }
-
-    // chrono_forward = 1;
-
-    // latestGuess = guess;
-    // updateGuesses();
-
-    // firstGuess = false;
-    // if (guess.toLowerCase() === secret && !gameOver) {
-    //   endGame(true, true);
-    // }
     return false;
+  }
+
+  async function getStreak() {
+    const data = await cache.getData("SEMANTLE_STREAK", true);
+    if (data) {
+      return data;
+    }
+    return 0;
   }
 
   async function initialize() {
@@ -260,6 +254,7 @@ similarity of ${(similarityStory.rest * 100).toFixed(2)}.
     init,
     submit,
     initialize,
+    getStreak,
     lastGuess,
     similarityStory,
     puzzleNumber,
