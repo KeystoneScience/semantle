@@ -214,6 +214,7 @@ export default function semantle() {
     }
     //assemble data
     existingData.found = isFound;
+    existingData.day = puzzleNumber;
     existingData.numberOfGuesses = existingData.numberOfGuesses
       ? existingData.numberOfGuesses + 1
       : 1;
@@ -251,68 +252,8 @@ export default function semantle() {
 
   function checkEasterEggs(guess) {}
 
-  async function init() {
-    secret = secretWords[puzzleNumber].toLowerCase();
-    const yesterday = secretWords[yesterdayPuzzleNumber].toLowerCase();
-
-    try {
-      const yesterdayNearby = await getNearby(yesterday);
-      const secretBase64 = btoa(unescape(encodeURIComponent(yesterday)));
-      console.log(
-        `${yesterdayNearby.join(
-          ", "
-        )}, in descending order of closensess. ${secretBase64} More?`
-      );
-    } catch (e) {
-      console.log("Coming soon!");
-    }
-
-    try {
-      similarityStory = await getSimilarityStory(secret);
-      console.log(`
-Today is puzzle number <b>${puzzleNumber}</b>. The nearest word has a similarity of
-<b>${(similarityStory.top * 100).toFixed(
-        2
-      )}</b>, the tenth-nearest has a similarity of
-${(similarityStory.top10 * 100).toFixed(
-  2
-)} and the one thousandth nearest word has a
-similarity of ${(similarityStory.rest * 100).toFixed(2)}.
-`);
-    } catch {
-      // we can live without this in the event that something is broken
-    }
-
-    if (storage.getItem("prefersDarkColorScheme") === null) {
-      $("#dark-mode").checked = false;
-      $("#dark-mode").indeterminate = true;
-    }
-
-    $("#give-up-btn").addEventListener("click", function (event) {
-      if (!gameOver) {
-        if (confirm("Are you sure you want to give up?")) {
-          endGame(false, true);
-        }
-      }
-    });
-
-    const winState = storage.getItem("winState");
-    if (winState != null) {
-      guesses = JSON.parse(storage.getItem("guesses"));
-      for (let guess of guesses) {
-        guessed.add(guess[1]);
-      }
-      latestGuess = "";
-      updateGuesses();
-      if (winState != -1) {
-        endGame(winState > 0, false);
-      }
-    }
-  }
-
   return {
     project_along,
-    init,
     submit,
     initialize,
     getStreak,
