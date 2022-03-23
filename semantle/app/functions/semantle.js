@@ -1,7 +1,11 @@
 // import { getNearby, getModel, getSimilarityStory } from "../api/words.js";
 import { useState } from "react";
 import client from "../api/client";
-import secretWords from "../configs/secretWords";
+import secretWords from "../data/secretWords";
+import similarStory from "../data/quickSimilars";
+import cache from "../utility/cache";
+
+const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643436000000;
 
 //returns the 10 nearest words.
 async function getNearby(word) {
@@ -11,15 +15,29 @@ async function getNearby(word) {
 }
 
 async function getModel(word, secret) {
-  const url = "model2/" + secret + "/" + word.replace(/\ /gi, "_");
+  const url = "model2?secret=" + secret + "&word=" + word.replace(/\ /gi, "_");
   const response = await client.get(url);
-  return response?.data;
+  const body = response?.data?.body;
+  const json = JSON.parse(body);
+  return json;
 }
 
-async function getSimilarityStory(secret) {
-  const url = "similarity/" + secret;
-  const response = await client.get(url);
-  return response?.data;
+function getPuzzleNumber() {
+  //get millis since epoch
+  const millis = Date.now();
+  //get millis since SEMANTLE_START_MILLIS_SINCE_EPOCH
+  const millisSinceSemantleStart = millis - SEMANTLE_START_MILLIS_SINCE_EPOCH;
+  //get day since SEMANTLE_START_MILLIS_SINCE_EPOCH
+  const daysSinceSemantleStart = Math.floor(
+    millisSinceSemantleStart / 1000 / 60 / 60 / 24
+  );
+  return daysSinceSemantleStart;
+}
+
+function getSimilarityStory(secret) {
+  // const url = "similarity/" + secret;
+  // const response = await client.get(url);
+  return similarStory[secret];
 }
 
 function mag(a) {
@@ -76,9 +94,10 @@ export default function semantle() {
   const [guesses, setGuesses] = useState([]);
   const [secret, setSecret] = useState("");
   const [similarityStory, setSimilarityStory] = useState(null);
+  const [puzzleNumber, setPuzzleNumber] = useState(0);
   const [lastGuess, setLastGuess] = useState(null);
 
-  async function submit(guess, secret) {
+  async function submit(guess) {
     if (secretVec === null) {
       secretVec = (await getModel(secret, secret)).vec;
     }
@@ -89,6 +108,13 @@ export default function semantle() {
 
     if (typeof unbritish !== "undefined" && unbritish.hasOwnProperty(guess)) {
       guess = unbritish[guess];
+    }
+
+    if (guessed.has(guess)) {
+      //find the index of the guess in guesses
+      const index = guesses.findIndex((g) => g.guess === guess);
+      setLastGuess({ ...guesses[index], lastGuess: true });
+      return false;
     }
 
     const guessData = await getModel(guess, secret);
@@ -121,6 +147,7 @@ export default function semantle() {
       setLastGuess({ ...newEntry, lastGuess: true });
       let newGuesses = [...guesses, newEntry];
       newGuesses.sort((a, b) => b.similarity - a.similarity);
+      cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
       setGuesses(newGuesses);
       // guesses.push(newEntry);
 
@@ -153,11 +180,16 @@ export default function semantle() {
   async function initialize() {
     // check to see if there is information cached.
     setLastGuess(null);
-    const similarity = await getSimilarityStory("test");
+    const day = getPuzzleNumber();
+    setPuzzleNumber(day);
+    const secretWord = secretWords[day % secretWords.length];
+    setSecret(secretWord);
+    const similarity = getSimilarityStory(secretWord);
     setSimilarityStory(similarity);
-    // secretVec = (await getModel(secret, secret)).vec;
-    // const guesses = await getNearby(secret);
-    // setGuesses(guesses);
+    const guessData = await cache.getData("SEMANTLE_" + day, false);
+    if (guessData) {
+      setGuesses(guessData);
+    }
   }
 
   async function init() {
@@ -226,6 +258,7 @@ similarity of ${(similarityStory.rest * 100).toFixed(2)}.
     initialize,
     lastGuess,
     similarityStory,
+    puzzleNumber,
     guesses,
   };
 }

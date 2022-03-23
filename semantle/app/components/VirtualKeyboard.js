@@ -46,7 +46,7 @@ export default function VirtualKeyboard({
           {row.map((key, j) => (
             <Pressable
               unstable_pressDelay={0}
-              hitSlop={2}
+              hitSlop={10}
               style={({ pressed }) => ({
                 backgroundColor: pressed
                   ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
