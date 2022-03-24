@@ -6,7 +6,9 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity,
   ImageBackground,
+  Platform,
 } from "react-native";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
@@ -20,12 +22,36 @@ import { BlurView } from "expo-blur";
 import PagerView from "react-native-pager-view";
 import Similarities from "../components/Similarities";
 import colors from "../configs/colors";
+import LottieView from "lottie-react-native";
+import Screen from "../components/Screen";
+import AppText from "../components/AppText";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
   const [pushToken, setPushToken] = useState("");
   const [inputField, setInputField] = useState("");
+  const confettiRef = useRef(null);
+  const greatRef = useRef(null);
+  const [showWin, setShowWin] = useState(false);
 
+  async function handleSubmit() {
+    const didWin = await semantleGame.submit(inputField);
+    setInputField("");
+    if (didWin) {
+      onWin();
+    }
+  }
+
+  function onWin() {
+    setShowWin(true);
+    setTimeout(() => {
+      greatRef.current.play();
+    }, 100);
+
+    setTimeout(() => {
+      confettiRef.current.play();
+    }, 500);
+  }
   useEffect(() => {
     semantleGame.initialize();
   }, []);
@@ -87,70 +113,185 @@ function Home({ navigation, route }) {
         flex: 1,
       }}
     >
-      <Header
-        navigation={navigation}
-        route={route}
-        semantleGame={semantleGame}
-        timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
-      />
+      <Screen>
+        <Header
+          navigation={navigation}
+          route={route}
+          semantleGame={semantleGame}
+          timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
+        />
 
-      {/* <Text
+        {/* <Text
           onPress={() => navigation.navigate("Drawer")}
           style={styles.title}
         >
           Semantle
         </Text> */}
-      {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-      <MainInput
-        input={inputField}
-        onSubmit={() => {
-          semantleGame.submit(inputField);
-          setInputField("");
-        }}
-      />
-      <View
-        style={{
-          borderBottomEndRadius: 5,
-          borderBottomStartRadius: 5,
-          borderTopLeftRadius: 5,
-          borderTopRightRadius: 5,
-          overflow: "hidden",
-          width: "95%",
-          alignSelf: "center",
-
-          backgroundColor: colors.darkenColor(
-            colors.colors.backgroundColor,
-            90
-          ),
-          // backgroundColor: "rgba(0,0,0,0)",
-        }}
-      >
-        <GuessListHeader />
+        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
+        <MainInput
+          input={inputField}
+          onSubmit={() => {
+            handleSubmit();
+          }}
+        />
         <View
           style={{
-            height: 200,
+            borderBottomEndRadius: 5,
+            borderBottomStartRadius: 5,
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
+            overflow: "hidden",
+            width: "95%",
+            alignSelf: "center",
+
+            backgroundColor: colors.darkenColor(
+              colors.colors.backgroundColor,
+              90
+            ),
+            // backgroundColor: "rgba(0,0,0,0)",
           }}
         >
-          <ScrollView>
-            {[semantleGame.lastGuess, ...semantleGame.guesses].map(
-              (obj, index) => (
-                <GuessList key={index} {...obj} />
-              )
-            )}
-          </ScrollView>
+          <GuessListHeader />
+          <View
+            style={{
+              height: 200,
+            }}
+          >
+            <ScrollView>
+              {[semantleGame.lastGuess, ...semantleGame.guesses].map(
+                (obj, index) => (
+                  <GuessList key={index} {...obj} />
+                )
+              )}
+            </ScrollView>
+          </View>
         </View>
-      </View>
-      <Similarities {...semantleGame.similarityStory} />
+        <Similarities {...semantleGame.similarityStory} />
 
-      <VirtualKeyboard
-        onKey={(key) => setInputField(inputField + key)}
-        onEnter={() => {
-          semantleGame.submit(inputField);
-          setInputField("");
+        <VirtualKeyboard
+          onKey={(key) => {
+            setInputField(inputField + key);
+          }}
+          onEnter={() => {
+            handleSubmit();
+          }}
+          onClear={() => setInputField("")}
+          onBackspace={() => setInputField(inputField.slice(0, -1))}
+        />
+      </Screen>
+      {
+        //Animation stuff
+      }
+
+      {showWin && (
+        <TouchableOpacity
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            zIndex: 100,
+          }}
+          onPress={() => {
+            setShowWin(false);
+          }}
+        >
+          {Platform.OS === "ios" ? (
+            <BlurView
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0,0,0,0.4)",
+              }}
+            ></BlurView>
+          ) : (
+            <View
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0,0,0,0.7)",
+              }}
+            />
+          )}
+        </TouchableOpacity>
+      )}
+
+      <View
+        pointerEvents="none"
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          height: "100%",
+          position: "absolute",
+          zIndex: 100,
         }}
-        onClear={() => setInputField("")}
-        onBackspace={() => setInputField(inputField.slice(0, -1))}
-      />
+      >
+        <LottieView
+          ref={confettiRef}
+          resizeMode="cover"
+          style={{
+            height: "100%",
+          }}
+          loop={false}
+          source={require("../../assets/animations/confetti.json")}
+        />
+      </View>
+      {showWin && (
+        <View
+          pointerEvents="none"
+          style={{
+            position: "absolute",
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+            zIndex: 100,
+          }}
+        >
+          <LottieView
+            ref={greatRef}
+            resizeMode="cover"
+            style={{
+              width: "104%",
+              marginTop: 30,
+            }}
+            loop={false}
+            source={require("../../assets/animations/wordFound.json")}
+          />
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: -120,
+            }}
+          >
+            <AppText style={{ color: colors.colors.white, fontSize: 30 }}>
+              🔥
+              {" " + semantleGame.streak + " "}
+              DAY STREAK
+            </AppText>
+            <AppText style={{ color: colors.colors.white, fontSize: 25 }}>
+              WORD FOUND IN {semantleGame.guesses.length} GUESSES
+            </AppText>
+            <AppText style={{ color: colors.colors.white, fontSize: 25 }}>
+              NEXT PUZZLE IN{" "}
+              {semantleGame.formatTime(semantleGame.timeUntilNextPuzzle)}
+            </AppText>
+            <AppText
+              style={{
+                color: colors.colors.white,
+                fontSize: 20,
+                marginTop: 50,
+                padding: 40,
+                textAlign: "center",
+              }}
+            >
+              You may continue exploring guesses without it affecting your
+              score.
+            </AppText>
+          </View>
+        </View>
+      )}
     </View>
   );
 }

@@ -99,6 +99,7 @@ export default function semantle() {
   const [puzzleNumber, setPuzzleNumber] = useState(0);
   const [lastGuess, setLastGuess] = useState(null);
   const [timeUntilNextPuzzle, setTimeUntilNextPuzzle] = useState(10000000000);
+  const [streak, setStreak] = useState(0);
 
   async function submit(guess) {
     if (guess.toLowerCase() === "hardreset") {
@@ -157,17 +158,19 @@ export default function semantle() {
       cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
       setGuesses(newGuesses);
       const foundWord = guess.toLowerCase() === secret.toLowerCase();
+      editStats(newEntry, foundWord);
       if (foundWord) {
         //Word Found.
         const data = await cache.getData("SEMANTLE_STREAK", true);
         if (data) {
           cache.storeData("SEMANTLE_STREAK", { streak: data.streak + 1 });
+          setStreak(data.streak + 1);
         } else {
           cache.storeData("SEMANTLE_STREAK", { streak: 1 });
+          setStreak(1);
         }
+        return true;
       }
-
-      editStats(newEntry, foundWord);
     }
 
     return false;
@@ -176,8 +179,10 @@ export default function semantle() {
   async function getStreak() {
     const data = await cache.getData("SEMANTLE_STREAK", true);
     if (data) {
+      setStreak(data.streak);
       return data.streak;
     }
+    setStreak(0);
     return 0;
   }
 
@@ -251,9 +256,18 @@ export default function semantle() {
       setGuesses([]);
     }
     countdown(day);
+    getStreak();
 
     //set a timer that checks to see if the time until the next puzzle is up.
     //if it is, then reset the puzzle.
+  }
+
+  function formatTime(time) {
+    //convert time in millis to hours, minutes, seconds
+    var hours = Math.floor(time / 3600000);
+    var minutes = Math.floor((time % 3600000) / 60000);
+    var seconds = Math.floor((time % 60000) / 1000);
+    return `${hours}h ${minutes}m`;
   }
 
   async function countdown(day = puzzleNumber) {
@@ -285,7 +299,9 @@ export default function semantle() {
     getStreak,
     checkEasterEggs,
     getStats,
+    formatTime,
     lastGuess,
+    streak,
     timeUntilNextPuzzle,
     similarityStory,
     puzzleNumber,

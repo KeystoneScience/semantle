@@ -73,6 +73,11 @@ const AppNavigator = () => (
       component={Home}
       options={{ headerShown: false }}
     />
+    <Stack.Screen
+      name="Tutorial"
+      component={Tutorial}
+      options={{ headerShown: false }}
+    />
 
     <Stack.Screen
       name="Drawer"
@@ -101,11 +106,6 @@ const AppNavigator = () => (
         //   horizontal: 300,
         // },
       }}
-    />
-    <Stack.Screen
-      name="Tutorial"
-      component={Tutorial}
-      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );

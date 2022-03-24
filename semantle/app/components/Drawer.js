@@ -9,6 +9,7 @@ import {
   Linking,
   Platform,
   SafeAreaView,
+  StatusBar,
   Share,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -24,13 +25,13 @@ import {
 } from "@expo/vector-icons";
 
 import Constants from "expo-constants";
+import Screen from "./Screen";
 import Accordian from "./Accordion";
 import colors from "../configs/colors";
 import AppText from "./AppText";
 
 function Drawer({ navigation, route }) {
   const semantleGame = route.params.semantleGame;
-  const [streak, setStreak] = useState(0);
   const [totalGames, setTotalGames] = useState(0);
   const [averageGuesses, setAverageGuesses] = useState("∞");
 
@@ -78,32 +79,55 @@ function Drawer({ navigation, route }) {
   };
   //every time the drawer is opened, run a useEffect to update the streak
   useEffect(() => {
-    semantleGame.getStreak().then((streak) => {
-      setStreak(streak);
-    });
     updateStats();
   }, []);
 
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <View style={styles.leftWhole}>
-        <ScrollView>
-          <View
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              paddingBottom: 200,
-            }}
-          >
-            <View style={{ marginTop: 20 }}>
-              <AppText style={{ fontSize: 16 }}>
-                Next word in:{" "}
-                {formatTime(semantleGame.getTimeUntilNextPuzzle())}
-              </AppText>
-            </View>
-            {streak > 0 && (
+        <SafeAreaView
+          style={{
+            paddingTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight / 2,
+          }}
+        >
+          <ScrollView>
+            <View
+              style={{
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                paddingBottom: 200,
+              }}
+            >
+              <View style={{ marginTop: 20 }}>
+                <AppText style={{ fontSize: 16 }}>
+                  Next word in:{" "}
+                  {formatTime(semantleGame.getTimeUntilNextPuzzle())}
+                </AppText>
+              </View>
+              {semantleGame.streak > 0 && (
+                <View
+                  style={{
+                    backgroundColor: colors.colors.lightGray,
+                    marginTop: 25,
+                    width: "80%",
+                    borderRadius: 10,
+                    aspectRatio: 1.5,
+                    display: "flex",
+                    padding: 0,
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                  }}
+                >
+                  <Text style={{ fontSize: 90 }}>🔥</Text>
+                  <AppText style={{ fontSize: 20 }}>
+                    {semantleGame.streak} DAY STREAK
+                  </AppText>
+                </View>
+              )}
               <View
                 style={{
                   backgroundColor: colors.colors.lightGray,
@@ -119,78 +143,61 @@ function Drawer({ navigation, route }) {
                   position: "relative",
                 }}
               >
-                <Text style={{ fontSize: 90 }}>🔥</Text>
-                <AppText style={{ fontSize: 20 }}>{streak} DAY STREAK</AppText>
-              </View>
-            )}
-            <View
-              style={{
-                backgroundColor: colors.colors.lightGray,
-                marginTop: 25,
-                width: "80%",
-                borderRadius: 10,
-                aspectRatio: 1.5,
-                display: "flex",
-                padding: 0,
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "relative",
-              }}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  height: "70%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
                 <View
                   style={{
                     display: "flex",
-                    flexDirection: "column",
+                    flexDirection: "row",
+                    height: "70%",
                     justifyContent: "center",
                     alignItems: "center",
-                    width: "40%",
                   }}
                 >
-                  <AppText style={{ fontSize: 50, height: 70 }}>
-                    {totalGames}
-                  </AppText>
-                  <AppText>
-                    {totalGames == 1 ? "GAME SOLVED" : "GAMES SOLVED"}
-                  </AppText>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "40%",
+                    }}
+                  >
+                    <AppText style={{ fontSize: 50, height: 70 }}>
+                      {totalGames}
+                    </AppText>
+                    <AppText>
+                      {totalGames == 1 ? "GAME SOLVED" : "GAMES SOLVED"}
+                    </AppText>
+                  </View>
+                  <View
+                    style={{
+                      height: "80%",
+                      borderColor: colors.colors.black,
+                      borderWidth: 1,
+                      margin: 5,
+                    }}
+                  />
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: "40%",
+                    }}
+                  >
+                    <AppText style={{ fontSize: 50, height: 70 }}>
+                      {averageGuesses}
+                    </AppText>
+                    <AppText style={{ textAlign: "center" }}>
+                      AVG GUESSES
+                    </AppText>
+                  </View>
                 </View>
-                <View
-                  style={{
-                    height: "80%",
-                    borderColor: colors.colors.black,
-                    borderWidth: 1,
-                    margin: 5,
-                  }}
-                />
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "40%",
-                  }}
-                >
-                  <AppText style={{ fontSize: 50, height: 70 }}>
-                    {averageGuesses}
-                  </AppText>
-                  <AppText style={{ textAlign: "center" }}>AVG GUESSES</AppText>
-                </View>
+                <AppText style={{ fontSize: 20 }}>🧪 STATS</AppText>
               </View>
-              <AppText style={{ fontSize: 20 }}>🧪 STATS</AppText>
             </View>
-          </View>
-        </ScrollView>
-
+          </ScrollView>
+        </SafeAreaView>
         <SafeAreaView style={styles.bottomwhole}>
           <View
             style={{
@@ -337,7 +344,10 @@ function Drawer({ navigation, route }) {
                   <View
                     style={[
                       styles.tutorialwhole,
-                      { backgroundColor: "rgba(255,255,255,.3)", marginTop: 0 },
+                      {
+                        backgroundColor: "rgba(255,255,255,.3)",
+                        marginTop: 0,
+                      },
                     ]}
                   >
                     <FontAwesome5

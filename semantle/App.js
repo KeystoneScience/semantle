@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
 // import * as React from "react";
@@ -17,6 +17,7 @@ import {
 import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
 import Screen from "./app/components/Screen";
 import colors from "./app/configs/colors";
+
 import "react-native-gesture-handler";
 var statusBarHeight = StatusBar.currentHeight;
 export default function App() {
@@ -28,6 +29,10 @@ export default function App() {
     BalooBhaina2_800ExtraBold,
   });
 
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
+
   if (!fontsLoaded) {
     return <AppLoading />;
   }
@@ -35,11 +40,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Screen>
-        <NavigationContainer theme={navigationTheme}>
-          <AppNavigator />
-        </NavigationContainer>
-      </Screen>
+      <NavigationContainer theme={navigationTheme}>
+        <AppNavigator />
+      </NavigationContainer>
     </View>
   );
 }
