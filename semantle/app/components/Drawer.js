@@ -9,6 +9,7 @@ import {
   Linking,
   Platform,
   SafeAreaView,
+  Share,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
@@ -19,6 +20,7 @@ import {
   FontAwesome,
   Entypo,
   Ionicons,
+  EvilIcons,
 } from "@expo/vector-icons";
 
 import Constants from "expo-constants";
@@ -55,6 +57,25 @@ function Drawer({ navigation, route }) {
     return `${hours}h ${minutes}m`;
   }
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: "Download Semantle",
+        url: "https://www.flixpix.app/semantle",
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        //pressButton();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   //every time the drawer is opened, run a useEffect to update the streak
   useEffect(() => {
     semantleGame.getStreak().then((streak) => {
@@ -240,6 +261,24 @@ function Drawer({ navigation, route }) {
               >
                 <FontAwesome5
                   name="discord"
+                  size={25}
+                  color={"white"}
+                  style={{ alignSelf: "center" }}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => onShare()}>
+              <View
+                style={{
+                  backgroundColor: "#A0A0A0",
+                  width: 50,
+                  height: 50,
+                  borderRadius: 50,
+                  justifyContent: "center",
+                }}
+              >
+                <EvilIcons
+                  name="share-apple"
                   size={25}
                   color={"white"}
                   style={{ alignSelf: "center" }}
