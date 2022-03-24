@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Pressable,
   Platform,
+  Dimensions,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
@@ -35,92 +36,127 @@ export default function VirtualKeyboard({
       style={{
         position: "absolute",
         width: "100%",
-        bottom: 60,
+        bottom: Dimensions.get("window").height > 700 ? 40 : 0,
         alignSelf: "center",
         // backgroundColor: "rgba(0,0,0,0.5)",
         paddingBottom: 10,
       }}
     >
       {keys.map((row, i) => (
-        <View key={i} style={styles.row}>
-          {row.map((key, j) => (
-            <Pressable
-              unstable_pressDelay={0}
-              hitSlop={10}
-              style={({ pressed }) => ({
-                backgroundColor: pressed
-                  ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
-                  : colors.colors.keybordBttnColor,
-                minWidth: "8%",
-                height: 42,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                paddingTop: 2,
-                paddingBottom: 2,
-                paddingLeft: key === "DELETE" ? 10 : 5,
-                paddingRight: key === "DELETE" ? 10 : 5,
-                borderRadius: 12,
-                marginLeft: 3,
-                marginRight: 3,
-                marginBottom: 3.5,
-                shadowOffset: {
-                  width: 0,
-                  height: pressed ? 2 : 6,
-                },
-                shadowColor: colors.darkenColor(
-                  colors.colors.keybordBttnColor,
-                  65
-                ),
-                transform: [
-                  {
-                    translateY: pressed ? 4 : 0,
-                  },
-                ],
-                shadowOpacity: 1,
-                shadowRadius: 0,
-                elevation: 2,
-              })}
-              onPressIn={() => {
-                if (key === "DEL" || key === "DELETE") {
-                  if (Platform.OS === "ios")
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-                  onBackspace();
-                } else if (key === "ENTER") {
-                  if (Platform.OS === "ios")
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                  onEnter();
-                } else {
-                  if (Platform.OS === "ios")
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  onKey(key);
-                }
-              }}
-              delayLongPress={300}
-              onLongPress={() => {
-                if (key === "DEL" || key === "DELETE") {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                  onClear();
-                } else if (key === "ENTER") {
-                  if (Platform.OS === "ios")
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                  onEnter();
-                } else {
-                  if (Platform.OS === "ios")
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                  onKey(key);
-                }
-              }}
-            >
-              {key === "DELETE" ? (
-                <FontAwesome5 name="backspace" size={24} color="white" />
-              ) : (
-                <Text key={j} style={[styles.keyText]}>
-                  {key}
-                </Text>
-              )}
-            </Pressable>
-          ))}
+        <View key={i + "_KEY_ROW"} style={styles.row}>
+          {row.map((key, j) => {
+            const [isPressed, setIsPressed] = React.useState(false);
+            return (
+              <View key={j + "_KEY"} style={{ position: "relative" }}>
+                {isPressed && (
+                  <View
+                    style={{
+                      position: "absolute",
+                      backgroundColor: colors.darkenColor(
+                        colors.colors.keybordBttnColor,
+                        65
+                      ),
+                      width: "125%",
+                      height: 60,
+                      top: -50,
+                      alignSelf: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 10,
+                      zIndex: 1,
+                    }}
+                  >
+                    {key === "DELETE" ? (
+                      <FontAwesome5 name="backspace" size={27} color="white" />
+                    ) : (
+                      <Text key={j} style={[styles.keyText, { fontSize: 27 }]}>
+                        {key}
+                      </Text>
+                    )}
+                  </View>
+                )}
+                <Pressable
+                  unstable_pressDelay={0}
+                  hitSlop={3}
+                  style={({ pressed }) => ({
+                    backgroundColor: pressed
+                      ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
+                      : colors.colors.keybordBttnColor,
+                    minWidth: "8%",
+                    height: 42,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    paddingTop: 2,
+                    paddingBottom: 2,
+                    paddingLeft: key === "DELETE" ? 10 : 5,
+                    paddingRight: key === "DELETE" ? 10 : 5,
+                    borderRadius: 12,
+                    marginLeft: 3,
+                    marginRight: 3,
+                    marginBottom: 3.5,
+                    shadowOffset: {
+                      width: 0,
+                      height: pressed ? 2 : 6,
+                    },
+                    shadowColor: colors.darkenColor(
+                      colors.colors.keybordBttnColor,
+                      65
+                    ),
+                    transform: [
+                      {
+                        translateY: pressed ? 4 : 0,
+                      },
+                    ],
+                    shadowOpacity: 1,
+                    shadowRadius: 0,
+                    elevation: 2,
+                  })}
+                  onPressIn={() => {
+                    setIsPressed(true);
+                    if (key === "DEL" || key === "DELETE") {
+                      if (Platform.OS === "ios")
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                      onBackspace();
+                    } else if (key === "ENTER") {
+                      if (Platform.OS === "ios")
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                      onEnter();
+                    } else {
+                      if (Platform.OS === "ios")
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      onKey(key);
+                    }
+                  }}
+                  onPressOut={() => setIsPressed(false)}
+                  delayLongPress={300}
+                  onLongPress={() => {
+                    if (key === "DEL" || key === "DELETE") {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                      onClear();
+                    } else if (key === "ENTER") {
+                      if (Platform.OS === "ios")
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                      onEnter();
+                    } else {
+                      if (Platform.OS === "ios")
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                      onKey(key);
+                    }
+                  }}
+                >
+                  {key === "DELETE" ? (
+                    <FontAwesome5 name="backspace" size={24} color="white" />
+                  ) : (
+                    <Text key={j} style={[styles.keyText]}>
+                      {key}
+                    </Text>
+                  )}
+                </Pressable>
+              </View>
+            );
+          })}
         </View>
       ))}
     </View>
