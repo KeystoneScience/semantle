@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View, LogBox } from "react-native";
+import { StyleSheet, Text, View, LogBox, AppState } from "react-native";
 import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
-// import * as React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
 import navigationTheme from "./app/navigation/navigationTheme";
@@ -14,6 +14,7 @@ import {
   BalooBhaina2_700Bold,
   BalooBhaina2_800ExtraBold,
 } from "@expo-google-fonts/baloo-bhaina-2";
+import * as Updates from "expo-updates";
 import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
 import Screen from "./app/components/Screen";
 import colors from "./app/configs/colors";
@@ -28,6 +29,41 @@ export default function App() {
     BalooBhaina2_700Bold,
     BalooBhaina2_800ExtraBold,
   });
+
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    AppState.addEventListener("change", _handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener("change", _handleAppStateChange);
+    };
+  }, []);
+
+  async function checkUpdates() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        // NOTIFY USER HERE
+        Updates.reloadAsync();
+      }
+    } catch (e) {
+      // HANDLE ERROR HERE
+    }
+  }
+
+  const _handleAppStateChange = (nextAppState) => {
+    if (
+      appState.current &&
+      appState.current.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      checkUpdates();
+    }
+
+    appState.current = nextAppState;
+  };
 
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",

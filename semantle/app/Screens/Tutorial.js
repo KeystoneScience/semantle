@@ -46,7 +46,7 @@ const slides = [
       colors.colors.grooveColorPallet[6],
       30
     ),
-    animation: null,
+    animation: require("../../assets/animations/group.json"),
     loop: true,
   },
 ];
