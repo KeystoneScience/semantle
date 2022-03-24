@@ -87,7 +87,11 @@ function Home({ navigation, route }) {
         flex: 1,
       }}
     >
-      <Header navigation={navigation} route={route} />
+      <Header
+        navigation={navigation}
+        route={route}
+        semantleGame={semantleGame}
+      />
 
       {/* <Text
           onPress={() => navigation.navigate("Drawer")}
@@ -99,7 +103,7 @@ function Home({ navigation, route }) {
       <MainInput
         input={inputField}
         onSubmit={() => {
-          semantleGame.submit(inputField, "test");
+          semantleGame.submit(inputField);
           setInputField("");
         }}
       />
@@ -165,7 +169,7 @@ function Home({ navigation, route }) {
       <VirtualKeyboard
         onKey={(key) => setInputField(inputField + key)}
         onEnter={() => {
-          semantleGame.submit(inputField, "test");
+          semantleGame.submit(inputField);
           setInputField("");
         }}
         onClear={() => setInputField("")}

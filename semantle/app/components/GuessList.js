@@ -44,7 +44,7 @@ function GuessList({
       </View>
     );
   }
-  const a = (0.5 * percentile) / 1000 + 0.5 * similarity;
+  const a = (0.5 * percentile || 0) / 1000 + (0.5 * similarity) / 100;
   return (
     <View
       style={{
@@ -67,7 +67,7 @@ function GuessList({
           style={[
             styles.tableHead,
             {
-              width: 15,
+              width: 20,
             },
           ]}
         >

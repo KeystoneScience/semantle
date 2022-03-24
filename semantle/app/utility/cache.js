@@ -88,6 +88,16 @@ const checkNewGetData = async (key) => {
   }
 };
 
+const addToData = async (key, value) => {
+  const data = await getData(key, false);
+  if (data) {
+    data.push(value);
+    storeData(key, data);
+  } else {
+    storeData(key, [value]);
+  }
+};
+
 export default {
   storeData,
   getData,
@@ -95,4 +105,5 @@ export default {
   checkNewGetData,
   clearAsyncStorage,
   removeData,
+  addToData,
 };
