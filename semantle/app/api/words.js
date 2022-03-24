@@ -12,7 +12,6 @@ async function getNearby(word) {
 }
 
 async function getModel(word, secret) {
-  console.log("getModel", word, secret);
   const url = "model2/" + secret + "/" + word.replace(/\ /gi, "_");
   const response = await client.get(url);
   try {

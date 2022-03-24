@@ -6,7 +6,7 @@ import similarStory from "../data/quickSimilars";
 import cache from "../utility/cache";
 import { Alert } from "react-native";
 
-const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643436000000;
+const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643418000000;
 
 //returns the 10 nearest words.
 async function getNearby(word) {

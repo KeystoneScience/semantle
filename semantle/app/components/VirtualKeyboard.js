@@ -78,8 +78,14 @@ export default function VirtualKeyboard({
                 )}
                 <Pressable
                   unstable_pressDelay={0}
-                  hitSlop={3}
+                  hitSlop={{
+                    bottom: i == 2 ? 100 : 2,
+                    left: j == 0 ? 20 : 2,
+                    right: j == row.length - 1 ? 40 : 2,
+                    top: i == 0 ? 20 : 2,
+                  }}
                   style={({ pressed }) => ({
+                    zIndex: -1,
                     backgroundColor: pressed
                       ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
                       : colors.colors.keybordBttnColor,
@@ -93,7 +99,7 @@ export default function VirtualKeyboard({
                     paddingLeft: key === "DELETE" ? 10 : 5,
                     paddingRight: key === "DELETE" ? 10 : 5,
                     borderRadius: 12,
-                    marginLeft: 3,
+                    marginLeft: i == 2 && j == 0 ? 20 : 3,
                     marginRight: 3,
                     marginBottom: 3.5,
                     shadowOffset: {
