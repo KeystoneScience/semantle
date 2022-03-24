@@ -11,7 +11,11 @@ import Constants from "expo-constants";
 import colors from "../configs/colors";
 import AppText from "./AppText";
 import { Octicons } from "@expo/vector-icons";
-export default function Header({ navigation, semantleGame }) {
+export default function Header({
+  navigation,
+  semantleGame,
+  timeUntilNextPuzzle,
+}) {
   return (
     <View style={{ zIndex: 1 }}>
       {/* <View
@@ -33,7 +37,10 @@ export default function Header({ navigation, semantleGame }) {
       >
         <AppText
           onPress={() => {
-            navigation.navigate("Drawer", { semantleGame });
+            navigation.navigate("Drawer", {
+              semantleGame,
+              timeUntilNextPuzzle,
+            });
           }}
           style={{
             color: colors.darkenColor(colors.colors.backgroundColor, 45),
@@ -45,7 +52,22 @@ export default function Header({ navigation, semantleGame }) {
         >
           Semantle
         </AppText>
-
+        {timeUntilNextPuzzle < 3600000 && timeUntilNextPuzzle >= 0 && (
+          <View
+            style={{
+              position: "absolute",
+              alignSelf: "center",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+              top: 2,
+            }}
+          >
+            <AppText style={{ color: colors.colors.alert, fontSize: 20 }}>
+              {`${Math.floor((timeUntilNextPuzzle % 3600000) / 60000)}m left`}
+            </AppText>
+          </View>
+        )}
         <View
           style={{
             position: "absolute",
@@ -54,7 +76,10 @@ export default function Header({ navigation, semantleGame }) {
         >
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Drawer", { semantleGame });
+              navigation.navigate("Drawer", {
+                semantleGame,
+                timeUntilNextPuzzle,
+              });
             }}
             style={{ width: 30, height: 30 }}
           >

@@ -1,5 +1,5 @@
 // import { getNearby, getModel, getSimilarityStory } from "../api/words.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import client from "../api/client";
 import secretWords from "../data/secretWords";
 import similarStory from "../data/quickSimilars";
@@ -7,6 +7,7 @@ import cache from "../utility/cache";
 import { Alert } from "react-native";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643418000000;
+const MILLIS_PER_DAY = 86400000;
 
 //returns the 10 nearest words.
 async function getNearby(word) {
@@ -97,6 +98,7 @@ export default function semantle() {
   const [similarityStory, setSimilarityStory] = useState(null);
   const [puzzleNumber, setPuzzleNumber] = useState(0);
   const [lastGuess, setLastGuess] = useState(null);
+  const [timeUntilNextPuzzle, setTimeUntilNextPuzzle] = useState(10000000000);
 
   async function submit(guess) {
     if (guess.toLowerCase() === "hardreset") {
@@ -248,6 +250,29 @@ export default function semantle() {
     } else {
       setGuesses([]);
     }
+    countdown(day);
+
+    //set a timer that checks to see if the time until the next puzzle is up.
+    //if it is, then reset the puzzle.
+  }
+
+  async function countdown(day = puzzleNumber) {
+    const time = getTimeUntilNextPuzzle(day);
+    setTimeUntilNextPuzzle(time);
+    if (time > 0) {
+      setTimeout(() => {
+        countdown(day);
+      }, 20000);
+    } else {
+      if (time < -1000000) return;
+      initialize();
+    }
+  }
+
+  function getTimeUntilNextPuzzle(day = puzzleNumber) {
+    const timestampOfNextPuzzle =
+      SEMANTLE_START_MILLIS_SINCE_EPOCH + (day + 1) * MILLIS_PER_DAY;
+    return timestampOfNextPuzzle - Date.now();
   }
 
   function checkEasterEggs(guess) {}
@@ -255,11 +280,13 @@ export default function semantle() {
   return {
     project_along,
     submit,
+    getTimeUntilNextPuzzle,
     initialize,
     getStreak,
     checkEasterEggs,
     getStats,
     lastGuess,
+    timeUntilNextPuzzle,
     similarityStory,
     puzzleNumber,
     guesses,

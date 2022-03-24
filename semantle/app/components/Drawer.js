@@ -47,6 +47,14 @@ function Drawer({ navigation, route }) {
     setTotalGames(wins);
   }
 
+  function formatTime(time) {
+    //convert time in millis to hours, minutes, seconds
+    var hours = Math.floor(time / 3600000);
+    var minutes = Math.floor((time % 3600000) / 60000);
+    var seconds = Math.floor((time % 60000) / 1000);
+    return `${hours}h ${minutes}m`;
+  }
+
   //every time the drawer is opened, run a useEffect to update the streak
   useEffect(() => {
     semantleGame.getStreak().then((streak) => {
@@ -68,11 +76,17 @@ function Drawer({ navigation, route }) {
               paddingBottom: 200,
             }}
           >
+            <View style={{ marginTop: 20 }}>
+              <AppText style={{ fontSize: 16 }}>
+                Next word in:{" "}
+                {formatTime(semantleGame.getTimeUntilNextPuzzle())}
+              </AppText>
+            </View>
             {streak > 0 && (
               <View
                 style={{
                   backgroundColor: colors.colors.lightGray,
-                  marginTop: 50,
+                  marginTop: 25,
                   width: "80%",
                   borderRadius: 10,
                   aspectRatio: 1.5,
@@ -91,7 +105,7 @@ function Drawer({ navigation, route }) {
             <View
               style={{
                 backgroundColor: colors.colors.lightGray,
-                marginTop: 50,
+                marginTop: 25,
                 width: "80%",
                 borderRadius: 10,
                 aspectRatio: 1.5,

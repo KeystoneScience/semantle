@@ -91,6 +91,7 @@ function Home({ navigation, route }) {
         navigation={navigation}
         route={route}
         semantleGame={semantleGame}
+        timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
       />
 
       {/* <Text
@@ -137,31 +138,6 @@ function Home({ navigation, route }) {
               )
             )}
           </ScrollView>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "red",
-            width: "100%",
-            height: 200,
-          }}
-        >
-          <PagerView
-            style={{ flex: 1 }}
-            initialPage={1}
-            showPageIndicator={true}
-          >
-            <View style={styles.page} key="1">
-              <Text>First page</Text>
-              <Text>Swipe ➡️</Text>
-            </View>
-            <View style={styles.page} key="2">
-              <Text>Second page</Text>
-            </View>
-            <View style={styles.page} key="3">
-              <Text>Third page</Text>
-            </View>
-          </PagerView>
         </View>
       </View>
       <Similarities {...semantleGame.similarityStory} />
