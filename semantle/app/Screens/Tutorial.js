@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import LottieView from "lottie-react-native";
 import colors from "../configs/colors";
+import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 
 /**
@@ -40,8 +41,8 @@ const slides = [
   },
   {
     key: 3,
-    title: "",
-    text: "Coupons can be redeemed, or traded with other users.",
+    title: "Play with the community",
+    text: "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!",
     backgroundColor: colors.lightenColor(
       colors.colors.grooveColorPallet[6],
       30
@@ -54,7 +55,7 @@ const slides = [
 function WalkthroughScreen({ navigation, route }) {
   _renderItem = ({ item }) => {
     return (
-      <View
+      <Screen
         style={{
           backgroundColor: item.backgroundColor,
           width: "100%",
@@ -82,7 +83,7 @@ function WalkthroughScreen({ navigation, route }) {
           )}
           <AppText style={styles.text}>{item.text}</AppText>
         </View>
-      </View>
+      </Screen>
     );
   };
   _onDone = () => {
