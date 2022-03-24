@@ -141,14 +141,6 @@ export default function VirtualKeyboard({
                     if (key === "DEL" || key === "DELETE") {
                       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                       onClear();
-                    } else if (key === "ENTER") {
-                      if (Platform.OS === "ios")
-                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-                      onEnter();
-                    } else {
-                      if (Platform.OS === "ios")
-                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                      onKey(key);
                     }
                   }}
                 >

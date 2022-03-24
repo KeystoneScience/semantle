@@ -35,7 +35,7 @@ const colors = {
   darkBrown: "#a52a2a",
   lightBlue: "#add8e6",
   lightGreen: "#90ee90",
-  backgroundColor: "rgba(92, 169, 239, 1)",
+  backgroundColor: "#ACCAFD", //"rgba(150, 174, 213, 1)",
   checkButtonColor: "rgba(137,  154,  226, 1)",
   keybordBttnColor: "rgba(137,  174,  226, 1)",
   fadeListColor: "#5ada44",
