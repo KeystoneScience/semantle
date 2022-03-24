@@ -124,7 +124,6 @@ function MainInput(props) {
             textAlign: "center",
             justifyContent: "center",
             alignItems: "center",
-            anchor: "center",
             // fontWeight: "700",
             padding: 0,
           }}

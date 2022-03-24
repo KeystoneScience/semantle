@@ -43,7 +43,7 @@ function Drawer({ navigation, route }) {
         guesses += stats[i].numberOfGuesses;
       }
     }
-    setAverageGuesses(Math.round((guesses / wins) * 10) / 10);
+    setAverageGuesses(wins == 0 ? "∞" : Math.round((guesses / wins) * 10) / 10);
     setTotalGames(wins);
   }
 
@@ -84,7 +84,7 @@ function Drawer({ navigation, route }) {
                   position: "relative",
                 }}
               >
-                <Text style={{ fontSize: "100%", lineHeight: 0 }}>‎️‍🔥</Text>
+                <Text style={{ fontSize: 90 }}>🔥</Text>
                 <AppText style={{ fontSize: 20 }}>{streak} DAY STREAK</AppText>
               </View>
             )}
@@ -151,7 +151,7 @@ function Drawer({ navigation, route }) {
                   <AppText style={{ textAlign: "center" }}>AVG GUESSES</AppText>
                 </View>
               </View>
-              <AppText style={{ fontSize: "20%" }}>🧪 STATS</AppText>
+              <AppText style={{ fontSize: 20 }}>🧪 STATS</AppText>
             </View>
           </View>
         </ScrollView>

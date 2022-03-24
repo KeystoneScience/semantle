@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
+  Platform,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
@@ -34,8 +35,7 @@ export default function VirtualKeyboard({
       style={{
         position: "absolute",
         width: "100%",
-        bottom: 0,
-
+        bottom: 60,
         alignSelf: "center",
         // backgroundColor: "rgba(0,0,0,0.5)",
         paddingBottom: 10,
@@ -83,13 +83,16 @@ export default function VirtualKeyboard({
               })}
               onPressIn={() => {
                 if (key === "DEL" || key === "DELETE") {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                  if (Platform.OS === "ios")
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
                   onBackspace();
                 } else if (key === "ENTER") {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                  if (Platform.OS === "ios")
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                   onEnter();
                 } else {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  if (Platform.OS === "ios")
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                   onKey(key);
                 }
               }}
@@ -99,10 +102,12 @@ export default function VirtualKeyboard({
                   Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                   onClear();
                 } else if (key === "ENTER") {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                  if (Platform.OS === "ios")
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
                   onEnter();
                 } else {
-                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  if (Platform.OS === "ios")
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                   onKey(key);
                 }
               }}
