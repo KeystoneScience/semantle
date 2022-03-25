@@ -143,6 +143,29 @@ function Drawer({ navigation, route }) {
                   position: "relative",
                 }}
               >
+                <AppText style={{ fontSize: 50, height: 70 }}>
+                  {semantleGame.getYesterdaysWord()}
+                </AppText>
+                <AppText style={{ fontSize: 20 }}>YESTERDAY'S WORD</AppText>
+                <AppText style={{ fontSize: 16 }}>
+                  (click for similar words)
+                </AppText>
+              </View>
+              <View
+                style={{
+                  backgroundColor: colors.colors.lightGray,
+                  marginTop: 25,
+                  width: "80%",
+                  borderRadius: 10,
+                  aspectRatio: 1.5,
+                  display: "flex",
+                  padding: 0,
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                }}
+              >
                 <View
                   style={{
                     display: "flex",

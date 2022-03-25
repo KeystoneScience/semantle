@@ -289,6 +289,12 @@ export default function semantle() {
     return timestampOfNextPuzzle - Date.now();
   }
 
+  function getYesterdaysWord() {
+    const day = puzzleNumber - 1;
+    const secretWord = secretWords[day % secretWords.length];
+    return secretWord;
+  }
+
   function checkEasterEggs(guess) {}
 
   return {
@@ -300,6 +306,7 @@ export default function semantle() {
     checkEasterEggs,
     getStats,
     formatTime,
+    getYesterdaysWord,
     lastGuess,
     streak,
     timeUntilNextPuzzle,
