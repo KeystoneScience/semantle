@@ -334,6 +334,13 @@ export default function semantle() {
         text: "Bill Gates",
         logo: "microsoft",
       };
+    } else if (guess === "ethyl") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Puppy",
+        logo: "dog",
+      };
     } else if (guess === "markzuckerberg" || guess === "facebook") {
       return {
         place: "HEADER",

@@ -11,7 +11,7 @@ import Constants from "expo-constants";
 import colors from "../configs/colors";
 import AppText from "./AppText";
 import { Octicons } from "@expo/vector-icons";
-import { Fontisto } from "@expo/vector-icons";
+import { Fontisto, FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 export default function Header({
   navigation,
@@ -39,16 +39,29 @@ export default function Header({
         }}
       >
         {easterEgg && easterEgg.change === "TITLE" && easterEgg.logo ? (
-          <Fontisto
-            name={easterEgg.logo}
-            style={{
-              color: colors.darkenColor(colors.colors.backgroundColor, 45),
-              fontSize: 23,
-              marginLeft: 10,
-              textAlign: "center",
-              marginRight: 10,
-            }}
-          />
+          easterEgg.logo === "dog" ? (
+            <FontAwesome5
+              name={easterEgg.logo}
+              style={{
+                color: colors.darkenColor(colors.colors.backgroundColor, 45),
+                fontSize: 23,
+                marginLeft: 10,
+                textAlign: "center",
+                marginRight: 10,
+              }}
+            />
+          ) : (
+            <Fontisto
+              name={easterEgg.logo}
+              style={{
+                color: colors.darkenColor(colors.colors.backgroundColor, 45),
+                fontSize: 23,
+                marginLeft: 10,
+                textAlign: "center",
+                marginRight: 10,
+              }}
+            />
+          )
         ) : (
           <AppText
             onPress={() => {
