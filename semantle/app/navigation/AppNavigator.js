@@ -73,6 +73,7 @@ const AppNavigator = () => (
       component={Home}
       options={{ headerShown: false }}
     />
+
     <Stack.Screen
       name="Tutorial"
       component={Tutorial}

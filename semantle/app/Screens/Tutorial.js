@@ -21,7 +21,7 @@ const slides = [
   {
     key: 1,
     title: "Welcome to Semantle",
-    text: "The context-based word puzzle",
+    text: "The context-based word puzzle game.",
     animation: require("../../assets/animations/FindAWord.json"),
     loop: true,
     backgroundColor: colors.lightenColor(
@@ -32,7 +32,8 @@ const slides = [
   {
     key: 2,
     title: "How to play",
-    text: "guess with a word and compare how similar it is to the word of the day.    Can you find the word?",
+    text: "Enter a word and receive how similar it is to the daily word. Similarity is determined by context, not by spelling.",
+    text2: "Can you find the word?",
     animation: require("../../assets/animations/think.json"),
     loop: true,
     backgroundColor: colors.lightenColor(
@@ -83,6 +84,7 @@ function WalkthroughScreen({ navigation, route }) {
             />
           )}
           <AppText style={styles.text}>{item.text}</AppText>
+          {item.text2 && <AppText style={styles.text2}>{item.text2}</AppText>}
         </View>
       </Screen>
     );
@@ -112,18 +114,25 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 26,
+    fontSize: 30,
     color: "#fff",
-    fontWeight: "bold",
     textAlign: "center",
-    marginTop: 20,
+    marginTop: 50,
   },
   text: {
     textAlign: "center",
     color: "#fff",
     padding: 20,
-    fontSize: 20,
-    lineHeight: 30,
+    fontSize: 22,
+    lineHeight: 33,
+  },
+  text2: {
+    textAlign: "center",
+    color: "#fff",
+    padding: 20,
+    paddingTop: 2,
+    fontSize: 22,
+    lineHeight: 33,
   },
   image: {
     width: 200,

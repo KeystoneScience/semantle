@@ -52,8 +52,22 @@ function Home({ navigation, route }) {
       confettiRef.current.play();
     }, 500);
   }
+
+  async function checkFirstTime() {
+    const firstTime = await cache.getData("firstTime", false);
+    console.log(firstTime);
+    if (firstTime) {
+      return;
+    }
+    cache.storeData("firstTime", { firstTime: true });
+    setTimeout(() => {
+      navigation.navigate("Tutorial");
+    }, 100);
+  }
+
   useEffect(() => {
     semantleGame.initialize();
+    checkFirstTime();
   }, []);
 
   async function getAndPushToken() {
