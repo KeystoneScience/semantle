@@ -34,7 +34,7 @@ const slides = [
     title: "How to play",
     text: "Enter a word and receive how similar it is to the daily word. Similarity is determined by context, not by spelling.",
     text2: "Can you find the word?",
-    animation: require("../../assets/animations/think.json"),
+    animation: require("../../assets/animations/thinking.json"),
     loop: true,
     backgroundColor: colors.lightenColor(
       colors.colors.grooveColorPallet[4],

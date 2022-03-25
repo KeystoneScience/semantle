@@ -79,7 +79,7 @@ export default function VirtualKeyboard({
                 <Pressable
                   unstable_pressDelay={0}
                   hitSlop={{
-                    bottom: i == 2 ? 100 : 2,
+                    bottom: i == 2 ? 20 : 2,
                     left: j == 0 ? 20 : 2,
                     right: j == row.length - 1 ? 40 : 2,
                     top: i == 0 ? 20 : 2,
