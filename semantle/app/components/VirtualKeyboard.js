@@ -99,7 +99,7 @@ export default function VirtualKeyboard({
                     paddingLeft: key === "DELETE" ? 10 : 5,
                     paddingRight: key === "DELETE" ? 10 : 5,
                     borderRadius: 12,
-                    marginLeft: i == 2 && j == 0 ? 20 : 3,
+                    marginLeft: i == 2 && j == 0 ? 60 : 3,
                     marginRight: 3,
                     marginBottom: 3.5,
                     shadowOffset: {
@@ -157,6 +157,49 @@ export default function VirtualKeyboard({
           })}
         </View>
       ))}
+      {
+        <Pressable
+          unstable_pressDelay={0}
+          style={({ pressed }) => ({
+            zIndex: -1,
+            backgroundColor: pressed
+              ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
+              : colors.colors.keybordBttnColor,
+            width: "50%",
+            height: 42,
+            display: "flex",
+            justifyContent: "center",
+            alignSelf: "center",
+            alignItems: "center",
+            paddingTop: 2,
+            paddingBottom: 2,
+            borderRadius: 12,
+            marginRight: 3,
+            marginTop: 10,
+            marginBottom: 3.5,
+            shadowOffset: {
+              width: 0,
+              height: pressed ? 2 : 6,
+            },
+            shadowColor: colors.darkenColor(colors.colors.keybordBttnColor, 65),
+            transform: [
+              {
+                translateY: pressed ? 4 : 0,
+              },
+            ],
+            shadowOpacity: 1,
+            shadowRadius: 0,
+            elevation: 2,
+          })}
+          onPressIn={() => {
+            if (Platform.OS === "ios")
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+            onEnter();
+          }}
+        >
+          <Text style={[styles.keyText]}>CHECK</Text>
+        </Pressable>
+      }
     </View>
   );
 }
