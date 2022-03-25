@@ -33,6 +33,7 @@ import AppText from "./AppText";
 function Drawer({ navigation, route }) {
   const semantleGame = route.params.semantleGame;
   const [totalGames, setTotalGames] = useState(0);
+  const [nearbyModal, setNearbyModal] = useState(false);
   const [averageGuesses, setAverageGuesses] = useState("∞");
 
   async function updateStats() {
@@ -128,7 +129,7 @@ function Drawer({ navigation, route }) {
                   </AppText>
                 </View>
               )}
-              <View
+              <TouchableOpacity
                 style={{
                   backgroundColor: colors.colors.lightGray,
                   marginTop: 25,
@@ -142,15 +143,24 @@ function Drawer({ navigation, route }) {
                   alignItems: "center",
                   position: "relative",
                 }}
+                onPress={() => {
+                  setNearbyModal(true);
+                }}
               >
-                <AppText style={{ fontSize: 50, height: 70 }}>
+                <AppText
+                  style={{
+                    fontSize: 50,
+                    height: 70,
+                    color: colors.colors.grooveColorPallet[3],
+                  }}
+                >
                   {semantleGame.getYesterdaysWord()}
                 </AppText>
                 <AppText style={{ fontSize: 20 }}>YESTERDAY'S WORD</AppText>
                 <AppText style={{ fontSize: 16 }}>
                   (click for similar words)
                 </AppText>
-              </View>
+              </TouchableOpacity>
               <View
                 style={{
                   backgroundColor: colors.colors.lightGray,
@@ -449,6 +459,14 @@ function Drawer({ navigation, route }) {
       <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
         <View style={styles.rightWhole}></View>
       </TouchableWithoutFeedback>
+      {nearbyModal && (
+        <NearbyWordsModal
+          onClose={() => {
+            setNearbyModal(false);
+          }}
+          data={semantleGame.yesterdayClosest}
+        />
+      )}
     </View>
   );
 }
@@ -489,4 +507,78 @@ const styles = StyleSheet.create({
     color: colors.darkenColor(colors.colors.backgroundColor, 30),
   },
 });
+
+function NearbyWordsModal({ data, onClose }) {
+  return (
+    <View
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,.5)",
+      }}
+      onPress={onClose}
+    >
+      <View
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={onClose}
+          style={{ position: "absolute", width: "100%", height: "100%" }}
+        />
+        <View
+          style={{
+            backgroundColor: colors.colors.white,
+            width: "80%",
+            borderRadius: 10,
+            height: "70%",
+          }}
+        >
+          <ScrollView style={{ padding: 10, paddingBottom: 100 }}>
+            <AppText
+              style={{
+                width: "100%",
+                fontSize: 20,
+                textAlign: "center",
+                color: colors.colors.grooveColorPallet[2],
+              }}
+            >
+              Yesterday's 10 closest words
+            </AppText>
+            <View
+              style={{
+                borderWidth: 1,
+                marginBottom: 20,
+                borderColor: colors.colors.grooveColorPallet[2],
+              }}
+            />
+            {data.map((word, index) => (
+              <AppText
+                key={index}
+                style={{
+                  fontSize: 20,
+                  marginTop: 10,
+                  marginLeft: 5,
+                  color:
+                    colors.colors.grooveColorPallet[
+                      Math.floor((5 / 9) * index + 22 / 9)
+                    ],
+                }}
+              >
+                {index + 1}. {word}
+              </AppText>
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    </View>
+  );
+}
 export default Drawer;

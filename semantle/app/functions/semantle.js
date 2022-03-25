@@ -11,9 +11,11 @@ const MILLIS_PER_DAY = 86400000;
 
 //returns the 10 nearest words.
 async function getNearby(word) {
-  const url = "nearby/" + word;
+  const url = "model2/nearby?secret=" + word;
   const response = await client.get(url);
-  return response?.data;
+  const body = response?.data?.body;
+  const json = JSON.parse(body);
+  return json;
 }
 
 async function getModel(word, secret) {
@@ -100,6 +102,7 @@ export default function semantle() {
   const [lastGuess, setLastGuess] = useState(null);
   const [timeUntilNextPuzzle, setTimeUntilNextPuzzle] = useState(10000000000);
   const [streak, setStreak] = useState(0);
+  const [yesterdayClosest, setYesterdayClosest] = useState([]);
 
   async function submit(guess) {
     if (guess.toLowerCase() === "hardreset") {
@@ -235,6 +238,12 @@ export default function semantle() {
     cache.storeData("SEMANTLE_STATS", { daysMap: daysMap });
   }
 
+  async function getAndSetYesterdayClosest(day = puzzleNumber) {
+    const yesterdaysWord = getYesterdaysWord(day);
+    const yesterdayData = await getNearby(yesterdaysWord);
+    setYesterdayClosest(yesterdayData);
+  }
+
   async function initialize() {
     // check to see if there is information cached.
     guessed = new Set();
@@ -256,6 +265,7 @@ export default function semantle() {
       setGuesses([]);
     }
     countdown(day);
+    getAndSetYesterdayClosest(day);
     getStreak();
 
     //set a timer that checks to see if the time until the next puzzle is up.
@@ -289,8 +299,8 @@ export default function semantle() {
     return timestampOfNextPuzzle - Date.now();
   }
 
-  function getYesterdaysWord() {
-    const day = puzzleNumber - 1;
+  function getYesterdaysWord(dayNumber = puzzleNumber) {
+    const day = dayNumber - 1;
     const secretWord = secretWords[day % secretWords.length];
     return secretWord;
   }
@@ -308,6 +318,7 @@ export default function semantle() {
     formatTime,
     getYesterdaysWord,
     lastGuess,
+    yesterdayClosest,
     streak,
     timeUntilNextPuzzle,
     similarityStory,
