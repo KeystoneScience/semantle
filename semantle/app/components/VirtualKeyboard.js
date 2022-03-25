@@ -48,34 +48,6 @@ export default function VirtualKeyboard({
             const [isPressed, setIsPressed] = React.useState(false);
             return (
               <View key={j + "_KEY"} style={{ position: "relative" }}>
-                {isPressed && (
-                  <View
-                    style={{
-                      position: "absolute",
-                      backgroundColor: colors.darkenColor(
-                        colors.colors.keybordBttnColor,
-                        65
-                      ),
-                      width: "125%",
-                      height: 60,
-                      top: -50,
-                      alignSelf: "center",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: 10,
-                      zIndex: 1,
-                    }}
-                  >
-                    {key === "DELETE" ? (
-                      <FontAwesome5 name="backspace" size={27} color="white" />
-                    ) : (
-                      <Text key={j} style={[styles.keyText, { fontSize: 27 }]}>
-                        {key}
-                      </Text>
-                    )}
-                  </View>
-                )}
                 <Pressable
                   unstable_pressDelay={0}
                   hitSlop={{
@@ -152,12 +124,40 @@ export default function VirtualKeyboard({
                     </Text>
                   )}
                 </Pressable>
+                {isPressed && (
+                  <View
+                    style={{
+                      position: "absolute",
+                      backgroundColor: colors.darkenColor(
+                        colors.colors.keybordBttnColor,
+                        65
+                      ),
+                      width: "125%",
+                      height: 60,
+                      top: -50,
+                      alignSelf: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 10,
+                      elevation: 2,
+                    }}
+                  >
+                    {key === "DELETE" ? (
+                      <FontAwesome5 name="backspace" size={27} color="white" />
+                    ) : (
+                      <Text key={j} style={[styles.keyText, { fontSize: 27 }]}>
+                        {key}
+                      </Text>
+                    )}
+                  </View>
+                )}
               </View>
             );
           })}
         </View>
       ))}
-      {
+      {Dimensions.get("window").height > 700 && (
         <Pressable
           unstable_pressDelay={0}
           style={({ pressed }) => ({
@@ -199,7 +199,7 @@ export default function VirtualKeyboard({
         >
           <Text style={[styles.keyText]}>CHECK</Text>
         </Pressable>
-      }
+      )}
     </View>
   );
 }
