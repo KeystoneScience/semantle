@@ -22,7 +22,8 @@ const slides = [
     key: 1,
     title: "Welcome to Semantle",
     text: "The context-based word puzzle",
-    image: null,
+    animation: require("../../assets/animations/FindAWord.json"),
+    loop: true,
     backgroundColor: colors.lightenColor(
       colors.colors.grooveColorPallet[2],
       30
@@ -30,14 +31,14 @@ const slides = [
   },
   {
     key: 2,
-    title: "",
-    text: "",
+    title: "How to play",
+    text: "guess with a word and compare how similar it is to the word of the day.    Can you find the word?",
+    animation: require("../../assets/animations/think.json"),
+    loop: true,
     backgroundColor: colors.lightenColor(
       colors.colors.grooveColorPallet[4],
       30
     ),
-    animation: null,
-    loop: true,
   },
   {
     key: 3,
