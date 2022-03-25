@@ -11,10 +11,13 @@ import Constants from "expo-constants";
 import colors from "../configs/colors";
 import AppText from "./AppText";
 import { Octicons } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 export default function Header({
   navigation,
   semantleGame,
   timeUntilNextPuzzle,
+  easterEgg,
 }) {
   return (
     <View style={{ zIndex: 1 }}>
@@ -35,23 +38,36 @@ export default function Header({
           zIndex: 1,
         }}
       >
-        <AppText
-          onPress={() => {
-            navigation.navigate("Drawer", {
-              semantleGame,
-              timeUntilNextPuzzle,
-            });
-          }}
-          style={{
-            color: colors.darkenColor(colors.colors.backgroundColor, 45),
-            fontSize: 23,
-            marginLeft: 10,
-            textAlign: "center",
-            marginRight: 10,
-          }}
-        >
-          Semantle
-        </AppText>
+        {easterEgg && easterEgg.change === "TITLE" && easterEgg.logo ? (
+          <Fontisto
+            name={easterEgg.logo}
+            style={{
+              color: colors.darkenColor(colors.colors.backgroundColor, 45),
+              fontSize: 23,
+              marginLeft: 10,
+              textAlign: "center",
+              marginRight: 10,
+            }}
+          />
+        ) : (
+          <AppText
+            onPress={() => {
+              navigation.navigate("Drawer", {
+                semantleGame,
+                timeUntilNextPuzzle,
+              });
+            }}
+            style={{
+              color: colors.darkenColor(colors.colors.backgroundColor, 45),
+              fontSize: 23,
+              marginLeft: 10,
+              textAlign: "center",
+              marginRight: 10,
+            }}
+          >
+            Semantle
+          </AppText>
+        )}
         {timeUntilNextPuzzle < 3600000 && timeUntilNextPuzzle >= 0 && (
           <View
             style={{

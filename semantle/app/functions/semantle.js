@@ -314,7 +314,75 @@ export default function semantle() {
     return secretWord;
   }
 
-  function checkEasterEggs(guess) {}
+  function checkEasterEggs(guess = "") {
+    guess = guess.toLowerCase();
+    if (guess === "alertall") {
+      Alert.alert("Huh?", "Why would you type that...");
+    } else if (guess.includes("podbay")) {
+      Alert.alert("I'm sorry dave.", "I'm afraid I can't do that.");
+    } else if (guess === "stevejobs" || guess === "apple") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Steve Jobs",
+        logo: "apple",
+      };
+    } else if (guess === "billgates" || guess === "microsoft") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Bill Gates",
+        logo: "microsoft",
+      };
+    } else if (guess === "markzuckerberg" || guess === "facebook") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Mark Zuckerberg",
+        logo: "facebook",
+      };
+    } else if (guess === "elonmusk" || guess === "tesla") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Elon Musk",
+        logo: "tesla",
+      };
+    } else if (guess === "peterthiel" || guess === "paypal") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Tim Cook",
+        logo: "paypal",
+      };
+    } else if (guess === "reddit") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Tim Cook",
+        logo: "reddit",
+      };
+    } else if (guess === "semantle") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Apple Inc.",
+        logo: "wink",
+      };
+    } else if (guess === "google") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "Google LLC",
+        logo: "google",
+      };
+    } else if (guess === "party") {
+      return {
+        place: "HOME",
+        action: "confetti",
+      };
+    }
+  }
 
   return {
     project_along,

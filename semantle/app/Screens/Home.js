@@ -36,6 +36,7 @@ function Home({ navigation, route }) {
   const greatRef = useRef(null);
   const [showWin, setShowWin] = useState(false);
   const appState = useRef(AppState.currentState);
+  const [headerEasteregg, setHeaderEasteregg] = useState(false);
 
   useEffect(() => {
     AppState.addEventListener("change", _handleAppStateChange);
@@ -58,10 +59,27 @@ function Home({ navigation, route }) {
   };
 
   async function handleSubmit() {
+    handleEaster(inputField);
     const didWin = await semantleGame.submit(inputField);
     setInputField("");
     if (didWin) {
       onWin();
+    }
+  }
+
+  async function handleEaster(guess) {
+    const easterEgg = semantleGame.checkEasterEggs(guess);
+    if (easterEgg) {
+      if (easterEgg.place === "HEADER") {
+        console.log(easterEgg);
+        setHeaderEasteregg(easterEgg);
+      } else if (easterEgg.place === "HOME") {
+        if (easterEgg?.action === "confetti") {
+          confettiRef.current.play();
+        }
+      }
+    } else {
+      setHeaderEasteregg(false);
     }
   }
 
@@ -156,6 +174,7 @@ function Home({ navigation, route }) {
           route={route}
           semantleGame={semantleGame}
           timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
+          easterEgg={headerEasteregg}
         />
 
         {/* <Text
