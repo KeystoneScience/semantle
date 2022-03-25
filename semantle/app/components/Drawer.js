@@ -62,7 +62,7 @@ function Drawer({ navigation, route }) {
     try {
       const result = await Share.share({
         message: "Download Semantle",
-        url: "https://www.flixpix.app/semantle",
+        url: "https://www.semantle.app/download",
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
@@ -338,7 +338,7 @@ function Drawer({ navigation, route }) {
                 </TouchableOpacity> */}
                 <TouchableOpacity
                   onPress={() =>
-                    Linking.openURL("https://flixpix.app/requestfeature")
+                    Linking.openURL("https://semantle.app/requestfeature")
                   }
                 >
                   <View
@@ -397,7 +397,7 @@ function Drawer({ navigation, route }) {
 
                 <TouchableOpacity
                   onPress={() =>
-                    Linking.openURL("https://flixpix.app/bug-report")
+                    Linking.openURL("https://semantle.app/bug-report")
                   }
                 >
                   <View
