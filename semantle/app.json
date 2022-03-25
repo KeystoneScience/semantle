@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#9740B2"
-      }
+      },
+      "package": "com.nateastone.semantle"
     },
     "web": {
       "favicon": "./assets/favicon.png"

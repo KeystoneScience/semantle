@@ -387,6 +387,11 @@ export default function semantle() {
         change: "TITLE",
         text: "#8369776578847669",
       };
+    } else if (guess === "testwin") {
+      return {
+        place: "HOME",
+        action: "win",
+      };
     }
   }
 

@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   ImageBackground,
   Platform,
+  Dimensions,
   AppState,
+  Pressable,
 } from "react-native";
 import * as Device from "expo-device";
 import GuessList from "../components/GuessList";
@@ -76,6 +78,8 @@ function Home({ navigation, route }) {
       } else if (easterEgg.place === "HOME") {
         if (easterEgg?.action === "confetti") {
           confettiRef.current.play();
+        } else if (easterEgg?.action === "win") {
+          onWin();
         }
       }
     } else {
@@ -147,7 +151,7 @@ function Home({ navigation, route }) {
       }
       token = (await Notifications.getExpoPushTokenAsync()).data;
     } else {
-      alert("Must use physical device for Push Notifications");
+      return null;
     }
 
     if (Platform.OS === "android") {
@@ -240,7 +244,7 @@ function Home({ navigation, route }) {
       }
 
       {showWin && (
-        <TouchableOpacity
+        <Pressable
           style={{
             position: "absolute",
             width: "100%",
@@ -268,7 +272,7 @@ function Home({ navigation, route }) {
               }}
             />
           )}
-        </TouchableOpacity>
+        </Pressable>
       )}
 
       <View
@@ -337,7 +341,7 @@ function Home({ navigation, route }) {
               style={{
                 color: colors.colors.white,
                 fontSize: 20,
-                marginTop: 50,
+                marginTop: Dimensions.get("window").height > 700 ? 50 : 20,
                 padding: 40,
                 textAlign: "center",
               }}
