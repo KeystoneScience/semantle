@@ -26,6 +26,15 @@ async function getModel(word, secret) {
   return json;
 }
 
+async function postPushToken(pushToken, deviceNugget) {
+  const dataJson = {
+    token: pushToken,
+    deviceNugget: deviceNugget,
+  };
+
+  return client.post("token", dataJson, {}, false);
+}
+
 function getPuzzleNumber() {
   //get millis since epoch
   const millis = Date.now();
@@ -317,6 +326,7 @@ export default function semantle() {
     getStats,
     formatTime,
     getYesterdaysWord,
+    postPushToken,
     lastGuess,
     yesterdayClosest,
     streak,

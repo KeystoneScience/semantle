@@ -11,6 +11,7 @@ import {
   Platform,
   AppState,
 } from "react-native";
+import * as Device from "expo-device";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
 import semantle from "../functions/semantle";
@@ -89,45 +90,46 @@ function Home({ navigation, route }) {
   useEffect(() => {
     semantleGame.initialize();
     checkFirstTime();
+    getAndPushToken();
   }, []);
 
   async function getAndPushToken() {
-    const previousToken = await cache.getData("FLIXPIX::PUSH_TOKEN", false);
+    const previousToken = await cache.getData("SEMANTLE::PUSH_TOKEN", false);
+
     if (previousToken) {
-      setPushToken(previousToken);
       return;
     }
     const token = await registerForPushNotificationsAsync();
     if (token) {
-      await tokenApi.request(token);
-      setPushToken(token);
-      cache.storeData("FLIXPIX::PUSH_TOKEN", token);
+      const deviceNugget = {
+        brand: Device.brand,
+        model: Device.modelName || Device.productName,
+        os: Device.osName,
+        osVersion: Device.osVersion,
+        deviceName: Device.deviceName,
+      };
+      await semantleGame.postPushToken(token, deviceNugget);
+      cache.storeData("SEMANTLE::PUSH_TOKEN", token);
     }
   }
 
   const registerForPushNotificationsAsync = async () => {
     var token = null;
-    if (Constants.isDevice) {
-      const { status: existingStatus } = await Permissions.getAsync(
-        Permissions.NOTIFICATIONS
-      );
+    if (Device.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
       if (existingStatus !== "granted") {
-        const { status } = await Permissions.askAsync(
-          Permissions.NOTIFICATIONS
-        );
+        const { status } = await Notifications.requestPermissionsAsync();
         finalStatus = status;
       }
       if (finalStatus !== "granted") {
-        return token;
+        // alert("Failed to get push token for push notification!");
+        return;
       }
-      token = (
-        await Notifications.getExpoPushTokenAsync({
-          experienceId: "@nateastone/FlixPix",
-        })
-      ).data;
+      token = (await Notifications.getExpoPushTokenAsync()).data;
     } else {
-      // console.warn("NO NOTIFICATIONS ARE SENT TO NON-PHYSICAL DEVICES!")
+      alert("Must use physical device for Push Notifications");
     }
 
     if (Platform.OS === "android") {

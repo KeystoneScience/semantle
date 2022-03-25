@@ -98,7 +98,7 @@ function Drawer({ navigation, route }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-start",
-                paddingBottom: 200,
+                paddingBottom: 300,
               }}
             >
               <View style={{ marginTop: 20 }}>
