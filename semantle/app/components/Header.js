@@ -65,7 +65,7 @@ export default function Header({
               marginRight: 10,
             }}
           >
-            Semantle
+            {easterEgg?.text || "Semantle"}
           </AppText>
         )}
         {timeUntilNextPuzzle < 3600000 && timeUntilNextPuzzle >= 0 && (

@@ -381,6 +381,12 @@ export default function semantle() {
         place: "HOME",
         action: "confetti",
       };
+    } else if (guess === "ascii" || guess === "binary" || guess === "hex") {
+      return {
+        place: "HEADER",
+        change: "TITLE",
+        text: "#8369776578847669",
+      };
     }
   }
 
