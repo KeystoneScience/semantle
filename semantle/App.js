@@ -45,11 +45,35 @@ export default function App() {
       const update = await Updates.checkForUpdateAsync();
       if (update.isAvailable) {
         await Updates.fetchUpdateAsync();
-        // NOTIFY USER HERE
-        Updates.reloadAsync();
+        //prompt the user that an update is available. Ask them if they want to update
+        //check the cache to see if we asked them within the last hour
+        const lastChecked = await cache.getData(
+          "SEMANTLE_lastUpdateCheck",
+          true
+        );
+        if (lastChecked) {
+          return;
+        }
+        Alert.alert(
+          "Update Available",
+          "Restart the app to apply the update?",
+          [
+            {
+              text: "Yes",
+              onPress: () => Updates.reloadAsync(),
+            },
+            {
+              text: "No",
+              onPress: () => {
+                cache.storeData("SEMANTLE_lastUpdateCheck", true);
+              },
+              style: "cancel",
+            },
+          ]
+        );
       }
     } catch (e) {
-      // HANDLE ERROR HERE
+      // handle or log error
     }
   }
 
