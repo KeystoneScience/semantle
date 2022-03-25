@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Platform,
+  AppState,
 } from "react-native";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
@@ -33,6 +34,27 @@ function Home({ navigation, route }) {
   const confettiRef = useRef(null);
   const greatRef = useRef(null);
   const [showWin, setShowWin] = useState(false);
+  const appState = useRef(AppState.currentState);
+
+  useEffect(() => {
+    AppState.addEventListener("change", _handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener("change", _handleAppStateChange);
+    };
+  }, []);
+
+  const _handleAppStateChange = (nextAppState) => {
+    if (
+      appState.current &&
+      appState.current.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      semantleGame.initialize();
+    }
+
+    appState.current = nextAppState;
+  };
 
   async function handleSubmit() {
     const didWin = await semantleGame.submit(inputField);
@@ -55,7 +77,6 @@ function Home({ navigation, route }) {
 
   async function checkFirstTime() {
     const firstTime = await cache.getData("firstTime", false);
-    console.log(firstTime);
     if (firstTime) {
       return;
     }
