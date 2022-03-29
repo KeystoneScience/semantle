@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, LogBox, AppState } from "react-native";
+import { StyleSheet, Text, View, LogBox, AppState, Text } from "react-native";
 import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useRef, useEffect } from "react";
@@ -21,6 +21,9 @@ import colors from "./app/configs/colors";
 
 import "react-native-gesture-handler";
 var statusBarHeight = StatusBar.currentHeight;
+
+Text.defaultProps = Text.defaultProps || {}; //Disable dynamic type in IOS
+Text.defaultProps.allowFontScaling = false;
 export default function App() {
   let [fontsLoaded] = useFonts({
     BalooBhaina2_400Regular,
