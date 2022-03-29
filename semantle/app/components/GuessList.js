@@ -44,7 +44,7 @@ function GuessList({
       </View>
     );
   }
-  const a = (0.5 * percentile || 0) / 1000 + (0.5 * similarity) / 100;
+  const a = (0.75 * percentile || 0) / 1000 + (0.25 * similarity) / 100;
   return (
     <View
       style={{

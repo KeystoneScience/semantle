@@ -6,7 +6,7 @@ import similarStory from "../data/quickSimilars";
 import cache from "../utility/cache";
 import { Alert } from "react-native";
 
-const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643418000000;
+const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
 
 //returns the 10 nearest words.
