@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, LogBox, AppState, Text } from "react-native";
+import { StyleSheet, Text, View, LogBox, AppState } from "react-native";
 import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useRef, useEffect } from "react";
