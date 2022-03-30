@@ -1,7 +1,3 @@
-import React from "react";
-
-function colors(props) {}
-
 const colors = {
   grooveColorPallet: [
     "rgb(238,106,139)", //"rgb(247,37,133)",
