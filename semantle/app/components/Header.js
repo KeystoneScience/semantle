@@ -80,7 +80,9 @@ export default function Header({
               marginRight: 10,
             }}
           >
-            {easterEgg?.text || "Semantle"}
+            {easterEgg?.text || colors.checkTheme("original")
+              ? "Semantle Pro"
+              : "Semantle"}
           </AppText>
         )}
         {timeUntilNextPuzzle < 3600000 && timeUntilNextPuzzle >= 0 && (

@@ -244,7 +244,7 @@ function Home({ navigation, route }) {
             }}
           />
 
-          <ScrollView style={{ flexGrow: 0 }}>
+          <ScrollView style={{ flexGrow: 1 }}>
             {[semantleGame.lastGuess, ...semantleGame.guesses].map(
               (obj, index) => (
                 <GuessList key={index} {...obj} />
