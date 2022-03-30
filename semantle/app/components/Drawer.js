@@ -13,7 +13,6 @@ import {
   Share,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-
 import {
   Foundation,
   AntDesign,
@@ -122,7 +121,10 @@ function Drawer({ navigation, route }) {
   useEffect(() => {
     updateStats();
   }, []);
-
+  const fontSizeofYesterdaysWord =
+    semantleGame.getYesterdaysWord().length <= 8
+      ? 50
+      : 50 - Math.floor(semantleGame.getYesterdaysWord().length);
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <View style={styles.leftWhole}>
@@ -189,7 +191,7 @@ function Drawer({ navigation, route }) {
               >
                 <AppText
                   style={{
-                    fontSize: 50,
+                    fontSize: fontSizeofYesterdaysWord,
                     height: 70,
                     color: colors.colors.grooveColorPallet[3],
                   }}
@@ -432,7 +434,9 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <Text style={styles.tutorialText}>Request Feature</Text>
+                    <AppText fontWeight={550} style={styles.tutorialText}>
+                      Request Feature
+                    </AppText>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -464,7 +468,9 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <Text style={styles.tutorialText}>Tutorial</Text>
+                    <AppText fontWeight={550} style={styles.tutorialText}>
+                      Tutorial
+                    </AppText>
                   </View>
                 </TouchableOpacity>
 
@@ -488,7 +494,9 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <Text style={styles.tutorialText}>Report Problem</Text>
+                    <AppText fontWeight={550} style={styles.tutorialText}>
+                      Report Problem
+                    </AppText>
                   </View>
                 </TouchableOpacity>
               </View>
