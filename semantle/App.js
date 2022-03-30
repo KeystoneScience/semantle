@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, LogBox, AppState } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  LogBox,
+  AppState,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import Home from "./app/screens/Home";
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useRef, useEffect } from "react";
@@ -102,12 +110,14 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <View style={styles.container}>
-        <StatusBar style="light" />
-        <NavigationContainer theme={navigationTheme}>
-          <AppNavigator />
-        </NavigationContainer>
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <StatusBar style="light" />
+          <NavigationContainer theme={navigationTheme}>
+            <AppNavigator />
+          </NavigationContainer>
+        </View>
+      </TouchableWithoutFeedback>
     </ThemeContext.Provider>
   );
 }
