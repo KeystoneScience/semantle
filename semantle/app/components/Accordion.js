@@ -9,6 +9,7 @@ import {
   UIManager,
   TouchableWithoutFeedback,
 } from "react-native";
+import AppText from "./AppText";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import colors from "../configs/colors";
 // import colors from "../../../config/colors";
@@ -46,7 +47,9 @@ export default class Accordian extends Component {
             ]}
           >
             {this.props.titleIcon}
-            <Text style={[styles.title, styles.font]}>{this.props.title}</Text>
+            <AppText fontWeight={550} style={[styles.title, styles.font]}>
+              {this.props.title}
+            </AppText>
             <Icon
               name={
                 this.state.expanded
@@ -82,6 +85,7 @@ export default class Accordian extends Component {
 const styles = StyleSheet.create({
   title: {
     fontSize: 20,
+    // marginLeft: 10,
     fontWeight: "500",
     color: colors.darkenColor(colors.colors.backgroundColor, 20),
   },
