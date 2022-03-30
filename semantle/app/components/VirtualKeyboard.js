@@ -16,6 +16,8 @@ import colors from "../configs/colors";
 import * as Haptics from "expo-haptics";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+const MAX_PHONE_HEIGHT = 730;
+
 var keys = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
 
@@ -36,7 +38,7 @@ export default function VirtualKeyboard({
       style={{
         position: "absolute",
         width: "100%",
-        bottom: Dimensions.get("window").height > 700 ? 50 : 0,
+        bottom: Dimensions.get("window").height > MAX_PHONE_HEIGHT ? 30 : 0,
         alignSelf: "center",
         // backgroundColor: "rgba(0,0,0,0.5)",
         paddingBottom: 10,
@@ -157,7 +159,7 @@ export default function VirtualKeyboard({
           })}
         </View>
       ))}
-      {Dimensions.get("window").height > 700 && (
+      {Dimensions.get("window").height > MAX_PHONE_HEIGHT && (
         <Pressable
           unstable_pressDelay={0}
           style={({ pressed }) => ({
