@@ -15,6 +15,16 @@ function GuessList({
   if (guess == null) {
     return <View />;
   }
+  const styles = StyleSheet.create({
+    tableHead: {
+      fontSize: 16,
+      fontWeight: "600",
+      color: colors.lightenColor(colors.colors.fadeListColor, 95),
+
+      textAlign: "center",
+      flex: 1,
+    },
+  });
   if (lastGuess && notFound) {
     return (
       <View
@@ -113,14 +123,3 @@ function GuessList({
 }
 
 export default GuessList;
-
-const styles = StyleSheet.create({
-  tableHead: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: colors.lightenColor(colors.colors.fadeListColor, 95),
-
-    textAlign: "center",
-    flex: 1,
-  },
-});

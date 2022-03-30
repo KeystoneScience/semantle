@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, useRef, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 // import { createStackNavigator } from "@react-navigation/stack";
+import ThemeContext from "./app/configs/context";
 import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AppLoading from "expo-app-loading";
@@ -16,11 +17,9 @@ import {
 } from "@expo-google-fonts/baloo-bhaina-2";
 import * as Updates from "expo-updates";
 import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
-import Screen from "./app/components/Screen";
 import colors from "./app/configs/colors";
 
 import "react-native-gesture-handler";
-var statusBarHeight = StatusBar.currentHeight;
 
 Text.defaultProps = Text.defaultProps || {}; //Disable dynamic type in IOS
 Text.defaultProps.allowFontScaling = false;
@@ -34,6 +33,7 @@ export default function App() {
   });
 
   const appState = useRef(AppState.currentState);
+  const [theme, setTheme] = useState("");
 
   useEffect(() => {
     AppState.addEventListener("change", _handleAppStateChange);
@@ -101,12 +101,14 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="light" />
-      <NavigationContainer theme={navigationTheme}>
-        <AppNavigator />
-      </NavigationContainer>
-    </View>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <View style={styles.container}>
+        <StatusBar style="light" />
+        <NavigationContainer theme={navigationTheme}>
+          <AppNavigator />
+        </NavigationContainer>
+      </View>
+    </ThemeContext.Provider>
   );
 }
 

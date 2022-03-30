@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -9,10 +8,11 @@ import {
 } from "react-native";
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
-import colors from "../configs/colors";
+import useColors from "../configs/useColors";
 
 function MainInput(props) {
   var textInputRef = useRef();
+  const colors = useColors();
   const [value, setValue] = useState("");
   const [isPressed, setIsPressed] = useState(false);
   return (
@@ -34,7 +34,7 @@ function MainInput(props) {
         // intensity={70}
         style={{
           // borderRadius: 10,
-          borderBottomColor: "rgba(0,0,0,0.4)",
+          borderBottomColor: colors.colors.textInputColor,
           borderBottomWidth: 2,
           overflow: "hidden",
           width: "70%",
@@ -42,45 +42,47 @@ function MainInput(props) {
           flexDirection: "row",
           paddingLeft: 10,
           margin: 10,
-          color: "rgba(0,0,0,0.4)",
+          color: colors.colors.textInputColor,
           // backgroundColor: "rgba(255,255,255,1)",
         }}
       >
-        <AppText
-          style={[
-            {
-              width: "70%",
-              fontSize: 21,
-              // padding: 2,
-              color: props.input
-                ? colors.darkenColor(colors.colors.backgroundColor, 32)
-                : "rgba(0,0,0,0.5)",
-              textTransform: "lowercase",
-            },
-          ]}
-        >
-          {props.input || "Enter your guess"}
-        </AppText>
-        {/* <TextInput
-          ref={textInputRef}
-          style={[
-            {
+        {colors.checkTheme("original") ? (
+          <TextInput
+            ref={textInputRef}
+            style={{
               width: "100%",
               fontSize: 18,
+              color: colors.colors.textColor,
               padding: 9,
-            },
-          ]}
-          value={value}
-          onChangeText={(text) => setValue(text)}
-          onSubmitEditing={() => {
-            props.onSubmit(value);
-            setValue("");
-          }}
-          placeholder="Enter your guess"
-          returnKeyType="go"
-          keyboardType="default"
-          placeholderTextColor={"rgba(0,0,0,0.5)"}
-        /> */}
+            }}
+            value={value}
+            onChangeText={(text) => setValue(text)}
+            onSubmitEditing={() => {
+              props.onSubmit(value);
+              setValue("");
+            }}
+            placeholder="Enter your guess (click here)"
+            returnKeyType="go"
+            keyboardType="default"
+            placeholderTextColor={colors.colors.textInputColor}
+          />
+        ) : (
+          <AppText
+            style={[
+              {
+                width: "70%",
+                fontSize: 21,
+                // padding: 2,
+                color: props.input
+                  ? colors.darkenColor(colors.colors.backgroundColor, 32)
+                  : "rgba(0,0,0,0.5)",
+                textTransform: "lowercase",
+              },
+            ]}
+          >
+            {props.input || "Enter your guess"}
+          </AppText>
+        )}
       </View>
       <TouchableOpacity
         activeOpacity={1}
@@ -101,7 +103,7 @@ function MainInput(props) {
           height: 40,
           width: "21%",
           margin: 10,
-          borderRadius: 10,
+          borderRadius: colors.checkTheme() ? 1 : 10,
           shadowOffset: {
             width: 0,
             height: isPressed ? 2 : 6,
@@ -112,7 +114,7 @@ function MainInput(props) {
               translateY: isPressed ? 4 : 0,
             },
           ],
-          shadowOpacity: 1,
+          shadowOpacity: colors.checkTheme() ? null : 1,
           shadowRadius: 0,
           elevation: 2,
         }}
@@ -128,7 +130,7 @@ function MainInput(props) {
             padding: 0,
           }}
         >
-          CHECK
+          GUESS
         </AppText>
       </TouchableOpacity>
     </View>

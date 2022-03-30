@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LottieView from "lottie-react-native";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 
 export default function FullScreenAnimation(
   { animation = require("../../assets/animations/confetti.json") },

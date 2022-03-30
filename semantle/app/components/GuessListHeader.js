@@ -3,8 +3,21 @@ import { StyleSheet, Text, View } from "react-native";
 import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
-import colors from "../configs/colors";
+import useColors from "../configs/useColors";
 function GuessListHeader(props) {
+  const colors = useColors();
+
+  const styles = StyleSheet.create({
+    tableHead: {
+      fontSize: 18,
+      // fontWeight: "bold",
+      color: colors.lightenColor(colors.colors.backgroundColor, 75),
+      // marginBottom: 5,
+      textAlign: "center",
+
+      flex: 1,
+    },
+  });
   return (
     <View
       // tint="light"
@@ -66,15 +79,3 @@ function GuessListHeader(props) {
 }
 
 export default GuessListHeader;
-
-const styles = StyleSheet.create({
-  tableHead: {
-    fontSize: 18,
-    // fontWeight: "bold",
-    color: colors.lightenColor(colors.colors.backgroundColor, 75),
-    // marginBottom: 5,
-    textAlign: "center",
-
-    flex: 1,
-  },
-});

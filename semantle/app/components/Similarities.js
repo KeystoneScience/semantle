@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import colors from "../configs/colors";
+import { Text, View } from "react-native";
+import useColors from "../configs/useColors";
 import AppText from "./AppText";
 
 export default function Similarities({ top, top10, rest }) {
+  const colors = useColors();
   return (
     <View
       style={{
@@ -30,7 +31,7 @@ export default function Similarities({ top, top10, rest }) {
           alignItems: "center",
         }}
       >
-        <Segment n="1st" percent={top} />
+        <Segment n="1st" percent={top} colors={colors} />
         <View
           style={{
             height: "70%",
@@ -39,7 +40,7 @@ export default function Similarities({ top, top10, rest }) {
             borderColor: colors.colors.white,
           }}
         />
-        <Segment n="10th" percent={top10} />
+        <Segment n="10th" percent={top10} colors={colors} />
         <View
           style={{
             height: "70%",
@@ -48,13 +49,13 @@ export default function Similarities({ top, top10, rest }) {
             borderColor: colors.colors.white,
           }}
         />
-        <Segment n="1000th" percent={rest} />
+        <Segment n="1000th" percent={rest} colors={colors} />
       </View>
     </View>
   );
 }
 
-function Segment({ n, percent }) {
+function Segment({ n, percent, colors }) {
   return (
     <View
       style={{

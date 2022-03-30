@@ -27,10 +27,12 @@ import {
 import Constants from "expo-constants";
 import Screen from "./Screen";
 import Accordian from "./Accordion";
-import colors from "../configs/colors";
+import useColors from "../configs/useColors";
 import AppText from "./AppText";
 
 function Drawer({ navigation, route }) {
+  const colors = useColors();
+
   const semantleGame = route.params.semantleGame;
   const [totalGames, setTotalGames] = useState(0);
   const [nearbyModal, setNearbyModal] = useState(false);
@@ -58,6 +60,44 @@ function Drawer({ navigation, route }) {
     var seconds = Math.floor((time % 60000) / 1000);
     return `${hours}h ${minutes}m`;
   }
+
+  const styles = StyleSheet.create({
+    bottomwhole: {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 60),
+      borderBottomEndRadius: 10,
+    },
+    leftWhole: {
+      width: "80%",
+      height: "100%",
+      backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 40),
+      borderTopRightRadius: 10,
+      borderBottomRightRadius: 10,
+    },
+    rightWhole: {
+      flex: 1,
+      // backgroundColor: "rgba(0, 0, 0, .2)",
+    },
+    tutorialwhole: {
+      backgroundColor: "rgba(255,255,255,.3)",
+      height: 70,
+      width: "80%",
+      alignSelf: "center",
+      marginBottom: 20,
+      borderRadius: 20,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    tutorialText: {
+      paddingHorizontal: 15,
+      fontSize: 20,
+      paddingTop: 7,
+      color: colors.darkenColor(colors.colors.backgroundColor, 30),
+    },
+  });
 
   const onShare = async () => {
     try {
@@ -461,6 +501,7 @@ function Drawer({ navigation, route }) {
       </TouchableWithoutFeedback>
       {nearbyModal && (
         <NearbyWordsModal
+          colors={colors}
           onClose={() => {
             setNearbyModal(false);
           }}
@@ -470,43 +511,6 @@ function Drawer({ navigation, route }) {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  bottomwhole: {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 60),
-    borderBottomEndRadius: 10,
-  },
-  leftWhole: {
-    width: "80%",
-    height: "100%",
-    backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 40),
-    borderTopRightRadius: 10,
-    borderBottomRightRadius: 10,
-  },
-  rightWhole: {
-    flex: 1,
-    // backgroundColor: "rgba(0, 0, 0, .2)",
-  },
-  tutorialwhole: {
-    backgroundColor: "rgba(255,255,255,.3)",
-    height: 70,
-    width: "80%",
-    alignSelf: "center",
-    marginBottom: 20,
-    borderRadius: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tutorialText: {
-    paddingHorizontal: 15,
-    fontSize: 20,
-    paddingTop: 7,
-    color: colors.darkenColor(colors.colors.backgroundColor, 30),
-  },
-});
 
 function NearbyWordsModal({ data, onClose }) {
   return (

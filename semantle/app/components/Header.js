@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Constants from "expo-constants";
-import colors from "../configs/colors";
+import useColors from "../configs/useColors";
 import AppText from "./AppText";
 import { Octicons } from "@expo/vector-icons";
 import { Fontisto, FontAwesome5 } from "@expo/vector-icons";
@@ -19,6 +19,8 @@ export default function Header({
   timeUntilNextPuzzle,
   easterEgg,
 }) {
+  const colors = useColors();
+
   return (
     <View style={{ zIndex: 1 }}>
       {/* <View
@@ -43,7 +45,7 @@ export default function Header({
             <FontAwesome5
               name={easterEgg.logo}
               style={{
-                color: colors.darkenColor(colors.colors.backgroundColor, 45),
+                color: colors.colors.textColor,
                 fontSize: 23,
                 marginLeft: 10,
                 textAlign: "center",
@@ -54,7 +56,7 @@ export default function Header({
             <Fontisto
               name={easterEgg.logo}
               style={{
-                color: colors.darkenColor(colors.colors.backgroundColor, 45),
+                color: colors.colors.textColor,
                 fontSize: 23,
                 marginLeft: 10,
                 textAlign: "center",
@@ -71,7 +73,7 @@ export default function Header({
               });
             }}
             style={{
-              color: colors.darkenColor(colors.colors.backgroundColor, 45),
+              color: colors.colors.textColor,
               fontSize: 23,
               marginLeft: 10,
               textAlign: "center",
@@ -115,7 +117,7 @@ export default function Header({
             <Octicons
               name="three-bars"
               size={26}
-              color={colors.darkenColor(colors.colors.backgroundColor, 45)}
+              color={colors.colors.textColor}
             />
           </TouchableOpacity>
         </View>

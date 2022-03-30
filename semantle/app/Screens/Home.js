@@ -25,7 +25,7 @@ import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
 import PagerView from "react-native-pager-view";
 import Similarities from "../components/Similarities";
-import colors from "../configs/colors";
+import useColors from "../configs/useColors";
 import LottieView from "lottie-react-native";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
@@ -39,6 +39,8 @@ function Home({ navigation, route }) {
   const [showWin, setShowWin] = useState(false);
   const appState = useRef(AppState.currentState);
   const [headerEasteregg, setHeaderEasteregg] = useState(false);
+
+  const colors = useColors();
 
   useEffect(() => {
     AppState.addEventListener("change", _handleAppStateChange);
@@ -60,9 +62,9 @@ function Home({ navigation, route }) {
     appState.current = nextAppState;
   };
 
-  async function handleSubmit() {
-    handleEaster(inputField);
-    const didWin = await semantleGame.submit(inputField);
+  async function handleSubmit(value) {
+    handleEaster(value || inputField);
+    const didWin = await semantleGame.submit(value || inputField);
     setInputField("");
     if (didWin) {
       onWin();
@@ -80,6 +82,9 @@ function Home({ navigation, route }) {
           confettiRef.current.play();
         } else if (easterEgg?.action === "win") {
           onWin();
+        }
+        if (easterEgg?.change === "THEME") {
+          colors.setTheme(easterEgg.text);
         }
       }
     } else {
@@ -190,8 +195,8 @@ function Home({ navigation, route }) {
         {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
         <MainInput
           input={inputField}
-          onSubmit={() => {
-            handleSubmit();
+          onSubmit={(value) => {
+            handleSubmit(value);
           }}
         />
         <View
@@ -214,7 +219,7 @@ function Home({ navigation, route }) {
           <GuessListHeader />
           <View
             style={{
-              height: 200,
+              height: colors.checkTheme("original") ? "50%" : 200,
             }}
           >
             <ScrollView>

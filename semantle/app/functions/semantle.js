@@ -316,6 +316,13 @@ export default function semantle() {
 
   function checkEasterEggs(guess = "") {
     guess = guess.toLowerCase();
+    if (guess === "semantlepro") {
+      return {
+        place: "HOME",
+        change: "THEME",
+        text: "original",
+      };
+    }
     if (guess === "alertall") {
       Alert.alert("Huh?", "Why would you type that...");
     } else if (guess.includes("podbay")) {

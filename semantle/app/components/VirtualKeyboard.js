@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
-import colors from "../configs/colors";
+import useColors from "../configs/useColors";
 import * as Haptics from "expo-haptics";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -32,6 +32,40 @@ export default function VirtualKeyboard({
   onEnter,
   onClear,
 }) {
+  const colors = useColors();
+
+  if (colors.checkTheme("original")) {
+    return <View></View>;
+  }
+
+  const styles = StyleSheet.create({
+    row: {
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      marginLeft: 2,
+      marginRight: 2,
+      padding: 2,
+    },
+    key: {
+      minWidth: "8%",
+      paddingTop: 5,
+      paddingBottom: 5,
+      paddingLeft: 5,
+      paddingRight: 5,
+      borderRadius: 12,
+      marginLeft: 3,
+      marginRight: 3,
+
+      shadowColor: "#000",
+    },
+    keyText: {
+      fontSize: 20,
+      color: colors.lightenColor(colors.colors.keybordBttnColor, 85),
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+  });
   return (
     <View
       intensity={100}
@@ -205,32 +239,3 @@ export default function VirtualKeyboard({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: 2,
-    marginRight: 2,
-    padding: 2,
-  },
-  key: {
-    minWidth: "8%",
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderRadius: 12,
-    marginLeft: 3,
-    marginRight: 3,
-
-    shadowColor: "#000",
-  },
-  keyText: {
-    fontSize: 20,
-    color: colors.lightenColor(colors.colors.keybordBttnColor, 85),
-    textAlign: "center",
-    fontWeight: "bold",
-  },
-});
