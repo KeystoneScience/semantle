@@ -520,7 +520,7 @@ function Drawer({ navigation, route }) {
   );
 }
 
-function NearbyWordsModal({ data, onClose }) {
+function NearbyWordsModal({ data, onClose, colors }) {
   return (
     <View
       style={{
