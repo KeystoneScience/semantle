@@ -188,6 +188,8 @@ export default function semantle() {
     return false;
   }
 
+  // Sorts by the different metrics
+  // possible metrics: similarity, guessCount, percentile, guess
   function sortGuesses(metric) {
     let newGuesses = [...guesses];
     newGuesses.sort((a, b) => b[metric] - a[metric]);
