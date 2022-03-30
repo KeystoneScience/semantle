@@ -18,6 +18,7 @@ function MainInput(props) {
   return (
     <View
       style={{
+        zIndex: 11,
         width: "100%",
         // height: 200,
         alignItems: "center",
@@ -67,6 +68,7 @@ function MainInput(props) {
               props.onSubmit(text);
               setValue("");
             }}
+            onFocus={props.onFocus}
             placeholder="Enter your guess (click here)"
             returnKeyType="go"
             keyboardType="default"

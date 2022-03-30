@@ -37,6 +37,7 @@ function Home({ navigation, route }) {
   const [pushToken, setPushToken] = useState("");
   const [inputField, setInputField] = useState("");
   const confettiRef = useRef(null);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const greatRef = useRef(null);
   const [showWin, setShowWin] = useState(false);
   const appState = useRef(AppState.currentState);
@@ -189,19 +190,37 @@ function Home({ navigation, route }) {
           easterEgg={headerEasteregg}
         />
 
-        {/* <Text
-          onPress={() => navigation.navigate("Drawer")}
-          style={styles.title}
-        >
-          Semantle
-        </Text> */}
-        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
         <MainInput
           input={inputField}
           onSubmit={(value) => {
             handleSubmit(value);
           }}
+          onFocus={() => {
+            setIsKeyboardVisible(true);
+          }}
         />
+        {isKeyboardVisible && (
+          <View
+            style={{
+              zIndex: 10,
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              top: 0,
+              backgroundColor: "transparent",
+            }}
+          >
+            <TouchableWithoutFeedback
+              onPress={() => {
+                setIsKeyboardVisible(false);
+                Keyboard.dismiss();
+              }}
+            >
+              <View style={{ height: "100%", width: "100%" }}></View>
+            </TouchableWithoutFeedback>
+          </View>
+        )}
+
         <View
           style={{
             borderBottomEndRadius: 5,
@@ -234,7 +253,6 @@ function Home({ navigation, route }) {
           </ScrollView>
         </View>
         <Similarities {...semantleGame.similarityStory} />
-
         <VirtualKeyboard
           onKey={(key) => {
             setInputField(inputField + key);
