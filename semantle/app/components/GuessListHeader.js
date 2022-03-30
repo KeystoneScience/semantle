@@ -1,7 +1,5 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
-import { BlurView } from "expo-blur";
 import AppText from "./AppText";
 import useColors from "../configs/useColors";
 function GuessListHeader(props) {
@@ -11,6 +9,7 @@ function GuessListHeader(props) {
     tableHead: {
       fontSize: 18,
       // fontWeight: "bold",
+      width: "100%",
       color: colors.lightenColor(colors.colors.backgroundColor, 75),
       // marginBottom: 5,
       textAlign: "center",
@@ -30,62 +29,67 @@ function GuessListHeader(props) {
         backgroundColor: colors.darkenColor(colors.colors.backgroundColor, 90),
         borderBottomWidth: 1,
         borderBottomColor: colors.colors.backgroundColor,
+        height: 40,
       }}
     >
-      <View>
+      <View
+        style={{ width: "10%", justifyContent: "center", alignItems: "center" }}
+      >
         <AppText
           onPress={() => {
             props.onSort("guessCount");
           }}
-          style={[
-            styles.tableHead,
-            {
-              width: 15,
-            },
-          ]}
+          style={[styles.tableHead, { textAlign: "left" }]}
         >
           #
         </AppText>
       </View>
-      <AppText
-        onPress={() => {
-          props.onSort("guessCount");
-        }}
-        style={[
-          styles.tableHead,
-          {
-            // width: "50%",
-          },
-        ]}
+      <View
+        style={{ width: "40%", justifyContent: "center", alignItems: "center" }}
       >
-        Guess
-      </AppText>
-      <AppText
-        onPress={() => {
-          props.onSort("similarity");
-        }}
-        style={[
-          styles.tableHead,
-          {
-            // width: "20%",
-          },
-        ]}
+        <AppText
+          onPress={() => {
+            props.onSort("guessCount");
+          }}
+          style={[styles.tableHead]}
+        >
+          Guess
+        </AppText>
+      </View>
+      <View
+        style={{ width: "20%", justifyContent: "center", alignItems: "center" }}
       >
-        Similarity
-      </AppText>
-      <AppText
-        onPress={() => {
-          props.onSort("similarity");
-        }}
-        style={[
-          styles.tableHead,
-          {
-            // width: "30%",
-          },
-        ]}
+        <AppText
+          onPress={() => {
+            props.onSort("similarity");
+          }}
+          style={[
+            styles.tableHead,
+            {
+              // width: "20%",
+            },
+          ]}
+        >
+          Similarity
+        </AppText>
+      </View>
+      <View
+        style={{ width: "30%", justifyContent: "center", alignItems: "center" }}
       >
-        Distance
-      </AppText>
+        <AppText
+          onPress={() => {
+            props.onSort("similarity");
+          }}
+          style={[
+            styles.tableHead,
+            {
+              // width: "30%",
+            },
+          ]}
+        >
+          Distance
+        </AppText>
+      </View>
     </View>
   );
 }
