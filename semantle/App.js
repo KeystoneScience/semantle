@@ -114,7 +114,13 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <View style={styles.container}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor:
+            theme === "original" ? "#202020" : colors.colors.backgroundColor,
+        }}
+      >
         <StatusBar style="light" />
         <NavigationContainer theme={navigationTheme}>
           <AppNavigator />
@@ -123,10 +129,3 @@ export default function App() {
     </ThemeContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.colors.backgroundColor,
-  },
-});
