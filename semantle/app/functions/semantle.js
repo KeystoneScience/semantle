@@ -126,9 +126,9 @@ export default function semantle() {
     }
     guess = guess.toLowerCase();
 
-    if (typeof unbritish !== "undefined" && unbritish.hasOwnProperty(guess)) {
-      guess = unbritish[guess];
-    }
+    // if (typeof unbritish !== "undefined" && unbritish.hasOwnProperty(guess)) {
+    //   guess = unbritish[guess];
+    // }
 
     if (guessed.has(guess)) {
       //find the index of the guess in guesses
@@ -256,6 +256,7 @@ export default function semantle() {
   async function initialize() {
     // check to see if there is information cached.
     guessed = new Set();
+    secretVec = null;
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
@@ -305,7 +306,11 @@ export default function semantle() {
   function getTimeUntilNextPuzzle(day = puzzleNumber) {
     const timestampOfNextPuzzle =
       SEMANTLE_START_MILLIS_SINCE_EPOCH + (day + 1) * MILLIS_PER_DAY;
-    return timestampOfNextPuzzle - Date.now();
+    const calculatedTimeUntilNextPuzzle = timestampOfNextPuzzle - Date.now();
+    if (calculatedTimeUntilNextPuzzle < 0) {
+      initialize();
+    }
+    return calculatedTimeUntilNextPuzzle;
   }
 
   function getYesterdaysWord(dayNumber = puzzleNumber) {
