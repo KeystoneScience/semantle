@@ -180,74 +180,73 @@ function Home({ navigation, route }) {
         flex: 1,
       }}
     >
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <Screen>
-          <Header
-            navigation={navigation}
-            route={route}
-            semantleGame={semantleGame}
-            timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
-            easterEgg={headerEasteregg}
-          />
+      <Screen>
+        <Header
+          navigation={navigation}
+          route={route}
+          semantleGame={semantleGame}
+          timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
+          easterEgg={headerEasteregg}
+        />
 
-          {/* <Text
+        {/* <Text
           onPress={() => navigation.navigate("Drawer")}
           style={styles.title}
         >
           Semantle
         </Text> */}
-          {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
-          <MainInput
-            input={inputField}
-            onSubmit={(value) => {
-              handleSubmit(value);
+        {/* <Text style={styles.subtitle}>can you guess the word?</Text> */}
+        <MainInput
+          input={inputField}
+          onSubmit={(value) => {
+            handleSubmit(value);
+          }}
+        />
+        <View
+          style={{
+            borderBottomEndRadius: 5,
+            borderBottomStartRadius: 5,
+            borderTopLeftRadius: 5,
+            borderTopRightRadius: 5,
+            overflow: "hidden",
+            width: "95%",
+            alignSelf: "center",
+            height: colors.checkTheme("original") ? "60%" : 250,
+            backgroundColor: colors.darkenColor(
+              colors.colors.backgroundColor,
+              90
+            ),
+            // backgroundColor: "rgba(0,0,0,0)",
+          }}
+        >
+          <GuessListHeader
+            onSort={(metric) => {
+              semantleGame.sortGuesses(metric);
             }}
           />
-          <View
-            style={{
-              borderBottomEndRadius: 5,
-              borderBottomStartRadius: 5,
-              borderTopLeftRadius: 5,
-              borderTopRightRadius: 5,
-              overflow: "hidden",
-              width: "95%",
-              alignSelf: "center",
-              height: colors.checkTheme("original") ? "60%" : 250,
-              backgroundColor: colors.darkenColor(
-                colors.colors.backgroundColor,
-                90
-              ),
-              // backgroundColor: "rgba(0,0,0,0)",
-            }}
-          >
-            <GuessListHeader
-              onSort={(metric) => {
-                semantleGame.sortGuesses(metric);
-              }}
-            />
 
-            <ScrollView style={{ flexGrow: 0 }}>
-              {[semantleGame.lastGuess, ...semantleGame.guesses].map(
-                (obj, index) => (
-                  <GuessList key={index} {...obj} />
-                )
-              )}
-            </ScrollView>
-          </View>
-          <Similarities {...semantleGame.similarityStory} />
+          <ScrollView style={{ flexGrow: 0 }}>
+            {[semantleGame.lastGuess, ...semantleGame.guesses].map(
+              (obj, index) => (
+                <GuessList key={index} {...obj} />
+              )
+            )}
+          </ScrollView>
+        </View>
+        <Similarities {...semantleGame.similarityStory} />
 
-          <VirtualKeyboard
-            onKey={(key) => {
-              setInputField(inputField + key);
-            }}
-            onEnter={() => {
-              handleSubmit();
-            }}
-            onClear={() => setInputField("")}
-            onBackspace={() => setInputField(inputField.slice(0, -1))}
-          />
-        </Screen>
-      </TouchableWithoutFeedback>
+        <VirtualKeyboard
+          onKey={(key) => {
+            setInputField(inputField + key);
+          }}
+          onEnter={() => {
+            handleSubmit();
+          }}
+          onClear={() => setInputField("")}
+          onBackspace={() => setInputField(inputField.slice(0, -1))}
+        />
+      </Screen>
+
       {
         //Animation stuff
       }
