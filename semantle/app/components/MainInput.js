@@ -64,6 +64,7 @@ function MainInput(props) {
             placeholder="Enter your guess (click here)"
             returnKeyType="go"
             keyboardType="default"
+            blurOnSubmit={false}
             placeholderTextColor={colors.colors.textInputColor}
           />
         ) : (
