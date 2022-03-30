@@ -122,20 +122,18 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor:
-              theme === "original" ? "#202020" : colors.colors.backgroundColor,
-          }}
-        >
-          <StatusBar style="light" />
-          <NavigationContainer theme={navigationTheme}>
-            <AppNavigator />
-          </NavigationContainer>
-        </View>
-      </TouchableWithoutFeedback>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor:
+            theme === "original" ? "#202020" : colors.colors.backgroundColor,
+        }}
+      >
+        <StatusBar style="light" />
+        <NavigationContainer theme={navigationTheme}>
+          <AppNavigator />
+        </NavigationContainer>
+      </View>
     </ThemeContext.Provider>
   );
 }

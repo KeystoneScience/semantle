@@ -58,7 +58,13 @@ function MainInput(props) {
             value={value}
             onChangeText={(text) => setValue(text)}
             onSubmitEditing={() => {
-              props.onSubmit(value);
+              var text = value;
+              //remove any spaces at the beginning and end of the string
+              text = text.trim();
+              //remove any spaces in the middle of the string and replace with a single space
+              text = text.replace(/\s+/g, "_");
+              console.log(text);
+              props.onSubmit(text);
               setValue("");
             }}
             placeholder="Enter your guess (click here)"
