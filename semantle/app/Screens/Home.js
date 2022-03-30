@@ -217,7 +217,11 @@ function Home({ navigation, route }) {
             // backgroundColor: "rgba(0,0,0,0)",
           }}
         >
-          <GuessListHeader />
+          <GuessListHeader
+            onSort={(metric) => {
+              semantleGame.sortGuesses(metric);
+            }}
+          />
           <View
             style={{
               height: colors.checkTheme("original") ? "50%" : 200,
