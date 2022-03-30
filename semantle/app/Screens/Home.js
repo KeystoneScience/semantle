@@ -84,6 +84,7 @@ function Home({ navigation, route }) {
           onWin();
         }
         if (easterEgg?.change === "THEME") {
+          cache.storeData("theme", { theme: easterEgg.text });
           colors.setTheme(easterEgg.text);
         }
       }

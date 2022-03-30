@@ -20,6 +20,7 @@ import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
 import colors from "./app/configs/colors";
 
 import "react-native-gesture-handler";
+import cache from "./app/utility/cache";
 
 Text.defaultProps = Text.defaultProps || {}; //Disable dynamic type in IOS
 Text.defaultProps.allowFontScaling = false;
@@ -43,6 +44,17 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    checkTheme();
+  }, []);
+
+  async function checkTheme() {
+    const value = await cache.getData("theme", false);
+    if (value) {
+      setTheme(value.theme);
+    }
+  }
+
   async function checkUpdates() {
     try {
       const update = await Updates.checkForUpdateAsync();
@@ -54,9 +66,9 @@ export default function App() {
           "SEMANTLE_lastUpdateCheck",
           true
         );
-        if (lastChecked) {
-          return;
-        }
+        // if (lastChecked) {
+        //   return;
+        // }
         Alert.alert(
           "Update Available",
           "Restart the app to apply the update?",

@@ -327,8 +327,13 @@ export default function semantle() {
         change: "THEME",
         text: "original",
       };
-    }
-    if (guess === "alertall") {
+    } else if (guess === "semantlebase") {
+      return {
+        place: "HOME",
+        change: "THEME",
+        text: "",
+      };
+    } else if (guess === "alertall") {
       Alert.alert("Huh?", "Why would you type that...");
     } else if (guess.includes("podbay")) {
       Alert.alert("I'm sorry dave.", "I'm afraid I can't do that.");
