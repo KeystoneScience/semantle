@@ -144,6 +144,7 @@ export default function useColors() {
     lightenColor,
     darkenColor,
     getTextColor,
+    convertColorToRGBA,
     checkTheme,
   };
 }
