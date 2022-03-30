@@ -34,6 +34,9 @@ function GuessListHeader(props) {
     >
       <View>
         <AppText
+          onPress={() => {
+            props.onSort("guessCount");
+          }}
           style={[
             styles.tableHead,
             {
@@ -45,6 +48,9 @@ function GuessListHeader(props) {
         </AppText>
       </View>
       <AppText
+        onPress={() => {
+          props.onSort("guessCount");
+        }}
         style={[
           styles.tableHead,
           {
@@ -55,6 +61,9 @@ function GuessListHeader(props) {
         Guess
       </AppText>
       <AppText
+        onPress={() => {
+          props.onSort("similarity");
+        }}
         style={[
           styles.tableHead,
           {
@@ -65,6 +74,9 @@ function GuessListHeader(props) {
         Similarity
       </AppText>
       <AppText
+        onPress={() => {
+          props.onSort("similarity");
+        }}
         style={[
           styles.tableHead,
           {
