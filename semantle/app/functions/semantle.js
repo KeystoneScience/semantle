@@ -188,6 +188,12 @@ export default function semantle() {
     return false;
   }
 
+  function sortGuesses(metric) {
+    let newGuesses = [...guesses];
+    newGuesses.sort((a, b) => b[metric] - a[metric]);
+    setGuesses(newGuesses);
+  }
+
   async function getStreak() {
     const data = await cache.getData("SEMANTLE_STREAK", true);
     if (data) {
@@ -430,6 +436,7 @@ export default function semantle() {
     formatTime,
     getYesterdaysWord,
     postPushToken,
+    sortGuesses,
     lastGuess,
     yesterdayClosest,
     streak,
