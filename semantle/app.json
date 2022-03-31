@@ -2,7 +2,7 @@
   "expo": {
     "name": "semantle",
     "slug": "semantle",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -16,9 +16,12 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nateastone.semantle"
+      "bundleIdentifier": "com.nateastone.semantle",
+      "appStoreUrl": "https://apps.apple.com/us/app/semantle/id1616130804"
     },
     "android": {
+      "versionCode": 2,
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.nateastone.semantle",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#9740B2"
