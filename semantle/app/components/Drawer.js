@@ -330,7 +330,7 @@ function Drawer({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => Linking.openURL("https://discord.gg/csKG67pw9F")}
+              onPress={() => Linking.openURL("https://discord.gg/Vh9dKRakv2")}
             >
               <View
                 style={{
