@@ -64,7 +64,6 @@ function MainInput(props) {
               text = text.trim();
               //remove any spaces in the middle of the string and replace with a single space
               text = text.replace(/\s+/g, "_");
-              console.log(text);
               props.onSubmit(text);
               setValue("");
             }}

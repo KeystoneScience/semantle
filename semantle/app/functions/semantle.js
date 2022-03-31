@@ -255,6 +255,41 @@ export default function semantle() {
     cache.storeData("SEMANTLE_STATS", { daysMap: daysMap });
   }
 
+  function getWinShareString() {
+    //get guesses whose guessNumber is 0
+    if (guesses.length == 0) {
+      return "I haven't found any words yet!";
+    }
+    if (guesses.length == 1) {
+      return `I solved Semantle #${puzzleNumber} in only one guess.`;
+    }
+    function similarityString(guess) {
+      return `${guess.similarity.toFixed(2)}%${
+        guess.percentile ? ` (${guess.percentile}/1000)` : ""
+      }`;
+    }
+    let temporallySorted = [...guesses];
+    temporallySorted.sort((a, b) => a["guessCount"] - b["guessCount"]);
+    //get the first guess who has a non-null percentile
+    let firstGuess = temporallySorted[0];
+    let firstIn1000 = temporallySorted.find((g) => g.percentile !== null);
+    const secondToLast = temporallySorted[temporallySorted.length - 2];
+    let shareString = `I solved Semantle #${puzzleNumber} in ${
+      guesses.length
+    } guesses. My first guess had a similarity of ${similarityString(
+      firstGuess
+    )}.`;
+    if (firstIn1000.guessCount != 0) {
+      shareString += ` My first guess in the top 1000 was at guess #${
+        firstIn1000.guessCount + 1
+      }.`;
+    }
+    shareString += ` My penultimate guess had a similarity of ${similarityString(
+      secondToLast
+    )}.`;
+    return shareString;
+  }
+
   async function getAndSetYesterdayClosest(day = puzzleNumber) {
     const yesterdaysWord = getYesterdaysWord(day);
     const yesterdayData = await getNearby(yesterdaysWord);
@@ -439,6 +474,7 @@ export default function semantle() {
     getYesterdaysWord,
     postPushToken,
     sortGuesses,
+    getWinShareString,
     lastGuess,
     yesterdayClosest,
     streak,

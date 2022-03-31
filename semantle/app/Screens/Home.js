@@ -14,6 +14,7 @@ import {
   Pressable,
   TouchableWithoutFeedback,
   Keyboard,
+  Share,
 } from "react-native";
 import * as Device from "expo-device";
 import GuessList from "../components/GuessList";
@@ -78,7 +79,6 @@ function Home({ navigation, route }) {
     const easterEgg = semantleGame.checkEasterEggs(guess);
     if (easterEgg) {
       if (easterEgg.place === "HEADER") {
-        console.log(easterEgg);
         setHeaderEasteregg(easterEgg);
       } else if (easterEgg.place === "HOME") {
         if (easterEgg?.action === "confetti") {
@@ -96,7 +96,28 @@ function Home({ navigation, route }) {
     }
   }
 
+  async function onShare() {
+    try {
+      const result = await Share.share({
+        message: semantleGame.getWinShareString(),
+        url: "https://www.semantle.app/download",
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        //pressButton();
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   function onWin() {
+    Keyboard.dismiss();
     setShowWin(true);
     setTimeout(() => {
       greatRef.current.play();
@@ -270,15 +291,12 @@ function Home({ navigation, route }) {
       }
 
       {showWin && (
-        <Pressable
+        <View
           style={{
             position: "absolute",
             width: "100%",
             height: "100%",
             zIndex: 100,
-          }}
-          onPress={() => {
-            setShowWin(false);
           }}
         >
           {Platform.OS === "ios" ? (
@@ -298,7 +316,7 @@ function Home({ navigation, route }) {
               }}
             />
           )}
-        </Pressable>
+        </View>
       )}
 
       <View
@@ -323,32 +341,37 @@ function Home({ navigation, route }) {
         />
       </View>
       {showWin && (
-        <View
-          pointerEvents="none"
+        <Pressable
+          onPress={() => {
+            setShowWin(false);
+          }}
+          pointerEvents="box-none"
           style={{
             position: "absolute",
-            justifyContent: "center",
+            justifyContent: "space-evenly",
+            height: "100%",
             alignItems: "center",
             flex: 1,
             zIndex: 100,
           }}
         >
           <LottieView
+            pointerEvents="none"
             ref={greatRef}
             resizeMode="cover"
             style={{
               width: "104%",
-              marginTop: 30,
             }}
             loop={false}
             source={require("../../assets/animations/wordFound.json")}
           />
           <View
+            pointerEvents="box-none"
             style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: -120,
+              marginTop: -100,
             }}
           >
             <AppText style={{ color: colors.colors.white, fontSize: 30 }}>
@@ -359,6 +382,26 @@ function Home({ navigation, route }) {
             <AppText style={{ color: colors.colors.white, fontSize: 25 }}>
               WORD FOUND IN {semantleGame.guesses.length} GUESSES
             </AppText>
+            <TouchableOpacity
+              onPress={() => {
+                onShare();
+              }}
+              style={{
+                backgroundColor: colors.colors.grooveColorPallet[1],
+                padding: 10,
+                width: 200,
+                borderRadius: 10,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 10,
+                zIndex: 200,
+              }}
+            >
+              <AppText style={{ color: colors.colors.white, fontSize: 20 }}>
+                Share Win
+              </AppText>
+            </TouchableOpacity>
             <AppText style={{ color: colors.colors.white, fontSize: 25 }}>
               NEXT PUZZLE IN{" "}
               {semantleGame.formatTime(semantleGame.timeUntilNextPuzzle)}
@@ -376,7 +419,7 @@ function Home({ navigation, route }) {
               score.
             </AppText>
           </View>
-        </View>
+        </Pressable>
       )}
     </View>
   );

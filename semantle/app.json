@@ -2,7 +2,7 @@
   "expo": {
     "name": "semantle",
     "slug": "semantle",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -20,7 +20,7 @@
       "appStoreUrl": "https://apps.apple.com/us/app/semantle/id1616130804"
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 3,
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.nateastone.semantle",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
