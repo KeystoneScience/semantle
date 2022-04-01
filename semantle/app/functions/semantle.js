@@ -173,12 +173,18 @@ export default function semantle() {
       editStats(newEntry, foundWord);
       if (foundWord) {
         //Word Found.
-        const data = await cache.getData("SEMANTLE_STREAK", true);
-        if (data) {
-          cache.storeData("SEMANTLE_STREAK", { streak: data.streak + 1 });
+        const data = await cache.getData("SEMANTLE_STREAK", false);
+        if (
+          data &&
+          (!data.puzzleNumber || data.puzzleNumber == puzzleNumber - 1)
+        ) {
+          cache.storeData("SEMANTLE_STREAK", {
+            streak: data.streak + 1,
+            day: puzzleNumber,
+          });
           setStreak(data.streak + 1);
         } else {
-          cache.storeData("SEMANTLE_STREAK", { streak: 1 });
+          cache.storeData("SEMANTLE_STREAK", { streak: 1, day: puzzleNumber });
           setStreak(1);
         }
         return true;
@@ -197,8 +203,13 @@ export default function semantle() {
   }
 
   async function getStreak() {
-    const data = await cache.getData("SEMANTLE_STREAK", true);
-    if (data) {
+    const data = await cache.getData("SEMANTLE_STREAK", false);
+    if (
+      data &&
+      (!data.puzzleNumber ||
+        data.puzzleNumber == puzzleNumber - 1 ||
+        data.puzzleNumber == puzzleNumber)
+    ) {
       setStreak(data.streak);
       return data.streak;
     }
