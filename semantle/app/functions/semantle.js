@@ -26,13 +26,40 @@ async function getModel(word, secret) {
   return json;
 }
 
-async function postPushToken(pushToken, deviceNugget) {
+async function postPushToken(pushToken, deviceNugget, userID) {
   const dataJson = {
-    token: pushToken,
+    token: userID,
     deviceNugget: deviceNugget,
+    pushToken: pushToken,
   };
 
   return client.post("token", dataJson, {}, false);
+}
+
+async function postStreak(streak, puzzleNumber) {
+  const previousToken = await cache.getData("SEMANTLE::PUSH_TOKEN", false);
+  if (!previousToken) {
+    return;
+  }
+  let userObj = await cache.getData("SEMANTLE::USER", false);
+  let userID = userObj?.userID;
+  //if there is no userID, create one and store it in the cache
+  if (!userObj || !userObj.userID) {
+    userID =
+      "user" +
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
+    cache.storeData("SEMANTLE::USER", { userID });
+  }
+
+  const dataJson = {
+    userID: userID,
+    puzzleNumber: puzzleNumber,
+    streak: streak,
+    pushToken: previousToken,
+  };
+
+  return client.post("streak", dataJson, {}, false);
 }
 
 function getPuzzleNumber() {
@@ -174,17 +201,16 @@ export default function semantle() {
       if (foundWord) {
         //Word Found.
         const data = await cache.getData("SEMANTLE_STREAK", false);
-        if (
-          data &&
-          (!data.puzzleNumber || data.puzzleNumber == puzzleNumber - 1)
-        ) {
+        if (data && (!data.day || data.day == puzzleNumber - 1)) {
           cache.storeData("SEMANTLE_STREAK", {
             streak: data.streak + 1,
             day: puzzleNumber,
           });
+          postStreak(data.streak + 1, puzzleNumber);
           setStreak(data.streak + 1);
         } else {
           cache.storeData("SEMANTLE_STREAK", { streak: 1, day: puzzleNumber });
+          postStreak(1, puzzleNumber);
           setStreak(1);
         }
         return true;
@@ -206,9 +232,7 @@ export default function semantle() {
     const data = await cache.getData("SEMANTLE_STREAK", false);
     if (
       data &&
-      (!data.puzzleNumber ||
-        data.puzzleNumber == puzzleNumber - 1 ||
-        data.puzzleNumber == puzzleNumber)
+      (!data.day || data.day == puzzleNumber - 1 || data.day == puzzleNumber)
     ) {
       setStreak(data.streak);
       return data.streak;

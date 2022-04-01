@@ -147,8 +147,32 @@ function Home({ navigation, route }) {
 
   async function getAndPushToken() {
     const previousToken = await cache.getData("SEMANTLE::PUSH_TOKEN", false);
+    let userObj = await cache.getData("SEMANTLE::USER", false);
+    let hadUser = true;
+    let userID = userObj?.userID;
+    //if there is no userID, create one and store it in the cache
+    if (!userObj || !userObj.userID) {
+      hadUser = false;
+      userID =
+        "user" +
+        Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
+      cache.storeData("SEMANTLE::USER", { userID });
+    }
 
     if (previousToken) {
+      if (!hadUser) {
+        const deviceNugget = {
+          brand: Device.brand,
+          model: Device.modelName || Device.productName,
+          os: Device.osName,
+          osVersion: Device.osVersion,
+          deviceName: Device.deviceName,
+          userID: userID,
+        };
+        await semantleGame.postPushToken(previousToken, deviceNugget, userID);
+      }
+
       return;
     }
     const token = await registerForPushNotificationsAsync();
@@ -159,8 +183,9 @@ function Home({ navigation, route }) {
         os: Device.osName,
         osVersion: Device.osVersion,
         deviceName: Device.deviceName,
+        userID: userID,
       };
-      await semantleGame.postPushToken(token, deviceNugget);
+      await semantleGame.postPushToken(token, deviceNugget, userID);
       cache.storeData("SEMANTLE::PUSH_TOKEN", token);
     }
   }
