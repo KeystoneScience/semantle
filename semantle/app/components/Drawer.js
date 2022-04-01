@@ -11,6 +11,7 @@ import {
   SafeAreaView,
   StatusBar,
   Share,
+  Switch,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -22,7 +23,7 @@ import {
   Ionicons,
   EvilIcons,
 } from "@expo/vector-icons";
-
+import cache from "../utility/cache";
 import Constants from "expo-constants";
 import Screen from "./Screen";
 import Accordian from "./Accordion";
@@ -36,6 +37,7 @@ function Drawer({ navigation, route }) {
   const [totalGames, setTotalGames] = useState(0);
   const [nearbyModal, setNearbyModal] = useState(false);
   const [averageGuesses, setAverageGuesses] = useState("∞");
+  const [showYesterdayWord, setShowYesterdayWord] = useState(false);
 
   async function updateStats() {
     const stats = await semantleGame.getStats();
@@ -50,6 +52,11 @@ function Drawer({ navigation, route }) {
     }
     setAverageGuesses(wins == 0 ? "∞" : Math.round((guesses / wins) * 10) / 10);
     setTotalGames(wins);
+  }
+
+  async function checkShowYesterdayWord() {
+    const showYesterdayWord = await cache.getData("showYesterdayWord", false);
+    setShowYesterdayWord(showYesterdayWord ? showYesterdayWord.value : true);
   }
 
   function formatTime(time) {
@@ -120,6 +127,7 @@ function Drawer({ navigation, route }) {
   //every time the drawer is opened, run a useEffect to update the streak
   useEffect(() => {
     updateStats();
+    checkShowYesterdayWord();
   }, []);
   const fontSizeofYesterdaysWord =
     semantleGame.getYesterdaysWord().length <= 8
@@ -171,38 +179,40 @@ function Drawer({ navigation, route }) {
                   </AppText>
                 </View>
               )}
-              <TouchableOpacity
-                style={{
-                  backgroundColor: colors.colors.lightGray,
-                  marginTop: 25,
-                  width: "80%",
-                  borderRadius: 10,
-                  aspectRatio: 1.5,
-                  display: "flex",
-                  padding: 0,
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  position: "relative",
-                }}
-                onPress={() => {
-                  setNearbyModal(true);
-                }}
-              >
-                <AppText
+              {showYesterdayWord && (
+                <TouchableOpacity
                   style={{
-                    fontSize: fontSizeofYesterdaysWord,
-                    height: 70,
-                    color: colors.colors.grooveColorPallet[3],
+                    backgroundColor: colors.colors.lightGray,
+                    marginTop: 25,
+                    width: "80%",
+                    borderRadius: 10,
+                    aspectRatio: 1.5,
+                    display: "flex",
+                    padding: 0,
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                  }}
+                  onPress={() => {
+                    setNearbyModal(true);
                   }}
                 >
-                  {semantleGame.getYesterdaysWord()}
-                </AppText>
-                <AppText style={{ fontSize: 20 }}>YESTERDAY'S WORD</AppText>
-                <AppText style={{ fontSize: 16 }}>
-                  (click for similar words)
-                </AppText>
-              </TouchableOpacity>
+                  <AppText
+                    style={{
+                      fontSize: fontSizeofYesterdaysWord,
+                      height: 70,
+                      color: colors.colors.grooveColorPallet[3],
+                    }}
+                  >
+                    {semantleGame.getYesterdaysWord()}
+                  </AppText>
+                  <AppText style={{ fontSize: 20 }}>YESTERDAY'S WORD</AppText>
+                  <AppText style={{ fontSize: 16 }}>
+                    (click for similar words)
+                  </AppText>
+                </TouchableOpacity>
+              )}
               <View
                 style={{
                   backgroundColor: colors.colors.lightGray,
@@ -239,9 +249,7 @@ function Drawer({ navigation, route }) {
                     <AppText style={{ fontSize: 50, height: 70 }}>
                       {totalGames}
                     </AppText>
-                    <AppText>
-                      {totalGames == 1 ? "GAME SOLVED" : "GAMES SOLVED"}
-                    </AppText>
+                    <AppText>SOLVED</AppText>
                   </View>
                   <View
                     style={{
@@ -281,31 +289,6 @@ function Drawer({ navigation, route }) {
               paddingTop: 20,
             }}
           >
-            {/* <TouchableOpacity
-                onPress={() =>
-                  Linking.openURL(
-                    "https://www.facebook.com/FlixPix-113664830823363"
-                  )
-                }
-              >
-                <View
-                  style={{
-                    backgroundColor: "#1778f2",
-                    width: 50,
-                    height: 50,
-                    borderRadius: 50,
-                    justifyContent: "center",
-                  }}
-                >
-                  <FontAwesome
-                    name="facebook-f"
-                    size={25}
-                    color={'black'}
-                    style={{ alignSelf: "center" }}
-                  />
-                </View>
-              </TouchableOpacity> */}
-
             <TouchableOpacity
               onPress={() =>
                 Linking.openURL("https://www.reddit.com/r/Semantle/")
@@ -377,7 +360,6 @@ function Drawer({ navigation, route }) {
                 name="heart"
                 size={22}
                 color={colors.darkenColor(colors.colors.backgroundColor, 80)}
-                style={{ marginRight: -36 }}
               />
             }
             children={
@@ -450,7 +432,6 @@ function Drawer({ navigation, route }) {
                 name="help"
                 size={22}
                 color={colors.darkenColor(colors.colors.backgroundColor, 80)}
-                style={{ marginRight: "-50%" }}
               />
             }
             children={
@@ -502,6 +483,12 @@ function Drawer({ navigation, route }) {
               </View>
             }
           />
+          <SettingsAccordian
+            colors={colors}
+            styles={styles}
+            showYesterdays={showYesterdayWord}
+            setShowYesterdayWord={setShowYesterdayWord}
+          />
         </SafeAreaView>
       </View>
       <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>
@@ -517,6 +504,98 @@ function Drawer({ navigation, route }) {
         />
       )}
     </View>
+  );
+}
+
+function SettingsAccordian({
+  colors,
+  styles,
+  showYesterdays,
+  setShowYesterdayWord,
+}) {
+  const [semantleProEnabled, setSemantleProEnabled] = useState(false);
+
+  async function toggleSemantlePro() {
+    cache.storeData("theme", {
+      theme: !semantleProEnabled ? "original" : "",
+    });
+    colors.setTheme(!semantleProEnabled ? "original" : "");
+    setSemantleProEnabled(!semantleProEnabled);
+  }
+
+  async function toggleShowYesterdayWord() {
+    cache.storeData("showYesterdayWord", { value: !showYesterdays });
+    setShowYesterdayWord(!showYesterdays);
+  }
+
+  async function checkSettings() {
+    const theme = await cache.getData("theme", false);
+    if (theme) {
+      setSemantleProEnabled(theme.theme === "original");
+    }
+  }
+
+  useEffect(() => {
+    checkSettings();
+  }, []);
+
+  function SettingsChild({ value, onChange, text }) {
+    return (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          alignSelf: "center",
+          position: "relative",
+          width: "80%",
+          marginBottom: 20,
+        }}
+      >
+        <AppText
+          style={{
+            color: colors.darkenColor(colors.colors.backgroundColor, 50),
+            fontSize: 17,
+            marginBottom: -7,
+          }}
+          fontWeight={500}
+        >
+          {text}
+        </AppText>
+        <View style={{ position: "absolute", right: 0 }}>
+          <Switch value={value} onValueChange={onChange} />
+        </View>
+      </View>
+    );
+  }
+  return (
+    <Accordian
+      title={"Settings"}
+      titleIcon={
+        <FontAwesome
+          name="gear"
+          size={22}
+          color={colors.darkenColor(colors.colors.backgroundColor, 80)}
+        />
+      }
+      children={
+        <View style={{ maxHeight: 300 }}>
+          <ScrollView style={{ paddingBottom: 50 }}>
+            <SettingsChild
+              value={semantleProEnabled}
+              onChange={toggleSemantlePro}
+              text={"Legacy Theme"}
+            />
+            <SettingsChild
+              value={!showYesterdays}
+              onChange={toggleShowYesterdayWord}
+              text={"Hide Yesterday's Word"}
+            />
+          </ScrollView>
+        </View>
+      }
+    />
   );
 }
 

@@ -32,6 +32,7 @@ function GuessList({
           width: "100%",
           height: 40,
           alignItems: "center",
+          justifyContent: "center",
           borderWidth: lastGuess ? 2 : 0,
           borderRadius: 5,
           borderColor: colors.checkTheme("original")
@@ -50,7 +51,7 @@ function GuessList({
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            fontSize: 19,
+            fontSize: 16,
           }}
         >
           {guess}
@@ -82,7 +83,11 @@ function GuessList({
         ),
       }}
     >
-      <View style={{ width: "10%" }}>
+      <View
+        style={{
+          width: "10%",
+        }}
+      >
         <AppText
           style={[
             styles.tableHead,
@@ -94,7 +99,7 @@ function GuessList({
           {guessCount + 1}
         </AppText>
       </View>
-      <View style={{ width: "40%" }}>
+      <View style={{ width: "35%" }}>
         <AppText
           style={[
             styles.tableHead,
@@ -106,7 +111,7 @@ function GuessList({
           {guess}
         </AppText>
       </View>
-      <View style={{ width: "20%" }}>
+      <View style={{ width: "27%" }}>
         <AppText
           style={[
             styles.tableHead,
@@ -120,7 +125,7 @@ function GuessList({
       </View>
       <View
         style={{
-          width: "30%",
+          width: "28%",
           justifyContent: "center",
           alignItems: "center",
         }}

@@ -45,7 +45,7 @@ function GuessListHeader(props) {
         </AppText>
       </View>
       <View
-        style={{ width: "40%", justifyContent: "center", alignItems: "center" }}
+        style={{ width: "35%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
           onPress={() => {
@@ -57,7 +57,7 @@ function GuessListHeader(props) {
         </AppText>
       </View>
       <View
-        style={{ width: "20%", justifyContent: "center", alignItems: "center" }}
+        style={{ width: "27%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
           onPress={() => {
@@ -74,7 +74,7 @@ function GuessListHeader(props) {
         </AppText>
       </View>
       <View
-        style={{ width: "30%", justifyContent: "center", alignItems: "center" }}
+        style={{ width: "28%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
           onPress={() => {

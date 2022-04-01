@@ -13,6 +13,7 @@ import {
 import { BlurView } from "expo-blur";
 import Constants from "expo-constants";
 import useColors from "../configs/useColors";
+import AppText from "./AppText";
 import * as Haptics from "expo-haptics";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -60,7 +61,7 @@ export default function VirtualKeyboard({
       shadowColor: "#000",
     },
     keyText: {
-      fontSize: 20,
+      fontSize: 23,
       color: colors.lightenColor(colors.colors.keybordBttnColor, 85),
       textAlign: "center",
       fontWeight: "bold",
@@ -155,9 +156,9 @@ export default function VirtualKeyboard({
                   {key === "DELETE" ? (
                     <FontAwesome5 name="backspace" size={24} color="white" />
                   ) : (
-                    <Text key={j} style={[styles.keyText]}>
+                    <AppText key={j} style={[styles.keyText]}>
                       {key}
-                    </Text>
+                    </AppText>
                   )}
                 </Pressable>
                 {isPressed && (
@@ -182,9 +183,12 @@ export default function VirtualKeyboard({
                     {key === "DELETE" ? (
                       <FontAwesome5 name="backspace" size={27} color="white" />
                     ) : (
-                      <Text key={j} style={[styles.keyText, { fontSize: 27 }]}>
+                      <AppText
+                        key={j}
+                        style={[styles.keyText, { fontSize: 27 }]}
+                      >
                         {key}
-                      </Text>
+                      </AppText>
                     )}
                   </View>
                 )}
@@ -199,8 +203,8 @@ export default function VirtualKeyboard({
           style={({ pressed }) => ({
             zIndex: -1,
             backgroundColor: pressed
-              ? colors.darkenColor(colors.colors.keybordBttnColor, 65)
-              : colors.colors.keybordBttnColor,
+              ? colors.darkenColor(colors.colors.checkButtonColor, 65)
+              : colors.colors.checkButtonColor,
             width: "50%",
             height: 42,
             display: "flex",
@@ -217,7 +221,7 @@ export default function VirtualKeyboard({
               width: 0,
               height: pressed ? 2 : 6,
             },
-            shadowColor: colors.darkenColor(colors.colors.keybordBttnColor, 65),
+            shadowColor: colors.darkenColor(colors.colors.checkButtonColor, 65),
             transform: [
               {
                 translateY: pressed ? 4 : 0,
@@ -233,7 +237,7 @@ export default function VirtualKeyboard({
             onEnter();
           }}
         >
-          <Text style={[styles.keyText]}>CHECK</Text>
+          <AppText style={[styles.keyText]}>GUESS</AppText>
         </Pressable>
       )}
     </View>
