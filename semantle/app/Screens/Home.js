@@ -37,6 +37,7 @@ function Home({ navigation, route }) {
   const semantleGame = semantle();
   const [pushToken, setPushToken] = useState("");
   const [inputField, setInputField] = useState("");
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
   const confettiRef = useRef(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const greatRef = useRef(null);
@@ -89,6 +90,11 @@ function Home({ navigation, route }) {
         if (easterEgg?.change === "THEME") {
           cache.storeData("theme", { theme: easterEgg.text });
           colors.setTheme(easterEgg.text);
+          return;
+        }
+        if (easterEgg?.change === "DIAGNOSTICS") {
+          setShowDiagnostics(true);
+          return;
         }
       }
     } else {
@@ -443,6 +449,40 @@ function Home({ navigation, route }) {
               You may continue exploring guesses without it affecting your
               score.
             </AppText>
+          </View>
+        </Pressable>
+      )}
+
+      {showDiagnostics && (
+        <Pressable
+          onPress={() => {
+            setShowDiagnostics(false);
+          }}
+          pointerEvents="box-none"
+          style={{
+            position: "absolute",
+            justifyContent: "space-evenly",
+            height: "100%",
+            width: "100%",
+            alignItems: "center",
+            flex: 1,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            zIndex: 100,
+          }}
+        >
+          <View
+            pointerEvents="box"
+            style={{
+              width: "90%",
+              height: "70%",
+              padding: 10,
+              backgroundColor: "white",
+            }}
+          >
+            <ScrollView>
+              <Text>DIAGNOSTICS</Text>
+              <Text>{semantleGame.generateDiagnostics()}</Text>
+            </ScrollView>
           </View>
         </Pressable>
       )}

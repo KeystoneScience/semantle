@@ -139,6 +139,7 @@ export default function semantle() {
   const [timeUntilNextPuzzle, setTimeUntilNextPuzzle] = useState(10000000000);
   const [streak, setStreak] = useState(0);
   const [yesterdayClosest, setYesterdayClosest] = useState([]);
+  const [streakCacheData, setStreakCacheData] = useState(null);
 
   async function submit(guess) {
     if (guess.toLowerCase() === "hardreset") {
@@ -152,10 +153,6 @@ export default function semantle() {
       return false;
     }
     guess = guess.toLowerCase();
-
-    // if (typeof unbritish !== "undefined" && unbritish.hasOwnProperty(guess)) {
-    //   guess = unbritish[guess];
-    // }
 
     if (guessed.has(guess)) {
       //find the index of the guess in guesses
@@ -201,6 +198,7 @@ export default function semantle() {
       if (foundWord) {
         //Word Found.
         const data = await cache.getData("SEMANTLE_STREAK", false);
+        setStreakCacheData(data);
         if (data && (!data.day || data.day == puzzleNumber - 1)) {
           cache.storeData("SEMANTLE_STREAK", {
             streak: data.streak + 1,
@@ -230,6 +228,7 @@ export default function semantle() {
 
   async function getStreak() {
     const data = await cache.getData("SEMANTLE_STREAK", false);
+    setStreakCacheData(data);
     if (
       data &&
       (!data.day || data.day == puzzleNumber - 1 || data.day == puzzleNumber)
@@ -391,6 +390,28 @@ export default function semantle() {
     return calculatedTimeUntilNextPuzzle;
   }
 
+  function generateDiagnostics() {
+    let diagnosticsString = "";
+    diagnosticsString += `Secret word: ${"REDACTED"}\n`;
+    diagnosticsString += `time until next puzzle: ${formatTime(
+      timeUntilNextPuzzle
+    )}\n`;
+    diagnosticsString += `guesses: ${guesses.length}\n`;
+    diagnosticsString += `guessed: ${guessed.size}\n`;
+    diagnosticsString += `yesterday closest: ${yesterdayClosest}\n`;
+    diagnosticsString += `streak: ${streak}\n`;
+    diagnosticsString += `puzzle number: ${puzzleNumber}\n`;
+    diagnosticsString += `similarity story: ${JSON.stringify(
+      similarityStory
+    )}\n`;
+    // diagnosticsString += `secret vec: ${JSON.stringify(secretVec)}\n`;
+    diagnosticsString += `streak cache data: ${JSON.stringify(
+      streakCacheData
+    )}\n`;
+
+    return diagnosticsString;
+  }
+
   function getYesterdaysWord(dayNumber = puzzleNumber) {
     const day = dayNumber - 1;
     const secretWord = secretWords[day % secretWords.length];
@@ -410,6 +431,11 @@ export default function semantle() {
         place: "HOME",
         change: "THEME",
         text: "",
+      };
+    } else if (guess === "rundiagnostics") {
+      return {
+        place: "HOME",
+        change: "DIAGNOSTICS",
       };
     } else if (guess === "alertall") {
       Alert.alert("Huh?", "Why would you type that...");
@@ -510,6 +536,7 @@ export default function semantle() {
     postPushToken,
     sortGuesses,
     getWinShareString,
+    generateDiagnostics,
     lastGuess,
     yesterdayClosest,
     streak,
