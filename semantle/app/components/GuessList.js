@@ -46,12 +46,13 @@ function GuessList({
         }}
       >
         <AppText
+          fontWeight={600}
           style={{
-            color: colors.colors.white,
+            color: "rgba(255,255,255,.9)",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            fontSize: 16,
+            fontSize: 17,
           }}
         >
           {guess}
@@ -89,6 +90,7 @@ function GuessList({
         }}
       >
         <AppText
+          fontWeight={600}
           style={[
             styles.tableHead,
             {
@@ -101,6 +103,7 @@ function GuessList({
       </View>
       <View style={{ width: "35%" }}>
         <AppText
+          fontWeight={600}
           style={[
             styles.tableHead,
             {
@@ -113,6 +116,7 @@ function GuessList({
       </View>
       <View style={{ width: "27%" }}>
         <AppText
+          fontWeight={600}
           style={[
             styles.tableHead,
             {
@@ -134,6 +138,7 @@ function GuessList({
           <ProgressBar colors={colors} percentile={percentile} />
         ) : (
           <AppText
+            fontWeight={600}
             style={[
               styles.tableHead,
               {

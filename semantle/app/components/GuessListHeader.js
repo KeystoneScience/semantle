@@ -36,6 +36,7 @@ function GuessListHeader(props) {
         style={{ width: "10%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
+          fontWeight={700}
           onPress={() => {
             props.onSort("guessCount");
           }}
@@ -48,6 +49,7 @@ function GuessListHeader(props) {
         style={{ width: "35%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
+          fontWeight={700}
           onPress={() => {
             props.onSort("guessCount");
           }}
@@ -60,6 +62,7 @@ function GuessListHeader(props) {
         style={{ width: "27%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
+          fontWeight={700}
           onPress={() => {
             props.onSort("similarity");
           }}
@@ -77,6 +80,7 @@ function GuessListHeader(props) {
         style={{ width: "28%", justifyContent: "center", alignItems: "center" }}
       >
         <AppText
+          fontWeight={700}
           onPress={() => {
             props.onSort("similarity");
           }}
