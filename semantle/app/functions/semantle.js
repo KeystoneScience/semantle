@@ -226,7 +226,7 @@ export default function semantle() {
     setGuesses(newGuesses);
   }
 
-  async function getStreak() {
+  async function getStreak(puzzleNumber = this.puzzleNumber) {
     const data = await cache.getData("SEMANTLE_STREAK", false);
     setStreakCacheData(data);
     if (
@@ -353,7 +353,7 @@ export default function semantle() {
     }
     countdown(day);
     getAndSetYesterdayClosest(day);
-    getStreak();
+    getStreak(day);
 
     //set a timer that checks to see if the time until the next puzzle is up.
     //if it is, then reset the puzzle.
