@@ -36,11 +36,14 @@ function Drawer({ navigation, route }) {
   const semantleGame = route.params.semantleGame;
   const [totalGames, setTotalGames] = useState(0);
   const [nearbyModal, setNearbyModal] = useState(false);
+  const [statsModal, setStatsModal] = useState(false);
   const [averageGuesses, setAverageGuesses] = useState("∞");
+  const [stats, setStats] = useState({ daysMap: {} });
   const [showYesterdayWord, setShowYesterdayWord] = useState(false);
 
   async function updateStats() {
     const stats = await semantleGame.getStats();
+    setStats(stats);
     let wins = 0;
     let guesses = 0;
 
@@ -152,6 +155,11 @@ function Drawer({ navigation, route }) {
               }}
             >
               <View style={{ marginTop: 20 }}>
+                <AppText style={{ fontSize: 20 }}>
+                  Puzzle #{semantleGame.puzzleNumber}
+                </AppText>
+              </View>
+              <View style={{ marginTop: -5 }}>
                 <AppText style={{ fontSize: 16 }}>
                   Next word in:{" "}
                   {formatTime(semantleGame.getTimeUntilNextPuzzle())}
@@ -213,7 +221,8 @@ function Drawer({ navigation, route }) {
                   </AppText>
                 </TouchableOpacity>
               )}
-              <View
+              <TouchableOpacity
+                onPress={() => setStatsModal(true)}
                 style={{
                   backgroundColor: colors.colors.lightGray,
                   marginTop: 25,
@@ -277,7 +286,7 @@ function Drawer({ navigation, route }) {
                   </View>
                 </View>
                 <AppText style={{ fontSize: 20 }}>🧪 STATS</AppText>
-              </View>
+              </TouchableOpacity>
             </View>
           </ScrollView>
         </SafeAreaView>
@@ -503,6 +512,15 @@ function Drawer({ navigation, route }) {
           data={semantleGame.yesterdayClosest}
         />
       )}
+      {statsModal && (
+        <StatsModal
+          colors={colors}
+          onClose={() => {
+            setStatsModal(false);
+          }}
+          data={stats}
+        />
+      )}
     </View>
   );
 }
@@ -666,6 +684,129 @@ function NearbyWordsModal({ data, onClose, colors }) {
                 {index + 1}. {word}
               </AppText>
             ))}
+          </ScrollView>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+function StatsModal({ data, onClose, colors }) {
+  const [stats, setStats] = useState([]);
+  useEffect(() => {
+    //turn data into an array
+    const genStats = [];
+    for (let key in data) {
+      genStats.push({
+        ...data[key],
+      });
+    }
+    //sort the array by date
+    genStats.sort((a, b) => {
+      return b.day - a.day;
+    });
+    //set the state
+    setStats(genStats);
+  }, [data]);
+  return (
+    <View
+      style={{
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,.5)",
+      }}
+      onPress={onClose}
+    >
+      <View
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          onPress={onClose}
+          style={{ position: "absolute", width: "100%", height: "100%" }}
+        />
+        <View
+          style={{
+            backgroundColor: colors.colors.white,
+            width: "80%",
+            borderRadius: 10,
+            height: "70%",
+            padding: 10,
+          }}
+        >
+          <AppText
+            style={{
+              width: "100%",
+              fontSize: 20,
+              textAlign: "center",
+              color: colors.colors.grooveColorPallet[2],
+            }}
+          >
+            Statistics
+          </AppText>
+
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <AppText style={{ width: "15%", textAlign: "center" }}>#</AppText>
+            <AppText style={{ width: "30%", textAlign: "center" }}>
+              μSIMILARITY
+            </AppText>
+            <AppText style={{ width: "30%", textAlign: "center" }}>
+              GUESSES
+            </AppText>
+            <AppText style={{ width: "20%", textAlign: "center" }}>
+              FOUND
+            </AppText>
+          </View>
+          <View
+            style={{
+              borderWidth: 0.5,
+              marginBottom: 10,
+            }}
+          />
+          <ScrollView style={{ paddingBottom: 100 }}>
+            {stats.map((deets, index) => {
+              return (
+                <View
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "row",
+                    marginBottom: 5,
+                  }}
+                  key={index}
+                >
+                  <AppText style={{ width: "15%", textAlign: "center" }}>
+                    {deets?.day}
+                  </AppText>
+                  <AppText style={{ width: "30%", textAlign: "center" }}>
+                    {(deets?.averageSimilarity).toFixed(2) + "%"}
+                  </AppText>
+                  <AppText style={{ width: "30%", textAlign: "center" }}>
+                    {deets?.numberOfGuesses}
+                  </AppText>
+                  <AppText style={{ width: "20%", textAlign: "center" }}>
+                    {deets?.found ? (
+                      <Entypo name="check" size={24} color="green" />
+                    ) : (
+                      <Entypo name="cross" size={24} color="red" />
+                    )}
+                  </AppText>
+                </View>
+              );
+            })}
           </ScrollView>
         </View>
       </View>

@@ -259,7 +259,7 @@ export default function semantle() {
   }
 
   async function getStats() {
-    const data = await cache.getData("SEMANTLE_STATS", true);
+    const data = await cache.getData("SEMANTLE_STATS", false);
     if (data) {
       return data.daysMap;
     }
@@ -295,7 +295,7 @@ export default function semantle() {
       return "I haven't found any words yet!";
     }
     if (guesses.length == 1) {
-      return `I solved Semantle #${puzzleNumber} in only one guess.`;
+      return `I solved Semantle #${puzzleNumber} in only one guess!`;
     }
     function similarityString(guess) {
       return `${guess.similarity.toFixed(2)}%${
