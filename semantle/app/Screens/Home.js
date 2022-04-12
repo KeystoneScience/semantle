@@ -282,7 +282,7 @@ function Home({ navigation, route }) {
             overflow: "hidden",
             width: "95%",
             alignSelf: "center",
-            height: colors.checkTheme("original") ? "60%" : 250,
+            height: colors.checkTheme("original") ? "60%" : "60%", //if using virtual keyboard, make it smaller 250
             backgroundColor: colors.darkenColor(
               colors.colors.backgroundColor,
               90
@@ -305,7 +305,7 @@ function Home({ navigation, route }) {
           </ScrollView>
         </View>
         <Similarities {...semantleGame.similarityStory} />
-        <VirtualKeyboard
+        {/* <VirtualKeyboard
           onKey={(key) => {
             setInputField(inputField + key);
           }}
@@ -314,7 +314,7 @@ function Home({ navigation, route }) {
           }}
           onClear={() => setInputField("")}
           onBackspace={() => setInputField(inputField.slice(0, -1))}
-        />
+        /> */}
       </Screen>
 
       {

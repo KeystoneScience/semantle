@@ -156,7 +156,7 @@ export default function VirtualKeyboard({
                   {key === "DELETE" ? (
                     <FontAwesome5 name="backspace" size={24} color="white" />
                   ) : (
-                    <AppText key={j} style={[styles.keyText]}>
+                    <AppText fontWeight={600} key={j} style={[styles.keyText]}>
                       {key}
                     </AppText>
                   )}
@@ -185,6 +185,7 @@ export default function VirtualKeyboard({
                     ) : (
                       <AppText
                         key={j}
+                        fontWeight={600}
                         style={[styles.keyText, { fontSize: 27 }]}
                       >
                         {key}
@@ -237,7 +238,9 @@ export default function VirtualKeyboard({
             onEnter();
           }}
         >
-          <AppText style={[styles.keyText]}>GUESS</AppText>
+          <AppText fontWeight={600} style={[styles.keyText]}>
+            GUESS
+          </AppText>
         </Pressable>
       )}
     </View>

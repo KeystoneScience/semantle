@@ -155,12 +155,12 @@ function Drawer({ navigation, route }) {
               }}
             >
               <View style={{ marginTop: 20 }}>
-                <AppText style={{ fontSize: 20 }}>
+                <AppText fontWeight={700} style={{ fontSize: 20 }}>
                   Puzzle #{semantleGame.puzzleNumber}
                 </AppText>
               </View>
               <View style={{ marginTop: -5 }}>
-                <AppText style={{ fontSize: 16 }}>
+                <AppText fontWeight={700} style={{ fontSize: 16 }}>
                   Next word in:{" "}
                   {formatTime(semantleGame.getTimeUntilNextPuzzle())}
                 </AppText>
@@ -215,8 +215,13 @@ function Drawer({ navigation, route }) {
                   >
                     {semantleGame.getYesterdaysWord()}
                   </AppText>
-                  <AppText style={{ fontSize: 20 }}>YESTERDAY'S WORD</AppText>
-                  <AppText style={{ fontSize: 16 }}>
+                  <AppText style={{ fontSize: 20, color: "rgba(0,0,0,.8)" }}>
+                    YESTERDAY'S WORD
+                  </AppText>
+                  <AppText
+                    fontWeight={600}
+                    style={{ fontSize: 16, color: "rgba(0,0,0,.6)" }}
+                  >
                     (click for similar words)
                   </AppText>
                 </TouchableOpacity>
@@ -258,12 +263,19 @@ function Drawer({ navigation, route }) {
                     <AppText style={{ fontSize: 50, height: 70 }}>
                       {totalGames}
                     </AppText>
-                    <AppText>SOLVED</AppText>
+                    <AppText
+                      fontWeight={600}
+                      style={{
+                        color: "rgba(0,0,0,.8)",
+                      }}
+                    >
+                      SOLVED
+                    </AppText>
                   </View>
                   <View
                     style={{
                       height: "80%",
-                      borderColor: colors.colors.black,
+                      borderColor: "rgba(0,0,0,.2)",
                       borderWidth: 1,
                       margin: 5,
                     }}
@@ -280,7 +292,10 @@ function Drawer({ navigation, route }) {
                     <AppText style={{ fontSize: 50, height: 70 }}>
                       {averageGuesses}
                     </AppText>
-                    <AppText style={{ textAlign: "center" }}>
+                    <AppText
+                      fontWeight={600}
+                      style={{ textAlign: "center", color: "rgba(0,0,0,.8)" }}
+                    >
                       AVG GUESSES
                     </AppText>
                   </View>
@@ -650,7 +665,7 @@ function NearbyWordsModal({ data, onClose, colors }) {
             height: "70%",
           }}
         >
-          <ScrollView style={{ padding: 10, paddingBottom: 100 }}>
+          <ScrollView style={{ padding: 10 }}>
             <AppText
               style={{
                 width: "100%",
@@ -671,6 +686,7 @@ function NearbyWordsModal({ data, onClose, colors }) {
             {data.map((word, index) => (
               <AppText
                 key={index}
+                fontWeight={500}
                 style={{
                   fontSize: 20,
                   marginTop: 10,
@@ -681,9 +697,15 @@ function NearbyWordsModal({ data, onClose, colors }) {
                     ],
                 }}
               >
-                {index + 1}. {word}
+                {index + 1}.{"  "}
+                {word}
               </AppText>
             ))}
+            <View
+              style={{
+                height: 10,
+              }}
+            />
           </ScrollView>
         </View>
       </View>

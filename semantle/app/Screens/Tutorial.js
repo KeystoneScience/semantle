@@ -83,8 +83,14 @@ function WalkthroughScreen({ navigation, route }) {
               source={item.image}
             />
           )}
-          <AppText style={styles.text}>{item.text}</AppText>
-          {item.text2 && <AppText style={styles.text2}>{item.text2}</AppText>}
+          <AppText fontWeight={600} style={styles.text}>
+            {item.text}
+          </AppText>
+          {item.text2 && (
+            <AppText fontWeight={600} style={styles.text2}>
+              {item.text2}
+            </AppText>
+          )}
         </View>
       </Screen>
     );
@@ -121,14 +127,14 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "center",
-    color: "#fff",
+    color: "rgba(255, 255, 255, 0.8)",
     padding: 20,
     fontSize: 22,
     lineHeight: 33,
   },
   text2: {
     textAlign: "center",
-    color: "#fff",
+    color: "rgba(255, 255, 255, 0.8)",
     padding: 20,
     paddingTop: 2,
     fontSize: 22,

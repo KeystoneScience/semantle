@@ -455,7 +455,7 @@ export default function semantle() {
         text: "Bill Gates",
         logo: "microsoft",
       };
-    } else if (guess === "ethyl") {
+    } else if (guess === "ethyl" || guess === "dog") {
       return {
         place: "HEADER",
         change: "TITLE",

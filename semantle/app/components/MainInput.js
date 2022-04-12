@@ -75,21 +75,47 @@ function MainInput(props) {
             placeholderTextColor={colors.colors.textInputColor}
           />
         ) : (
-          <AppText
-            style={[
-              {
-                width: "70%",
-                fontSize: 21,
-                // padding: 2,
-                color: props.input
-                  ? colors.darkenColor(colors.colors.backgroundColor, 32)
-                  : "rgba(0,0,0,0.5)",
-                textTransform: "lowercase",
-              },
-            ]}
-          >
-            {props.input || "Enter your guess"}
-          </AppText>
+          <TextInput
+            ref={textInputRef}
+            style={{
+              width: "100%",
+              fontSize: 18,
+              color: colors.colors.textColor,
+              padding: 9,
+            }}
+            value={value}
+            onChangeText={(text) => setValue(text)}
+            onSubmitEditing={() => {
+              var text = value;
+              //remove any spaces at the beginning and end of the string
+              text = text.trim();
+              //remove any spaces in the middle of the string and replace with a single space
+              text = text.replace(/\s+/g, "_");
+              props.onSubmit(text);
+              setValue("");
+            }}
+            onFocus={props.onFocus}
+            placeholder="Enter your guess (click here)"
+            returnKeyType="go"
+            keyboardType="default"
+            blurOnSubmit={false}
+            placeholderTextColor={colors.colors.textInputColor}
+          />
+          // <AppText
+          //   style={[
+          //     {
+          //       width: "70%",
+          //       fontSize: 21,
+          //       // padding: 2,
+          //       color: props.input
+          //         ? colors.darkenColor(colors.colors.backgroundColor, 32)
+          //         : "rgba(0,0,0,0.5)",
+          //       textTransform: "lowercase",
+          //     },
+          //   ]}
+          // >
+          //   {props.input || "Enter your guess"}
+          // </AppText>
         )}
       </View>
       <TouchableOpacity
