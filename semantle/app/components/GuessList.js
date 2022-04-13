@@ -11,6 +11,7 @@ function GuessList({
   percentile,
   lastGuess,
   notFound,
+  lowestPercentile = 1,
 }) {
   const colors = useColors();
   if (guess == null) {
@@ -150,6 +151,8 @@ function GuessList({
               ? percentile == 1000
                 ? "FOUND"
                 : 1000 - percentile
+              : similarity > lowestPercentile * 100
+              ? "?"
               : "far"}
           </AppText>
         )}
