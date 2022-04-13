@@ -111,7 +111,7 @@ function Drawer({ navigation, route }) {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: "Download Semantle",
+        message: semantleGame.getWinShareString(),
         url: "https://www.semantle.app/download",
       });
       if (result.action === Share.sharedAction) {

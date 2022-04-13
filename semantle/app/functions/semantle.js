@@ -290,11 +290,20 @@ export default function semantle() {
   }
 
   function getWinShareString() {
+    //check if guesses contains the secret word, if so, return the index of the secret word
+    const index = guesses.findIndex((g) => g.guess === secret);
+    if (index === -1) {
+      return "Download Semantle";
+    }
     //get guesses whose guessNumber is 0
-    if (guesses.length == 0) {
+    let temporallySorted = [...guesses];
+    temporallySorted.sort((a, b) => a["guessCount"] - b["guessCount"]);
+    const solutionIndex = temporallySorted.findIndex((g) => g.guess === secret);
+    temporallySorted = temporallySorted.slice(0, solutionIndex + 1);
+    if (temporallySorted.length == 0) {
       return "I haven't found any words yet!";
     }
-    if (guesses.length == 1) {
+    if (temporallySorted.length == 1) {
       return `I solved Semantle #${puzzleNumber} in only one guess!`;
     }
     function similarityString(guess) {
@@ -302,14 +311,13 @@ export default function semantle() {
         guess.percentile ? ` (${guess.percentile}/1000)` : ""
       }`;
     }
-    let temporallySorted = [...guesses];
-    temporallySorted.sort((a, b) => a["guessCount"] - b["guessCount"]);
+
     //get the first guess who has a non-null percentile
     let firstGuess = temporallySorted[0];
     let firstIn1000 = temporallySorted.find((g) => g.percentile !== null);
     const secondToLast = temporallySorted[temporallySorted.length - 2];
     let shareString = `I solved Semantle #${puzzleNumber} in ${
-      guesses.length
+      temporallySorted.length
     } guesses. My first guess had a similarity of ${similarityString(
       firstGuess
     )}.`;
