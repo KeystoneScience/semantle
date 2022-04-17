@@ -51,7 +51,7 @@ function GuessListHeader(props) {
         <AppText
           fontWeight={700}
           onPress={() => {
-            props.onSort("guessCount");
+            props.onSort("guess");
           }}
           style={[styles.tableHead]}
         >

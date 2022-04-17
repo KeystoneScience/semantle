@@ -222,7 +222,11 @@ export default function semantle() {
   // possible metrics: similarity, guessCount, percentile, guess
   function sortGuesses(metric) {
     let newGuesses = [...guesses];
-    newGuesses.sort((a, b) => b[metric] - a[metric]);
+    if (metric === "guess") {
+      newGuesses.sort((a, b) => a.guess.localeCompare(b.guess));
+    } else {
+      newGuesses.sort((a, b) => b[metric] - a[metric]);
+    }
     setGuesses(newGuesses);
   }
 
