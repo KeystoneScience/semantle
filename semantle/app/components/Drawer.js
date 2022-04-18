@@ -388,21 +388,24 @@ function Drawer({ navigation, route }) {
             }
             children={
               <View>
-                {/* <TouchableOpacity
+                <TouchableOpacity
                   onPress={() =>
                     Platform.OS === "ios"
                       ? Linking.openURL(
-                          "https://itunes.apple.com/us/app/flixpix/id1561264727"
+                          "https://apps.apple.com/us/app/semantle/id1616130804"
                         )
                       : Linking.openURL(
-                          "https://play.google.com/store/apps/details?id=com.nateastone.FlixPix"
+                          "https://play.google.com/store/apps/details?id=com.nateastone.semantle"
                         )
                   }
                 >
                   <View
                     style={[
                       styles.tutorialwhole,
-                      { backgroundColor: "yellow", marginTop: 15 },
+                      {
+                        backgroundColor: "rgba(255,255,255,.3)",
+                        marginTop: 15,
+                      },
                     ]}
                   >
                     <FontAwesome
@@ -414,9 +417,11 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <Text style={styles.tutorialText}>Rate Semantle</Text>
+                    <AppText fontWeight={550} style={styles.tutorialText}>
+                      Rate Semantle
+                    </AppText>
                   </View>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
                     Linking.openURL("https://semantle.app/requestfeature")

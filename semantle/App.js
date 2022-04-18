@@ -126,7 +126,7 @@ export default function App() {
         style={{
           flex: 1,
           backgroundColor:
-            theme === "original" ? "#202020" : colors.colors.backgroundColor,
+            theme === "original" ? "#202020" : theme ? theme : "#ACCAFD",
         }}
       >
         <StatusBar style="light" />
