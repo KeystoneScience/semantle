@@ -532,7 +532,7 @@ export default function semantle() {
         place: "HOME",
         action: "win",
       };
-    } else if (guess === "setcustomcolor") {
+    } else if (guess === "themecolor") {
       return {
         place: "HOME",
         action: "customColor",

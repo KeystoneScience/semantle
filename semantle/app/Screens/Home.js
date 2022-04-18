@@ -91,6 +91,7 @@ function Home({ navigation, route }) {
           onWin();
         } else if (easterEgg?.action === "customColor") {
           setCustomThemeModal(true);
+          Keyboard.dismiss();
         }
         if (easterEgg?.change === "THEME") {
           cache.storeData("theme", { theme: easterEgg.text });
