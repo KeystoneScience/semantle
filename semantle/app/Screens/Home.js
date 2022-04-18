@@ -32,6 +32,7 @@ import useColors from "../configs/useColors";
 import LottieView from "lottie-react-native";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
+import { ColorPicker } from "react-native-color-picker";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
@@ -44,6 +45,8 @@ function Home({ navigation, route }) {
   const [showWin, setShowWin] = useState(false);
   const appState = useRef(AppState.currentState);
   const [headerEasteregg, setHeaderEasteregg] = useState(false);
+
+  const [customThemeModal, setCustomThemeModal] = useState(false);
 
   const colors = useColors();
 
@@ -86,6 +89,8 @@ function Home({ navigation, route }) {
           confettiRef.current.play();
         } else if (easterEgg?.action === "win") {
           onWin();
+        } else if (easterEgg?.action === "customColor") {
+          setCustomThemeModal(true);
         }
         if (easterEgg?.change === "THEME") {
           cache.storeData("theme", { theme: easterEgg.text });
@@ -489,6 +494,51 @@ function Home({ navigation, route }) {
             </ScrollView>
           </View>
         </Pressable>
+      )}
+      {customThemeModal && (
+        <View
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            // backgroundColor: "rgba(0,0,0,.5)",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+        >
+          <BlurView
+            style={{
+              width: "80%",
+              maxHeight: 500,
+              alignSelf: "center",
+              zIndex: 1,
+              padding: 20,
+              backgroundColor: "rgba(0,0,0,0.1)",
+              justifyContent: "center",
+              borderRadius: 10,
+              overflow: "hidden",
+            }}
+          >
+            <ColorPicker
+              onColorSelected={(color) => {
+                colors.setTheme(color);
+                cache.storeData("theme", { theme: color });
+              }}
+              style={{ flex: 1, maxHeight: 500 }}
+            />
+          </BlurView>
+          <TouchableOpacity
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              zIndex: -1,
+            }}
+            onPress={() => {
+              setCustomThemeModal(false);
+            }}
+          ></TouchableOpacity>
+        </View>
       )}
     </View>
   );

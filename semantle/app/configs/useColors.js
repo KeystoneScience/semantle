@@ -44,7 +44,8 @@ export default function useColors() {
     lightBlue: "#add8e6",
     textInputColor: theme === "original" ? "#A0A0A0" : "rgba(0,0,0,0.4)",
     lightGreen: "#90ee90",
-    backgroundColor: theme === "original" ? "#202020" : "#ACCAFD", //"rgba(150, 174, 213, 1)",
+    backgroundColor:
+      theme === "original" ? "#202020" : theme ? theme : "#ACCAFD", //"rgba(150, 174, 213, 1)",
     textColor: theme === "original" ? "#E8E8E8" : darkenColor("#ACCAFD", 45),
     checkButtonColor:
       theme === "original" ? "#505050" : "rgba(137,  154,  226, 1)",
