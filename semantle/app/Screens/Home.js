@@ -520,7 +520,17 @@ function Home({ navigation, route }) {
               overflow: "hidden",
             }}
           >
+            <AppText
+              style={{
+                fontSize: 20,
+                color: colors.darkenColor(colors.colors.backgroundColor, 40),
+              }}
+              fontWeight="600"
+            >
+              Press Center to change the color.
+            </AppText>
             <ColorPicker
+              defaultColor={"#ACCAFD"}
               onColorSelected={(color) => {
                 colors.setTheme(color);
                 cache.storeData("theme", { theme: color });
