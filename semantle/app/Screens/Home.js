@@ -28,6 +28,7 @@ import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
 import PagerView from "react-native-pager-view";
 import Similarities from "../components/Similarities";
+import * as StoreReview from "expo-store-review";
 import useColors from "../configs/useColors";
 import LottieView from "lottie-react-native";
 import Screen from "../components/Screen";
@@ -119,6 +120,23 @@ function Home({ navigation, route }) {
       }
     } catch (error) {
       console.log(error.message);
+    }
+  }
+
+  async function mayRequestRating() {
+    //the current time
+    const currentTime = new Date().getTime();
+    //the time when the user last rated the app
+    const lastRatingObj = await cache.getData("lastRatingTime", false);
+    //if the last prompt was more than 2 weeks ago
+    if (!lastRatingObj || currentTime - lastRatingObj.time > 1209600000) {
+      //prompt the user to rate the app
+      if (await StoreReview.hasAction()) {
+        StoreReview.requestReview();
+        cache.storeData("lastRatingTime", {
+          time: currentTime,
+        });
+      }
     }
   }
 
@@ -379,6 +397,7 @@ function Home({ navigation, route }) {
         <Pressable
           onPress={() => {
             setShowWin(false);
+            mayRequestRating();
           }}
           pointerEvents="box-none"
           style={{
