@@ -45,10 +45,11 @@ async function fetchSecretWords(language = "en") {
 }
 
 async function fetchSimilarityStory(secret, language = "en") {
-  //wordset:
+  //simStory:
   // {
-  //   "secretWords": [...],
-  //   "timestamp": millisSinceEpoch
+  //   "top": .89238749223423,
+  //   "top10": .5816293698798723,
+  //   "rest": .3081197440624237
   //}
   const simStory = await cache.getData(
     `SEMANTLE::SIMILARITY_STORY::${secret}::${language}`,
