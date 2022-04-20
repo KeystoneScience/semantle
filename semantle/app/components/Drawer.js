@@ -552,6 +552,34 @@ function SettingsAccordian({
   setShowYesterdayWord,
 }) {
   const [semantleProEnabled, setSemantleProEnabled] = useState(false);
+  const [language, setLanguage] = useState("English");
+  const [languageModal, setLanguageModal] = useState(false);
+  const LANGUAGES = [
+    {
+      name: "English",
+      abbr: "en",
+    },
+    {
+      name: "Spanish",
+      abbr: "es",
+    },
+    {
+      name: "Dutch",
+      abbr: "nl",
+    },
+    {
+      name: "German",
+      abbr: "de",
+    },
+    {
+      name: "Swedish",
+      abbr: "sv",
+    },
+    {
+      name: "Turkish",
+      abbr: "tr",
+    },
+  ];
 
   async function toggleSemantlePro() {
     cache.storeData("theme", {
@@ -607,6 +635,50 @@ function SettingsAccordian({
       </View>
     );
   }
+
+  function SettingMultiChoice({ value, onChange, text }) {
+    return (
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          alignSelf: "center",
+          position: "relative",
+          width: "80%",
+          marginBottom: 20,
+        }}
+      >
+        <AppText
+          style={{
+            color: colors.darkenColor(colors.colors.backgroundColor, 50),
+            fontSize: 17,
+            marginBottom: -7,
+          }}
+          fontWeight={500}
+        >
+          {text}
+        </AppText>
+        <View style={{ position: "absolute", right: 0 }}>
+          <AppText
+            style={{
+              color: colors.darkenColor(colors.colors.backgroundColor, 50),
+              fontSize: 17,
+              marginBottom: -7,
+            }}
+            fontWeight={500}
+            onPress={() => {
+              setLanguageModal(true);
+            }}
+          >
+            {value}
+          </AppText>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <Accordian
       title={"Settings"}
@@ -618,7 +690,7 @@ function SettingsAccordian({
         />
       }
       children={
-        <View style={{ maxHeight: 300 }}>
+        <View style={{ maxHeight: 300, position: "relative" }}>
           <ScrollView style={{ paddingBottom: 50 }}>
             <SettingsChild
               value={semantleProEnabled}
@@ -630,7 +702,47 @@ function SettingsAccordian({
               onChange={toggleShowYesterdayWord}
               text={"Hide Yesterday's Word"}
             />
+            <SettingMultiChoice
+              value={language}
+              onChange={() => {}}
+              text={"Language:"}
+            />
           </ScrollView>
+          {languageModal && (
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+
+                backgroundColor: "rgba(255,255,255,1)",
+                padding: 10,
+              }}
+            >
+              <ScrollView style={{ paddingBottom: 50 }}>
+                {LANGUAGES.map((lang) => (
+                  <AppText
+                    onPress={() => {
+                      setLanguage(lang.name);
+                      setLanguageModal(false);
+                      //update language
+                    }}
+                    style={{
+                      color: colors.darkenColor(
+                        colors.colors.backgroundColor,
+                        50
+                      ),
+                      fontSize: 17,
+                      marginBottom: -7,
+                    }}
+                    fontWeight={500}
+                  >
+                    {lang.name}
+                  </AppText>
+                ))}
+              </ScrollView>
+            </View>
+          )}
         </View>
       }
     />
