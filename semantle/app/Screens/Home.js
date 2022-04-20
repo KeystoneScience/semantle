@@ -34,7 +34,8 @@ import LottieView from "lottie-react-native";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ColorPicker } from "react-native-color-picker";
-
+import i18n from "i18n-js";
+import translate from "../configs/translate";
 function Home({ navigation, route }) {
   const semantleGame = semantle();
   const [pushToken, setPushToken] = useState("");
@@ -434,13 +435,26 @@ function Home({ navigation, route }) {
               marginTop: -100,
             }}
           >
-            <AppText style={{ color: colors.colors.white, fontSize: 30 }}>
+            <AppText
+              style={{
+                color: colors.colors.white,
+                fontSize: 30,
+                textTransform: "uppercase",
+              }}
+            >
               🔥
               {" " + semantleGame.streak + " "}
-              DAY STREAK
+              {i18n.t("Day Streak")}
             </AppText>
-            <AppText style={{ color: colors.colors.white, fontSize: 25 }}>
-              WORD FOUND IN {semantleGame.guesses.length} GUESSES
+            <AppText
+              style={{
+                color: colors.colors.white,
+                fontSize: 25,
+                textTransform: "uppercase",
+              }}
+            >
+              {i18n.t("Word found in")} {semantleGame.guesses.length}{" "}
+              {i18n.t("guesses")}
             </AppText>
             <TouchableOpacity
               onPress={() => {
@@ -462,8 +476,14 @@ function Home({ navigation, route }) {
                 Share Win
               </AppText>
             </TouchableOpacity>
-            <AppText style={{ color: colors.colors.white, fontSize: 25 }}>
-              NEXT PUZZLE IN{" "}
+            <AppText
+              style={{
+                color: colors.colors.white,
+                fontSize: 25,
+                textTransform: "uppercase",
+              }}
+            >
+              {i18n.t("Next puzzle In")}{" "}
               {semantleGame.formatTime(semantleGame.timeUntilNextPuzzle)}
             </AppText>
             <AppText
@@ -475,8 +495,9 @@ function Home({ navigation, route }) {
                 textAlign: "center",
               }}
             >
-              You may continue exploring guesses without it affecting your
-              score.
+              {i18n.t(
+                "You may continue exploring guesses without it affecting your score"
+              )}
             </AppText>
           </View>
         </Pressable>

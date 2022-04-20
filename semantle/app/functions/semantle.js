@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import client from "../api/client";
 import cache from "../utility/cache";
 import { Alert } from "react-native";
-
+import i18n from "i18n-js";
+import translate from "../configs/translate";
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
 var SECRET_WORDS = [];
@@ -209,7 +210,7 @@ export default function semantle() {
     if (!guessData) {
       //word not found
       setLastGuess({
-        guess: `'${guess}' not found in our dictionary.`,
+        guess: `'${guess}' ${i18n.t("not found in our dictionary")}`,
         lastGuess: true,
         notFound: true,
       });
@@ -341,7 +342,7 @@ export default function semantle() {
     //check if guesses contains the secret word, if so, return the index of the secret word
     const index = guesses.findIndex((g) => g.guess === secret);
     if (index === -1) {
-      return "Download Semantle";
+      return i18n.t("Download Semantle");
     }
     //get guesses whose guessNumber is 0
     let temporallySorted = [...guesses];
@@ -352,7 +353,9 @@ export default function semantle() {
       return "I haven't found any words yet!";
     }
     if (temporallySorted.length == 1) {
-      return `I solved Semantle #${puzzleNumber} in only one guess!`;
+      return `${i18n.t("I solved Semantle")} #${puzzleNumber} ${i18n.t(
+        "in only one guess"
+      )}`;
     }
     function similarityString(guess) {
       return `${guess.similarity.toFixed(2)}%${
@@ -364,19 +367,19 @@ export default function semantle() {
     let firstGuess = temporallySorted[0];
     let firstIn1000 = temporallySorted.find((g) => g.percentile !== null);
     const secondToLast = temporallySorted[temporallySorted.length - 2];
-    let shareString = `I solved Semantle #${puzzleNumber} in ${
-      temporallySorted.length
-    } guesses. My first guess had a similarity of ${similarityString(
-      firstGuess
-    )}.`;
+    let shareString = `${i18n.t("I solved Semantle")} #${puzzleNumber} ${i18n.t(
+      "in"
+    )} ${temporallySorted.length} ${i18n.t(
+      "guesses My first guess had a similarity of"
+    )} ${similarityString(firstGuess)}.`;
     if (firstIn1000.guessCount != 0) {
-      shareString += ` My first guess in the top 1000 was at guess #${
-        firstIn1000.guessCount + 1
-      }.`;
+      shareString += ` ${i18n.t(
+        "My first guess in the top 1000 was at guess"
+      )} #${firstIn1000.guessCount + 1}.`;
     }
-    shareString += ` My penultimate guess had a similarity of ${similarityString(
-      secondToLast
-    )}.`;
+    shareString += ` ${i18n.t(
+      "My penultimate guess had a similarity of"
+    )} ${similarityString(secondToLast)}.`;
     return shareString;
   }
 

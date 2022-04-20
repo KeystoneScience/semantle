@@ -29,6 +29,8 @@ import Screen from "./Screen";
 import Accordian from "./Accordion";
 import useColors from "../configs/useColors";
 import AppText from "./AppText";
+import i18n from "i18n-js";
+import translate from "../configs/translate";
 
 function Drawer({ navigation, route }) {
   const colors = useColors();
@@ -156,12 +158,12 @@ function Drawer({ navigation, route }) {
             >
               <View style={{ marginTop: 20 }}>
                 <AppText fontWeight={700} style={{ fontSize: 20 }}>
-                  Puzzle #{semantleGame.puzzleNumber}
+                  {i18n.t("Puzzle")} #{semantleGame.puzzleNumber}
                 </AppText>
               </View>
               <View style={{ marginTop: -5 }}>
                 <AppText fontWeight={700} style={{ fontSize: 16 }}>
-                  Next word in:{" "}
+                  {i18n.t("Next word in")}:{" "}
                   {formatTime(semantleGame.getTimeUntilNextPuzzle())}
                 </AppText>
               </View>
@@ -182,8 +184,8 @@ function Drawer({ navigation, route }) {
                   }}
                 >
                   <Text style={{ fontSize: 90 }}>🔥</Text>
-                  <AppText style={{ fontSize: 20 }}>
-                    {semantleGame.streak} DAY STREAK
+                  <AppText style={{ fontSize: 20, textTransform: "uppercase" }}>
+                    {semantleGame.streak} {i18n.t("Day Streak")}
                   </AppText>
                 </View>
               )}
@@ -215,7 +217,13 @@ function Drawer({ navigation, route }) {
                   >
                     {semantleGame.getYesterdaysWord()}
                   </AppText>
-                  <AppText style={{ fontSize: 20, color: "rgba(0,0,0,.8)" }}>
+                  <AppText
+                    style={{
+                      fontSize: 20,
+                      color: "rgba(0,0,0,.8)",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     YESTERDAY'S WORD
                   </AppText>
                   <AppText

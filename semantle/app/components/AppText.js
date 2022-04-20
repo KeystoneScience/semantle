@@ -13,20 +13,17 @@ const fonts = [
   "BalooBhaina2_700Bold",
   "BalooBhaina2_800ExtraBold",
 ];
-function AppText({ style, onPress, children, fontWeight }) {
-  const childrenSplitArray = children.toString().split(" ");
-  for (let i = 0; i < childrenSplitArray.length; i++) {
-    if (i18n.lookup(childrenSplitArray[i])) {
-      childrenSplitArray[i] = i18n.t(childrenSplitArray[i]);
-    } else {
-      childrenSplitArray[i] = childrenSplitArray[i];
+function AppText({ style, onPress, children, fontWeight, translate = true }) {
+  if (translate) {
+    if (typeof children === "string") {
+      if (i18n.t(children).toString().slice(0, 8) != "[missing") {
+        // console.log(i18n.t(children));
+        children = "test";
+        // children = i18n.t(children);
+      }
     }
   }
-  children = childrenSplitArray.join(" ");
-  // if (i18n.lookup(children)) {
-  //   children = "test";
-  //   // children = i18n.t(children);
-  // }
+
   return (
     <Text
       onPress={onPress}
