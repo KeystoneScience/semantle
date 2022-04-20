@@ -18,7 +18,7 @@ async function getNearby(word) {
   return json;
 }
 
-async function getSecretWords(language = "en") {
+async function fetchSecretWords(language = "en") {
   //wordset:
   // {
   //   "secretWords": [...],
@@ -42,6 +42,28 @@ async function getSecretWords(language = "en") {
     timestamp: Date.now(),
   });
   return body;
+}
+
+async function fetchSimilarityStory(secret, language = "en") {
+  //wordset:
+  // {
+  //   "secretWords": [...],
+  //   "timestamp": millisSinceEpoch
+  //}
+  const simStory = await cache.getData(
+    `SEMANTLE::SIMILARITY_STORY::${secret}::${language}`,
+    false
+  );
+  if (simStory) {
+    return simStory;
+  }
+
+  const url = "model2/percentile?secret=" + word + "&language=" + language;
+  const response = await client.get(url);
+  const body = response?.data?.body;
+  const json = JSON.parse(body);
+  cache.storeData(`SEMANTLE::SIMILARITY_STORY::${secret}::${language}`, json);
+  return json;
 }
 
 async function getModel(word, secret) {
