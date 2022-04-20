@@ -18,6 +18,32 @@ async function getNearby(word) {
   return json;
 }
 
+async function getSecretWords(language = "en") {
+  //wordset:
+  // {
+  //   "secretWords": [...],
+  //   "timestamp": millisSinceEpoch
+  //}
+  const wordSet = await cache.getData(
+    `SEMANTLE::SECRET_WORDS::${language}`,
+    false
+  );
+  //if wordset exists and is not older than a week, return it
+  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 7) {
+    return wordSet.secretWords;
+  }
+
+  const url = `https://semantle.s3.us-east-2.amazonaws.com/secrets/${language}.json`;
+  const response = await client.get(url);
+  const body = response?.data;
+  // store the wordset in the cache
+  cache.storeData(`SEMANTLE::SECRET_WORDS::${language}`, {
+    secretWords: body,
+    timestamp: Date.now(),
+  });
+  return body;
+}
+
 async function getModel(word, secret) {
   const url = "model2?secret=" + secret + "&word=" + word.replace(/\ /gi, "_");
   const response = await client.get(url);
@@ -345,6 +371,7 @@ export default function semantle() {
   async function initialize() {
     // check to see if there is information cached.
     guessed = new Set();
+    //getSecretWords();
     secretVec = null;
     setLastGuess(null);
     const day = getPuzzleNumber();

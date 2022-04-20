@@ -1,8 +1,10 @@
 import { create } from "apisauce";
 import cache from "../utility/cache";
 
+const ENVIORMENT = "staging"; //prod
+
 const apiClient = create({
-  baseURL: "https://btztcea8r6.execute-api.us-east-2.amazonaws.com/prod/", //"https://api.themoviedb.org/3/discover/", //"https://44tq0n57v6.execute-api.us-east-1.amazonaws.com/Staging",
+  baseURL: `https://btztcea8r6.execute-api.us-east-2.amazonaws.com/${ENVIORMENT}/`, //"https://api.themoviedb.org/3/discover/", //"https://44tq0n57v6.execute-api.us-east-1.amazonaws.com/Staging",
 });
 
 //caches get requests
