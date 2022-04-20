@@ -9,6 +9,9 @@ import {
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
 import useColors from "../configs/useColors";
+import i18n from "i18n-js";
+import translate from "../configs/translate";
+const placeholder = i18n.t("enter your guess (click here)");
 
 function MainInput(props) {
   var textInputRef = useRef();
@@ -68,7 +71,7 @@ function MainInput(props) {
               setValue("");
             }}
             onFocus={props.onFocus}
-            placeholder="Enter your guess (click here)"
+            placeholder={placeholder}
             returnKeyType="go"
             keyboardType="default"
             blurOnSubmit={false}
@@ -95,7 +98,7 @@ function MainInput(props) {
               setValue("");
             }}
             onFocus={props.onFocus}
-            placeholder="Enter your guess (click here)"
+            placeholder={placeholder}
             returnKeyType="go"
             keyboardType="default"
             blurOnSubmit={false}
@@ -168,9 +171,10 @@ function MainInput(props) {
             alignItems: "center",
             // fontWeight: "700",
             padding: 0,
+            textTransform: "uppercase",
           }}
         >
-          GUESS
+          Guess
         </AppText>
       </TouchableOpacity>
     </View>
