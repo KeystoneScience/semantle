@@ -1,13 +1,12 @@
 // import { getNearby, getModel, getSimilarityStory } from "../api/words.js";
 import { useState, useEffect } from "react";
 import client from "../api/client";
-import secretWords from "../data/secretWords";
-import similarStory from "../data/quickSimilars";
 import cache from "../utility/cache";
 import { Alert } from "react-native";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
+var SECRET_WORDS = [];
 
 //returns the 10 nearest words.
 async function getNearby(word) {
@@ -18,7 +17,7 @@ async function getNearby(word) {
   return json;
 }
 
-async function fetchSecretWords(language = "en") {
+async function fetchSecretWords(day, language = "en") {
   //wordset:
   // {
   //   "secretWords": [...],
@@ -28,9 +27,10 @@ async function fetchSecretWords(language = "en") {
     `SEMANTLE::SECRET_WORDS::${language}`,
     false
   );
-  //if wordset exists and is not older than a week, return it
-  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 7) {
-    return wordSet.secretWords;
+  //if wordset exists and is not older than 10 days, return it
+  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 10) {
+    SECRET_WORDS = wordSet.secretWords;
+    return wordSet.secretWords[day % wordSet.secretWords.length];
   }
 
   const url = `https://semantle.s3.us-east-2.amazonaws.com/secrets/${language}.json`;
@@ -41,7 +41,8 @@ async function fetchSecretWords(language = "en") {
     secretWords: body,
     timestamp: Date.now(),
   });
-  return body;
+  SECRET_WORDS = body;
+  return body[day % wordSet.secretWords.length];
 }
 
 async function fetchSimilarityStory(secret, language = "en") {
@@ -59,7 +60,7 @@ async function fetchSimilarityStory(secret, language = "en") {
     return simStory;
   }
 
-  const url = "model2/percentile?secret=" + word + "&language=" + language;
+  const url = "model2/percentile?secret=" + secret + "&language=" + language;
   const response = await client.get(url);
   const body = response?.data?.body;
   const json = JSON.parse(body);
@@ -121,12 +122,6 @@ function getPuzzleNumber() {
     millisSinceSemantleStart / 1000 / 60 / 60 / 24
   );
   return daysSinceSemantleStart;
-}
-
-function getSimilarityStory(secret) {
-  // const url = "similarity/" + secret;
-  // const response = await client.get(url);
-  return similarStory[secret];
 }
 
 function mag(a) {
@@ -394,15 +389,18 @@ export default function semantle() {
   async function initialize() {
     // check to see if there is information cached.
     guessed = new Set();
-    //getSecretWords();
     secretVec = null;
+
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
-    const secretWord = secretWords[day % secretWords.length];
+
+    const secretWord = await fetchSecretWords(day);
+    const simStory = await fetchSimilarityStory(secretWord);
+
     setSecret(secretWord);
-    const similarity = getSimilarityStory(secretWord);
-    setSimilarityStory(similarity);
+    setSimilarityStory(simStory);
+
     const guessData = await cache.getData("SEMANTLE_" + day, false);
     if (guessData) {
       setGuesses(guessData);
@@ -416,9 +414,6 @@ export default function semantle() {
     countdown(day);
     getAndSetYesterdayClosest(day);
     getStreak(day);
-
-    //set a timer that checks to see if the time until the next puzzle is up.
-    //if it is, then reset the puzzle.
   }
 
   function formatTime(time) {
@@ -476,7 +471,7 @@ export default function semantle() {
 
   function getYesterdaysWord(dayNumber = puzzleNumber) {
     const day = dayNumber - 1;
-    const secretWord = secretWords[day % secretWords.length];
+    const secretWord = SECRET_WORDS[day % SECRET_WORDS.length];
     return secretWord;
   }
 
