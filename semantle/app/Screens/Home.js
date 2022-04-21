@@ -440,6 +440,8 @@ function Home({ navigation, route }) {
                 color: colors.colors.white,
                 fontSize: 30,
                 textTransform: "uppercase",
+                textAlign: "center",
+                marginHorizontal: 10,
               }}
             >
               🔥
@@ -451,6 +453,8 @@ function Home({ navigation, route }) {
                 color: colors.colors.white,
                 fontSize: 25,
                 textTransform: "uppercase",
+                textAlign: "center",
+                marginHorizontal: 10,
               }}
             >
               {i18n.t("Word found in")} {semantleGame.guesses.length}{" "}
@@ -462,8 +466,8 @@ function Home({ navigation, route }) {
               }}
               style={{
                 backgroundColor: colors.colors.grooveColorPallet[1],
-                padding: 10,
-                width: 200,
+                padding: 5,
+                paddingHorizontal: 40,
                 borderRadius: 10,
                 display: "flex",
                 justifyContent: "center",
@@ -472,7 +476,7 @@ function Home({ navigation, route }) {
                 zIndex: 200,
               }}
             >
-              <AppText style={{ color: colors.colors.white, fontSize: 20 }}>
+              <AppText style={{ color: colors.colors.white, fontSize: 24 }}>
                 Share Win
               </AppText>
             </TouchableOpacity>
@@ -481,6 +485,8 @@ function Home({ navigation, route }) {
                 color: colors.colors.white,
                 fontSize: 25,
                 textTransform: "uppercase",
+                textAlign: "center",
+                marginHorizontal: 10,
               }}
             >
               {i18n.t("Next puzzle In")}{" "}
@@ -495,9 +501,7 @@ function Home({ navigation, route }) {
                 textAlign: "center",
               }}
             >
-              {i18n.t(
-                "You may continue exploring guesses without it affecting your score"
-              )}
+              You may continue exploring guesses without it affecting your score
             </AppText>
           </View>
         </Pressable>
