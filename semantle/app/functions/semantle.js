@@ -11,7 +11,7 @@ var SECRET_WORDS = [];
 
 //returns the 10 nearest words.
 async function getNearby(word) {
-  const url = "model2/nearby?secret=" + word;
+  const url = "model2/nearby?secret=" + word + "&language=" + i18n.locale;
   const response = await client.get(url);
   const body = response?.data?.body;
   const json = JSON.parse(body);
@@ -43,7 +43,7 @@ async function fetchSecretWords(day, language = "en") {
     timestamp: Date.now(),
   });
   SECRET_WORDS = body;
-  return body[day % wordSet.secretWords.length];
+  return body[day % body.length];
 }
 
 async function fetchSimilarityStory(secret, language = "en") {
@@ -57,6 +57,7 @@ async function fetchSimilarityStory(secret, language = "en") {
     `SEMANTLE::SIMILARITY_STORY::${secret}::${language}`,
     false
   );
+  console.log(simStory);
   if (simStory) {
     return simStory;
   }
@@ -64,13 +65,20 @@ async function fetchSimilarityStory(secret, language = "en") {
   const url = "model2/percentile?secret=" + secret + "&language=" + language;
   const response = await client.get(url);
   const body = response?.data?.body;
-  const json = JSON.parse(body);
+  const json = await JSON.parse(body);
+  console.log("JSON", json);
   cache.storeData(`SEMANTLE::SIMILARITY_STORY::${secret}::${language}`, json);
   return json;
 }
 
 async function getModel(word, secret) {
-  const url = "model2?secret=" + secret + "&word=" + word.replace(/\ /gi, "_");
+  const url =
+    "model2?secret=" +
+    secret +
+    "&word=" +
+    word.replace(/\ /gi, "_") +
+    "&language=" +
+    i18n.locale;
   const response = await client.get(url);
   const body = response?.data?.body;
   const json = JSON.parse(body);
@@ -107,6 +115,7 @@ async function postStreak(streak, puzzleNumber) {
     userID: userID,
     puzzleNumber: puzzleNumber,
     streak: streak,
+    language: i18n.locale,
     pushToken: previousToken,
   };
 
@@ -236,23 +245,35 @@ export default function semantle() {
       setLastGuess({ ...newEntry, lastGuess: true });
       let newGuesses = [...guesses, newEntry];
       newGuesses.sort((a, b) => b.similarity - a.similarity);
-      cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
+      cache.storeData(
+        "SEMANTLE_" + puzzleNumber + (i18n.locale === "en" ? "" : i18n.locale),
+        newGuesses
+      );
       setGuesses(newGuesses);
       const foundWord = guess.toLowerCase() === secret.toLowerCase();
       editStats(newEntry, foundWord);
       if (foundWord) {
         //Word Found.
-        const data = await cache.getData("SEMANTLE_STREAK", false);
+        const data = await cache.getData(
+          "SEMANTLE_STREAK" + (i18n.locale === "en" ? "" : i18n.locale),
+          false
+        );
         setStreakCacheData(data);
         if (data && (!data.day || data.day == puzzleNumber - 1)) {
-          cache.storeData("SEMANTLE_STREAK", {
-            streak: data.streak + 1,
-            day: puzzleNumber,
-          });
+          cache.storeData(
+            "SEMANTLE_STREAK" + (i18n.locale === "en" ? "" : i18n.locale),
+            {
+              streak: data.streak + 1,
+              day: puzzleNumber,
+            }
+          );
           postStreak(data.streak + 1, puzzleNumber);
           setStreak(data.streak + 1);
         } else {
-          cache.storeData("SEMANTLE_STREAK", { streak: 1, day: puzzleNumber });
+          cache.storeData(
+            "SEMANTLE_STREAK" + (i18n.locale === "en" ? "" : i18n.locale),
+            { streak: 1, day: puzzleNumber }
+          );
           postStreak(1, puzzleNumber);
           setStreak(1);
         }
@@ -276,7 +297,10 @@ export default function semantle() {
   }
 
   async function getStreak(puzzleNumber = this.puzzleNumber) {
-    const data = await cache.getData("SEMANTLE_STREAK", false);
+    const data = await cache.getData(
+      "SEMANTLE_STREAK" + (i18n.locale === "en" ? "" : i18n.locale),
+      false
+    );
     setStreakCacheData(data);
     if (
       data &&
@@ -308,7 +332,10 @@ export default function semantle() {
   }
 
   async function getStats() {
-    const data = await cache.getData("SEMANTLE_STATS", false);
+    const data = await cache.getData(
+      "SEMANTLE_STATS" + (i18n.locale === "en" ? "" : i18n.locale),
+      false
+    );
     if (data) {
       return data.daysMap;
     }
@@ -316,7 +343,10 @@ export default function semantle() {
   }
 
   async function editStats(newestGuess, isFound = false) {
-    const data = await cache.getData("SEMANTLE_STATS", false);
+    const data = await cache.getData(
+      "SEMANTLE_STATS" + (i18n.locale === "en" ? "" : i18n.locale),
+      false
+    );
     var daysMap = data?.daysMap ? data.daysMap : {};
     const existingData = daysMap["STATS_DAY_" + puzzleNumber] || {};
     if (existingData.found) {
@@ -335,7 +365,10 @@ export default function semantle() {
       newestGuess.similarity / existingData.numberOfGuesses;
 
     daysMap["STATS_DAY_" + puzzleNumber] = existingData;
-    cache.storeData("SEMANTLE_STATS", { daysMap: daysMap });
+    cache.storeData(
+      "SEMANTLE_STATS" + (i18n.locale === "en" ? "" : i18n.locale),
+      { daysMap: daysMap }
+    );
   }
 
   function getWinShareString() {
@@ -398,13 +431,16 @@ export default function semantle() {
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
 
-    const secretWord = await fetchSecretWords(day);
-    const simStory = await fetchSimilarityStory(secretWord);
+    const secretWord = await fetchSecretWords(day, i18n.locale);
+    const simStory = await fetchSimilarityStory(secretWord, i18n.locale);
 
     setSecret(secretWord);
     setSimilarityStory(simStory);
 
-    const guessData = await cache.getData("SEMANTLE_" + day, false);
+    const guessData = await cache.getData(
+      "SEMANTLE_" + day + (i18n.locale === "en" ? "" : i18n.locale),
+      false
+    );
     if (guessData) {
       setGuesses(guessData);
       //for each guess in guessData, add it to guessed

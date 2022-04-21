@@ -1,4 +1,5 @@
 import * as Localization from "expo-localization";
+import cache from "../utility/cache";
 import i18n from "i18n-js";
 i18n.translations = {
   en: {
@@ -93,7 +94,6 @@ i18n.translations = {
     "Share Win": "Dela vinst",
     "not found in our dictionary": "inte hittades i vår ordlista.",
     far: "långt",
-    Puzzle: "Puzzle",
     "Next word in": "Nästa ord i",
     "YESTERDAY'S WORD": "IGÅR'S ORD",
     "(click for similar words)": "(klicka för liknande ord)",
@@ -153,7 +153,6 @@ i18n.translations = {
     "Share Win": "Compartir ganar",
     "not found in our dictionary": "no se encuentra en nuestro diccionario.",
     far: "lejos",
-    Puzzle: "Rompecabezas",
     "Next word in": "Próximo orden en",
     "YESTERDAY'S WORD": "ORDEN DE AYER",
     "(click for similar words)": "(haga clic para palabras similares)",
@@ -215,7 +214,6 @@ i18n.translations = {
     "not found in our dictionary": "niet gevonden in ons woordenboek.",
     far: "ver weg",
 
-    Puzzle: "Puzzel",
     "Next word in": "Volgende woord in",
     "YESTERDAY'S WORD": "VORIGE WOORD",
     "(click for similar words)": "(klik voor vergelijkbare woorden)",
@@ -274,7 +272,6 @@ i18n.translations = {
     "Share Win": "Kazanını Paylaş",
     "not found in our dictionary": "sözlükte bulunamadı.",
     far: "uzak",
-    Puzzle: "Puzzle",
     "Next word in": "Sonraki kelime in",
     "YESTERDAY'S WORD": "DÖNEN GÜN",
     "(click for similar words)": "(benzer kelimeler için tıklayın)",
@@ -301,5 +298,12 @@ i18n.translations = {
       "Mevcut tahminin önceki tahmininin benzerliği",
   },
 };
-i18n.locale = Localization.locale;
-i18n.fallbacks = true;
+async function checkAndSetLocalization() {
+  const language = await cache.getData("SEMANTLE::LANGUAGE", false);
+  if (language) {
+    i18n.locale = language;
+  } else {
+    i18n.locale = Localization.locale.split("-")[0];
+  }
+}
+checkAndSetLocalization();

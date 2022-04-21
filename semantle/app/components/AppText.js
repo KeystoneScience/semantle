@@ -17,9 +17,7 @@ function AppText({ style, onPress, children, fontWeight, translate = true }) {
   if (translate) {
     if (typeof children === "string") {
       if (i18n.t(children).toString().slice(0, 8) != "[missing") {
-        // console.log(i18n.t(children));
-        children = "test";
-        // children = i18n.t(children);
+        children = i18n.t(children);
       }
     }
   }

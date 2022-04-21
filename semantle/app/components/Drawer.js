@@ -14,6 +14,7 @@ import {
   Switch,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import * as Updates from "expo-updates";
 import {
   Foundation,
   AntDesign,
@@ -560,7 +561,6 @@ function SettingsAccordian({
   setShowYesterdayWord,
 }) {
   const [semantleProEnabled, setSemantleProEnabled] = useState(false);
-  const [language, setLanguage] = useState("English");
   const [languageModal, setLanguageModal] = useState(false);
   const LANGUAGES = [
     {
@@ -568,26 +568,31 @@ function SettingsAccordian({
       abbr: "en",
     },
     {
-      name: "Spanish",
+      name: "Espanol",
       abbr: "es",
     },
     {
-      name: "Dutch",
+      name: "Nederlands",
       abbr: "nl",
     },
     {
-      name: "German",
+      name: "Deutsch",
       abbr: "de",
     },
     {
-      name: "Swedish",
+      name: "Svenska",
       abbr: "sv",
     },
     {
-      name: "Turkish",
+      name: "Türkçe",
       abbr: "tr",
     },
   ];
+  const [language, setLanguage] = useState("English");
+
+  useEffect(() => {
+    setLanguage(LANGUAGES.find((l) => l.abbr === i18n.locale).name);
+  }, [i18n.locale]);
 
   async function toggleSemantlePro() {
     cache.storeData("theme", {
@@ -728,12 +733,19 @@ function SettingsAccordian({
               }}
             >
               <ScrollView style={{ paddingBottom: 50 }}>
-                {LANGUAGES.map((lang) => (
+                {LANGUAGES.map((lang, index) => (
                   <AppText
+                    key={index}
                     onPress={() => {
                       setLanguage(lang.name);
                       setLanguageModal(false);
-                      //update language
+                      if (lang.abbr === i18n.locale) return;
+                      i18n.locale = lang.abbr;
+                      async function setAndStore() {
+                        await cache.storeData("SEMANTLE::LANGUAGE", lang.abbr);
+                        await Updates.reloadAsync();
+                      }
+                      setAndStore();
                     }}
                     style={{
                       color: colors.darkenColor(
