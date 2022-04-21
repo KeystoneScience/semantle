@@ -411,6 +411,7 @@ function Home({ navigation, route }) {
             position: "absolute",
             justifyContent: "space-evenly",
             height: "100%",
+            width: "100%",
             alignItems: "center",
             flex: 1,
             zIndex: 100,
@@ -430,6 +431,8 @@ function Home({ navigation, route }) {
             pointerEvents="box-none"
             style={{
               display: "flex",
+              width: "100%",
+
               justifyContent: "center",
               alignItems: "center",
               marginTop: -100,
