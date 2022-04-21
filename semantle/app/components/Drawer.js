@@ -728,37 +728,57 @@ function SettingsAccordian({
                 width: "100%",
                 height: "100%",
 
-                backgroundColor: "rgba(255,255,255,1)",
+                backgroundColor: colors.lightenColor(
+                  colors.colors.backgroundColor,
+                  60
+                ),
                 padding: 10,
               }}
             >
               <ScrollView style={{ paddingBottom: 50 }}>
                 {LANGUAGES.map((lang, index) => (
-                  <AppText
+                  <View
                     key={index}
-                    onPress={() => {
-                      setLanguage(lang.name);
-                      setLanguageModal(false);
-                      if (lang.abbr === i18n.locale) return;
-                      i18n.locale = lang.abbr;
-                      async function setAndStore() {
-                        await cache.storeData("SEMANTLE::LANGUAGE", lang.abbr);
-                        await Updates.reloadAsync();
-                      }
-                      setAndStore();
-                    }}
                     style={{
-                      color: colors.darkenColor(
-                        colors.colors.backgroundColor,
-                        50
-                      ),
-                      fontSize: 17,
-                      marginBottom: -7,
+                      width: "100%",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginBottom: 20,
                     }}
-                    fontWeight={500}
                   >
-                    {lang.name}
-                  </AppText>
+                    <AppText
+                      onPress={() => {
+                        setLanguage(lang.name);
+                        setLanguageModal(false);
+                        if (lang.abbr === i18n.locale) return;
+                        i18n.locale = lang.abbr;
+                        async function setAndStore() {
+                          await cache.storeData(
+                            "SEMANTLE::LANGUAGE",
+                            lang.abbr
+                          );
+                          await Updates.reloadAsync();
+                        }
+                        setAndStore();
+                      }}
+                      style={{
+                        color: colors.darkenColor(
+                          colors.colors.backgroundColor,
+                          50
+                        ),
+                        fontSize: 17,
+                        backgroundColor: colors.lightenColor(
+                          colors.colors.backgroundColor,
+                          90
+                        ),
+                        width: 200,
+                        textAlign: "center",
+                      }}
+                      fontWeight={700}
+                    >
+                      {lang.name}
+                    </AppText>
+                  </View>
                 ))}
               </ScrollView>
             </View>
