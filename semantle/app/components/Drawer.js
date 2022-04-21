@@ -695,6 +695,9 @@ function SettingsAccordian({
   return (
     <Accordian
       title={"Settings"}
+      onClose={() => {
+        setLanguageModal(false);
+      }}
       titleIcon={
         <FontAwesome
           name="gear"

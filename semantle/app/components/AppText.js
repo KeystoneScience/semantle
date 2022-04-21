@@ -17,7 +17,19 @@ function AppText({ style, onPress, children, fontWeight, translate = true }) {
   if (translate) {
     if (typeof children === "string") {
       if (i18n.t(children).toString().slice(0, 8) != "[missing") {
+        const originalLength = children.length;
         children = i18n.t(children);
+        if (originalLength < children.length) {
+          if (style.fontSize) {
+            style.fontSize = Math.floor(
+              (style.fontSize * originalLength) / children.length
+            );
+          } else {
+            style.fontSize = Math.floor(
+              (16 * originalLength) / children.length
+            );
+          }
+        }
       }
     }
   }

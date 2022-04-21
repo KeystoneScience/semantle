@@ -13,7 +13,13 @@ import AppText from "./AppText";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import useColors from "../configs/useColors";
 // import colors from "../../../config/colors";
-export default function Accordian({ data, children, titleIcon, title }) {
+export default function Accordian({
+  data,
+  children,
+  titleIcon,
+  title,
+  onClose,
+}) {
   const colors = useColors();
   const [expanded, setExpanded] = useState(expanded);
 
@@ -26,6 +32,7 @@ export default function Accordian({ data, children, titleIcon, title }) {
   function toggleExpand() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setExpanded(!expanded);
+    if (onClose) onClose();
   }
 
   const styles = StyleSheet.create({
