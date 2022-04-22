@@ -5,7 +5,8 @@ import LottieView from "lottie-react-native";
 import colors from "../configs/colors";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
-
+import i18n from "i18n-js";
+import translate from "../configs/translate";
 /**
  * A slide can be created with the following properties:
  * @param {string} title - The title of the slide
@@ -21,7 +22,7 @@ const slides = [
   {
     key: 1,
     title: "Welcome to Semantle",
-    text: "The context-based word puzzle game.",
+    text: i18n.t("The context-based word puzzle game"),
     animation: require("../../assets/animations/FindAWord.json"),
     loop: true,
     backgroundColor: colors.lightenColor(
@@ -32,8 +33,10 @@ const slides = [
   {
     key: 2,
     title: "How to play",
-    text: "Enter a word and receive how similar it is to the daily word. Similarity is determined by context, not by spelling.",
-    text2: "Can you find the word?",
+    text: i18n.t(
+      "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling"
+    ),
+    text2: i18n.t("Can you find the word"),
     animation: require("../../assets/animations/thinking.json"),
     loop: true,
     backgroundColor: colors.lightenColor(

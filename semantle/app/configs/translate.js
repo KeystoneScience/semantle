@@ -60,6 +60,17 @@ i18n.translations = {
       "My first guess in the top 1000 was at guess",
     "My penultimate guess had a similarity of":
       "My penultimate guess had a similarity of",
+    "Language:": "Language:",
+    FOUND: "FOUND",
+    "Welcome to Semantle": "Welcome to Semantle",
+    "The context-based word puzzle game": "The context-based word puzzle game.",
+    "How to play": "How to play",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Enter a word and receive how similar it is to the daily word. Similarity is determined by context, not by spelling.",
+    "Can you find the word": "Can you find the word?",
+    "Play with the community": "Play with the community",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
+      "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!",
   },
   sv: {
     "Semantle Pro": "Semantle Pro",
@@ -118,6 +129,17 @@ i18n.translations = {
       "Min första gissning i topp 1000 var på gissning",
     "My penultimate guess had a similarity of":
       "Min förra gissning hade en likhet på",
+    "Language:": "språk:",
+    FOUND: "HITTAD",
+    "Welcome to Semantle": "Välkommen till Semantle",
+    "The context-based word puzzle game": "Spel för ordspel med kontext",
+    "How to play": "Hurspela",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Ange ett ord och få hur likt det är till dagens ord. Likhet beräknas baserat på kontext, inte på stavning.",
+    "Can you find the word": "Kan du hitta ordet",
+    "Play with the community": "Spela med gemenskapen",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
+      "Spelar du Semantle med dina vänner är det en bra erfarenhet. Du kan också engagera dig med Reddit och Discord-gemenskaperna",
   },
   es: {
     "Semantle Pro": "Semantle Pro",
@@ -177,6 +199,18 @@ i18n.translations = {
       "Mi primer intento en la top 1000 fue en el intento",
     "My penultimate guess had a similarity of":
       "Mi último intento tenía una similitud de",
+    "Language:": "idioma:",
+    FOUND: "ENCONTRADO",
+    "Welcome to Semantle": "Bienvenido a Semantle",
+    "The context-based word puzzle game":
+      "Juego de rompecabezas basado en contexto",
+    "How to play": "Cómo jugar",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Introduzca una palabra y reciba cómo similar es a la palabra del día. Similaridad se determina por contexto, no por la ortografía",
+    "Can you find the word": "¿Puedes encontrar la palabra",
+    "Play with the community": "Juega con la comunidad",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
+      "Jugando Semantle con tus amigos es una experiencia muy buena. También puedes engañar con las comunidades Reddit y Discord",
   },
   nl: {
     "Semantle Pro": "Semantle Pro",
@@ -238,6 +272,18 @@ i18n.translations = {
       "Mijn eerste gok in de top 1000 was op de gok",
     "My penultimate guess had a similarity of":
       "Mijn vorige gok had een overeenkomst van",
+    "Language:": "taal:",
+    FOUND: "GEVONDEN",
+    "Welcome to Semantle": "Welkom bij Semantle",
+    "The context-based word puzzle game":
+      "Het woordspel met contextgebaseerde woorden",
+    "How to play": "Hoe spelen",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Voer een woord in en ontvang hoe vergelijkbaar het is met het dagelijkse woord. Similariteit wordt bepaald door context, niet door spelling",
+    "Can you find the word": "Kan je het woord vinden",
+    "Play with the community": "Speel met de gemeenschap",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
+      "Spelen Semantle met je vrienden is een geweldige ervaring. Je kunt ook met de Reddit en Discord-communities uitdagen",
   },
   tr: {
     "Semantle Pro": "Semantle Pro",
@@ -296,6 +342,17 @@ i18n.translations = {
       "Mevcut tahminin 1000. sırada olduğu tahmin",
     "My penultimate guess had a similarity of":
       "Mevcut tahminin önceki tahmininin benzerliği",
+    "Language:": "dil:",
+    FOUND: "BULUNDU",
+    "Welcome to Semantle": "Semantle'e Hoşgeldiniz",
+    "The context-based word puzzle game": "Konu bağlı kelime puzzle oyunu",
+    "How to play": "Nasıl Oynanır",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Bir kelime girin ve günlük kelimenin benzerliğini alın. Benzerlik konu bağlı, yazımı değil",
+    "Can you find the word": "Kelimeyi bulabilirsin",
+    "Play with the community": "Topluluğu ile Oyna",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
+      "Arkadaşlarınızla Semantle oynayın. Ayrıca Reddit ve Discord topluluğlarında da etkileşime geçebilirsiniz",
   },
 };
 async function checkAndSetLocalization() {
