@@ -629,7 +629,8 @@ function SettingsAccordian({
           alignSelf: "center",
           position: "relative",
           width: "80%",
-          marginBottom: 20,
+          marginBottom: 10,
+          marginTop: 10,
         }}
       >
         <AppText
