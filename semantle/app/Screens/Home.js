@@ -15,6 +15,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Share,
+  Modal,
 } from "react-native";
 import * as Device from "expo-device";
 import GuessList from "../components/GuessList";
@@ -544,59 +545,68 @@ function Home({ navigation, route }) {
         </Pressable>
       )}
       {customThemeModal && (
-        <View
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            // backgroundColor: "rgba(0,0,0,.5)",
-            flexDirection: "row",
-            justifyContent: "center",
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={customThemeModal}
+          onRequestClose={() => {
+            setModalVisible(!customThemeModal);
           }}
         >
-          <BlurView
+          <View
             style={{
-              width: "80%",
-              maxHeight: 500,
-              alignSelf: "center",
-              zIndex: 1,
-              padding: 20,
-              backgroundColor: "rgba(0,0,0,0.1)",
-              justifyContent: "center",
-              borderRadius: 10,
-              overflow: "hidden",
-            }}
-          >
-            <AppText
-              style={{
-                fontSize: 20,
-                color: colors.darkenColor(colors.colors.backgroundColor, 40),
-              }}
-              fontWeight="600"
-            >
-              Press Center to change the color.
-            </AppText>
-            <ColorPicker
-              defaultColor={"#ACCAFD"}
-              onColorSelected={(color) => {
-                colors.setTheme(color);
-                cache.storeData("theme", { theme: color });
-              }}
-              style={{ flex: 1, maxHeight: 500 }}
-            />
-          </BlurView>
-          <TouchableOpacity
-            style={{
+              position: "absolute",
               width: "100%",
               height: "100%",
-              position: "absolute",
-              zIndex: -1,
+              // backgroundColor: "rgba(0,0,0,.5)",
+              flexDirection: "row",
+              justifyContent: "center",
             }}
-            onPress={() => {
-              setCustomThemeModal(false);
-            }}
-          ></TouchableOpacity>
-        </View>
+          >
+            <BlurView
+              style={{
+                width: "80%",
+                maxHeight: 500,
+                alignSelf: "center",
+                zIndex: 100,
+                padding: 20,
+                backgroundColor: "rgba(0,0,0,0.1)",
+                justifyContent: "center",
+                borderRadius: 10,
+                overflow: "hidden",
+              }}
+            >
+              <AppText
+                style={{
+                  fontSize: 20,
+                  color: colors.darkenColor(colors.colors.backgroundColor, 40),
+                }}
+                fontWeight="600"
+              >
+                Press Center to change the color.
+              </AppText>
+              <ColorPicker
+                defaultColor={"#ACCAFD"}
+                onColorSelected={(color) => {
+                  colors.setTheme(color);
+                  cache.storeData("theme", { theme: color });
+                }}
+                style={{ flex: 1, maxHeight: 500 }}
+              />
+            </BlurView>
+            <TouchableOpacity
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                zIndex: -1,
+              }}
+              onPress={() => {
+                setCustomThemeModal(false);
+              }}
+            ></TouchableOpacity>
+          </View>
+        </Modal>
       )}
     </View>
   );
