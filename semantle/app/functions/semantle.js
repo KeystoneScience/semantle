@@ -386,11 +386,10 @@ export default function semantle() {
     const similarity = getSimilarityStory(secretWord);
     log.debug("similarity is " + JSON.stringify(similarity));
     setSimilarityStory(similarity);
-    const guessData = await cache.getData("SEMANTLE_" + day, false);
-    log.debug("guess data is " + JSON.stringify(guessData));
+    const guessData = await cache.getData("SEMANTLE_" + day, falsae);
     if (guessData) {
       setGuesses(guessData);
-      log.debug("populating...");
+      log.debug("guess data is of length: " + guessData.length);
       //for each guess in guessData, add it to guessed
       for (let i = 0; i < guessData.length; i++) {
         guessed.add(guessData[i].guess);
