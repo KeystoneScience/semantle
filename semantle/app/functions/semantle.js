@@ -14,6 +14,7 @@ var USER_ID = null;
 
 const customTransport = (props) => {
   handleTransport(props);
+  // console.log(props.msg);
 };
 
 async function handleTransport(props) {
@@ -386,7 +387,7 @@ export default function semantle() {
     const similarity = getSimilarityStory(secretWord);
     log.debug("similarity is " + JSON.stringify(similarity));
     setSimilarityStory(similarity);
-    const guessData = await cache.getData("SEMANTLE_" + day, falsae);
+    const guessData = await cache.getData("SEMANTLE_" + day, false);
     if (guessData) {
       setGuesses(guessData);
       log.debug("guess data is of length: " + guessData.length);
