@@ -141,7 +141,7 @@ export default function semantle() {
   const [yesterdayClosest, setYesterdayClosest] = useState([]);
   const [streakCacheData, setStreakCacheData] = useState(null);
 
-  async function submit(guess) {
+  async function submit(guess, test = false) {
     if (guess.toLowerCase() === "hardreset") {
       hardReset();
       return;
@@ -179,6 +179,10 @@ export default function semantle() {
     // cache[guess] = guessData;
 
     let similarity = getCosSim(guessVec, secretVec) * 100.0;
+    return await handleSubmit({ guess, similarity, percentile });
+  }
+
+  async function handleSubmit({ guess, similarity, percentile }) {
     if (!guessed.has(guess)) {
       guessed.add(guess);
 
@@ -214,7 +218,6 @@ export default function semantle() {
         return true;
       }
     }
-
     return false;
   }
 
@@ -430,8 +433,44 @@ export default function semantle() {
     return secretWord;
   }
 
+  async function fillTestData() {
+    const testGuessData = [];
+    for (let i = 0; i < 100; i++) {
+      //generate a random 5 character string
+      let randomString = "";
+      for (let j = 0; j < 5; j++) {
+        randomString += String.fromCharCode(
+          Math.floor(Math.random() * 26) + 97
+        );
+      }
+      randomString += i;
+      //generate a random similarity
+      let randomSimilarity = Math.floor(Math.random() * 100);
+      await handleSubmit({
+        guess: randomString,
+        similarity: randomSimilarity,
+        percentile: null,
+      });
+      testGuessData.push({
+        guess: randomString,
+        similarity: randomSimilarity,
+        percentile: null,
+        guessCount: guesses.length + 1 + i,
+      });
+      guessed.add(randomString);
+    }
+
+    let newGuesses = [...guesses, ...testGuessData];
+    newGuesses.sort((a, b) => b.similarity - a.similarity);
+    cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
+    setGuesses(newGuesses);
+  }
+
   function checkEasterEggs(guess = "") {
     guess = guess.toLowerCase();
+    if (guess === "testdata") {
+      fillTestData();
+    }
     if (guess === "semantlepro") {
       return {
         place: "HOME",
