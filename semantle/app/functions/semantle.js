@@ -433,43 +433,63 @@ export default function semantle() {
     return secretWord;
   }
 
-  async function fillTestData() {
-    const testGuessData = [];
-    for (let i = 0; i < 100; i++) {
-      //generate a random 5 character string
-      let randomString = "";
-      for (let j = 0; j < 5; j++) {
-        randomString += String.fromCharCode(
-          Math.floor(Math.random() * 26) + 97
-        );
-      }
-      randomString += i;
-      //generate a random similarity
-      let randomSimilarity = Math.floor(Math.random() * 100);
-      await handleSubmit({
-        guess: randomString,
-        similarity: randomSimilarity,
-        percentile: null,
-      });
-      testGuessData.push({
-        guess: randomString,
-        similarity: randomSimilarity,
-        percentile: null,
-        guessCount: guesses.length + 1 + i,
-      });
-      guessed.add(randomString);
-    }
+  async function fillTestData(command) {
+    //prompt user for number of days to fill
+    const partitions = command.split("+");
+    //parse string to int
 
-    let newGuesses = [...guesses, ...testGuessData];
-    newGuesses.sort((a, b) => b.similarity - a.similarity);
-    cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
-    setGuesses(newGuesses);
+    const daysToFill = parseInt(partitions[2]) || 1;
+    const guessesPerDay = parseInt(partitions[1]) || 100;
+
+    for (let j = 0; j < daysToFill; j++) {
+      const testGuessData = [];
+      for (let i = 0; i < guessesPerDay; i++) {
+        //generate a random 5 character string
+        let randomString = "";
+        for (let j = 0; j < 5; j++) {
+          randomString += String.fromCharCode(
+            Math.floor(Math.random() * 26) + 97
+          );
+        }
+        randomString += i;
+        //generate a random similarity
+        let randomSimilarity = Math.floor(Math.random() * 100);
+        testGuessData.push({
+          guess: randomString,
+          similarity: randomSimilarity,
+          percentile: null,
+          guessCount: guesses.length + 1 + i,
+        });
+        if (j == 0) {
+          setGuesses(testGuessData);
+          guessed.add(randomString);
+        }
+      }
+      await cache.storeData("SEMANTLE_" + (puzzleNumber - j), testGuessData);
+    }
+    const data = await cache.getData("SEMANTLE_STATS", false);
+    var daysMap = data?.daysMap ? data.daysMap : {};
+    for (let z = 0; z < daysToFill; z++) {
+      const existingData =
+        daysMap["STATS_DAY_" + (puzzleNumber - z).toString()] || {};
+      existingData.found = false;
+      existingData.day = puzzleNumber - z;
+      existingData.numberOfGuesses = guessesPerDay;
+      existingData.averageSimilarity = 0.42069;
+
+      daysMap["STATS_DAY_" + (puzzleNumber - z).toString()] = existingData;
+    }
+    await cache.storeData("SEMANTLE_STATS", { daysMap: daysMap });
+    Alert.alert(
+      `Done filling ${daysToFill} days of data, with ${guessesPerDay} guesses per day.`
+    );
   }
 
   function checkEasterEggs(guess = "") {
     guess = guess.toLowerCase();
-    if (guess === "testdata") {
-      fillTestData();
+    if (guess.includes("testdata")) {
+      fillTestData(guess);
+      return;
     }
     if (guess === "semantlepro") {
       return {
