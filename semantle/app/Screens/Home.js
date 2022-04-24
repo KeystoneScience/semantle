@@ -35,8 +35,8 @@ import LottieView from "lottie-react-native";
 import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ColorPicker } from "react-native-color-picker";
-import { AntDesign } from "@expo/vector-icons";
-import * as Clipboard from "expo-clipboard";
+// import { AntDesign } from "@expo/vector-icons";
+// import * as Clipboard from "expo-clipboard";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
@@ -524,7 +524,7 @@ function Home({ navigation, route }) {
               backgroundColor: "white",
             }}
           >
-            <AntDesign
+            {/* <AntDesign
               name="copy1"
               size={24}
               color="black"
@@ -532,7 +532,7 @@ function Home({ navigation, route }) {
                 Clipboard.setString(semantleGame.generateDiagnostics());
                 Alert.alert("Copied to clipboard");
               }}
-            />
+            /> */}
             <ScrollView>
               <Text>DIAGNOSTICS</Text>
               <Text>{semantleGame.generateDiagnostics()}</Text>

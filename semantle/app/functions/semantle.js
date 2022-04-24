@@ -249,7 +249,7 @@ export default function semantle() {
 
   function hardReset() {
     //prompt user to confirm
-    Alert.alert("Reset all data?", "this will reset all your in-app data.", [
+    Alert.alert("Reset all data?", "this will reset all your Semantle data.", [
       {
         text: "Cancel",
         onPress: () => {},
