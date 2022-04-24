@@ -13,8 +13,7 @@ i18n.translations = {
     7: "7",
     8: "8",
     9: "9",
-    "Semantle Pro": "Semantle Pro",
-    Semantle: "Semantle",
+
     Drawer: "Drawer",
     Settings: "Settings",
     Puzzle: "Puzzle",
@@ -82,8 +81,7 @@ i18n.translations = {
     7: "7",
     8: "8",
     9: "9",
-    "Semantle Pro": "SEMANTLE PRO",
-    Semantle: "Semántulso",
+
     Drawer: "Cajón",
     Settings: "Ajustes",
     Puzzle: "Rompecabezas",
@@ -149,8 +147,7 @@ i18n.translations = {
     7: "7",
     8: "8",
     9: "9",
-    "Semantle Pro": "Semantle pro",
-    Semantle: "Semantel",
+
     Drawer: "Låda",
     Settings: "inställningar",
     Puzzle: "Pussel",
@@ -216,8 +213,7 @@ i18n.translations = {
     7: "7",
     8: "8",
     9: "9",
-    "Semantle Pro": "Semantle pro",
-    Semantle: "İmal etmek",
+
     Drawer: "Çekmece",
     Settings: "Ayarlar",
     Puzzle: "Bulmaca",
@@ -281,8 +277,6 @@ i18n.translations = {
     7: "7.",
     8: "8.",
     9: "9.",
-    "Semantle Pro": "Semantle Pro.",
-    Semantle: "Semantel",
     Drawer: "Schublade",
     Settings: "Einstellungen",
     Puzzle: "Puzzle",
@@ -348,8 +342,7 @@ i18n.translations = {
     7: "7",
     8: "8",
     9: "9",
-    "Semantle Pro": "Semantle pro",
-    Semantle: "Semantle",
+
     Drawer: "Lade",
     Settings: "Instellingen",
     Puzzle: "Puzzel",
