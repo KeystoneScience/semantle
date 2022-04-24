@@ -4,11 +4,33 @@ import client from "../api/client";
 import secretWords from "../data/secretWords";
 import similarStory from "../data/quickSimilars";
 import cache from "../utility/cache";
-import { Alert } from "react-native";
+import { Alert, Clipboard } from "react-native";
+import { logger, transportFunctionType } from "react-native-logs";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
 
+var USER_ID = null;
+
+const customTransport = (props) => {
+  handleTransport(props);
+};
+
+async function handleTransport(props) {
+  if (!USER_ID) {
+    let userObj = await cache.getData("SEMANTLE::USER", false);
+    USER_ID = userObj?.userID;
+  }
+
+  props.msg += " |USER: " + USER_ID;
+  return await client.post("log", props, {}, false);
+}
+
+const config = {
+  transport: customTransport,
+};
+
+var log = logger.createLogger(config);
 //returns the 10 nearest words.
 async function getNearby(word) {
   const url = "model2/nearby?secret=" + word;
@@ -204,20 +226,24 @@ export default function semantle() {
         const data = await cache.getData("SEMANTLE_STREAK", false);
         setStreakCacheData(data);
         if (data && (!data.day || data.day == puzzleNumber - 1)) {
-          cache.storeData("SEMANTLE_STREAK", {
+          await cache.storeData("SEMANTLE_STREAK", {
             streak: data.streak + 1,
             day: puzzleNumber,
           });
           postStreak(data.streak + 1, puzzleNumber);
           setStreak(data.streak + 1);
         } else {
-          cache.storeData("SEMANTLE_STREAK", { streak: 1, day: puzzleNumber });
+          await cache.storeData("SEMANTLE_STREAK", {
+            streak: 1,
+            day: puzzleNumber,
+          });
           postStreak(1, puzzleNumber);
           setStreak(1);
         }
         return true;
       }
     }
+    log.debug("GUESS ALREADY MADE: " + guess);
     return false;
   }
 
@@ -346,32 +372,36 @@ export default function semantle() {
   }
 
   async function initialize() {
+    log.debug("initializing");
     // check to see if there is information cached.
     guessed = new Set();
     secretVec = null;
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
+    log.debug("puzzle number is " + day);
     const secretWord = secretWords[day % secretWords.length];
+    log.debug("secret word is " + secretWord);
     setSecret(secretWord);
     const similarity = getSimilarityStory(secretWord);
+    log.debug("similarity is " + JSON.stringify(similarity));
     setSimilarityStory(similarity);
     const guessData = await cache.getData("SEMANTLE_" + day, false);
+    log.debug("guess data is " + JSON.stringify(guessData));
     if (guessData) {
       setGuesses(guessData);
+      log.debug("populating...");
       //for each guess in guessData, add it to guessed
       for (let i = 0; i < guessData.length; i++) {
         guessed.add(guessData[i].guess);
       }
     } else {
+      log.debug("no guess data");
       setGuesses([]);
     }
     countdown(day);
     getAndSetYesterdayClosest(day);
     getStreak(day);
-
-    //set a timer that checks to see if the time until the next puzzle is up.
-    //if it is, then reset the puzzle.
   }
 
   function formatTime(time) {
@@ -406,6 +436,7 @@ export default function semantle() {
   }
 
   function generateDiagnostics() {
+    log.debug("Generating diagnostics...");
     let diagnosticsString = "";
     diagnosticsString += `Secret word: ${"REDACTED"}\n`;
     diagnosticsString += `time until next puzzle: ${formatTime(
@@ -423,7 +454,8 @@ export default function semantle() {
     diagnosticsString += `streak cache data: ${JSON.stringify(
       streakCacheData
     )}\n`;
-
+    diagnosticsString += "UserID: " + USER_ID + "\n";
+    Clipboard.setString(diagnosticsString);
     return diagnosticsString;
   }
 

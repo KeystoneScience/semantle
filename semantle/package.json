@@ -42,6 +42,7 @@
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-color-picker": "^0.6.0",
     "react-native-gesture-handler": "~2.1.0",
+    "react-native-logs": "^4.0.1",
     "react-native-page-control": "^1.1.2",
     "react-native-pager-view": "5.4.9",
     "react-native-safe-area-context": "3.3.2",
