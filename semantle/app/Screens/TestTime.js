@@ -27,6 +27,8 @@ function TestTime({ navigation, route }) {
   const [testCache, setTestCache] = useState("");
   const [testGuessCache, setTestGuessCache] = useState("");
   const [testGuessCacheNum, setTestGuessCacheNum] = useState(0);
+  const [testGuessCacheWord, setTestGuessCacheWord] = useState("");
+  const [testGuessCacheWordText, setTestGuessCacheWordText] = useState("");
 
   async function handleTestCache() {
     let testCacheLog = "";
@@ -63,25 +65,53 @@ function TestTime({ navigation, route }) {
     }
     setTestGuessCache(testCacheLog);
   }
+
+  async function handleTestGuessCacheSubmit() {
+    if (
+      testGuessCacheNum <= 0 ||
+      testGuessCacheNum != Math.floor(testGuessCacheNum) ||
+      !testGuessCacheWord
+    ) {
+      setTestGuessCacheWordText("Please enter a valid input.");
+      return;
+    }
+    try {
+      let testCacheLog = "";
+      setTestGuessCacheWordText("Running test...");
+      let guesses = await cache.getData("SEMANTLE_" + testGuessCacheNum, false);
+      guesses = guesses ? guesses : [];
+      guesses.push({
+        guess: testGuessCacheWord,
+        guessCount: guesses.length - 1,
+        similarity: 0,
+      });
+      await cache.setData("SEMANTLE_" + testGuessCacheNum, guesses);
+      testCacheLog = `Added ${testGuessCacheWord} to SEMANTLE_${testGuessCacheNum}, the new cache has ${guesses.length} items.`;
+      setTestGuessCacheWordText(testCacheLog);
+    } catch (e) {
+      setTestGuessCacheWordText(e.message);
+    }
+  }
+
   return (
     <SafeAreaView
       style={{
         width: "100%",
         height: "100%",
-        padding: 10,
-        marginLeft: 10,
-        marginRight: 10,
+        backgroundColor: colors.colors.backgroundColor,
+        padding: 30,
       }}
     >
       <AntDesign
         name="closecircle"
         size={24}
+        style={{ margin: 10 }}
         color="black"
         onPress={() => {
           navigation.navigate("Home");
         }}
       />
-      <ScrollView style={{ width: "100%" }}>
+      <ScrollView style={{ width: "100%", margin: 10 }}>
         <AppText
           style={{
             fontSize: 20,
@@ -109,10 +139,24 @@ function TestTime({ navigation, route }) {
           {testCache}
         </AppText>
         <Button onPress={handleTestCache} />
+        <View
+          style={{
+            width: "90%",
+            alignSelf: "center",
+            borderWidth: 1,
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        />
         <AppText
           style={{ fontSize: 16, width: "90%", color: colors.colors.textColor }}
         >
           GUESS CACHE TEST:
+        </AppText>
+        <AppText
+          style={{ fontSize: 14, width: "90%", color: colors.colors.textColor }}
+        >
+          Get Cache:
         </AppText>
         <AntDesign
           name="copy1"
@@ -147,6 +191,57 @@ function TestTime({ navigation, route }) {
           placeholderTextColor={colors.colors.textInputColor}
         />
         <Button onPress={handleTestGuessCache} />
+        <AppText
+          style={{ fontSize: 14, width: "90%", color: colors.colors.textColor }}
+        >
+          Add Word:
+        </AppText>
+        <AppText
+          style={{ fontSize: 14, width: "90%", color: colors.colors.textColor }}
+        >
+          {testGuessCacheWordText}
+        </AppText>
+        <TextInput
+          style={{
+            width: "80%",
+            fontSize: 16,
+            color: colors.colors.textColor,
+            margin: 9,
+            padding: 5,
+            borderWidth: 1,
+          }}
+          value={testGuessCacheNum}
+          onChangeText={(text) => setTestGuessCacheNum(text)}
+          onSubmitEditing={() => {
+            handleTestGuessCache();
+          }}
+          placeholder="Enter Puzzle Number"
+          returnKeyType="go"
+          keyboardType="default"
+          blurOnSubmit={false}
+          placeholderTextColor={colors.colors.textInputColor}
+        />
+        <TextInput
+          style={{
+            width: "80%",
+            fontSize: 16,
+            color: colors.colors.textColor,
+            margin: 9,
+            padding: 5,
+            borderWidth: 1,
+          }}
+          value={testGuessCacheWord}
+          onChangeText={(text) => setTestGuessCacheWord(text)}
+          onSubmitEditing={() => {
+            handleTestGuessCacheSubmit();
+          }}
+          placeholder="Enter a guess"
+          returnKeyType="go"
+          keyboardType="default"
+          blurOnSubmit={false}
+          placeholderTextColor={colors.colors.textInputColor}
+        />
+        <Button onPress={handleTestGuessCacheSubmit} />
 
         <View
           style={{

@@ -18,6 +18,7 @@ function MainInput(props) {
   const [value, setValue] = useState("");
   const [isPressed, setIsPressed] = useState(false);
   const [isConnected, setIsConnected] = useState(true);
+
   const unsubscribe = NetInfo.addEventListener((state) => {
     if (isConnected != state.isConnected) {
       setIsConnected(state.isConnected);
