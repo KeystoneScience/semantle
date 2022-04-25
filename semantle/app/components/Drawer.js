@@ -29,6 +29,8 @@ import Screen from "./Screen";
 import Accordian from "./Accordion";
 import useColors from "../configs/useColors";
 import AppText from "./AppText";
+// import { BlurView } from "expo-blur";
+import { BlurView } from "@react-native-community/blur";
 
 function Drawer({ navigation, route }) {
   const colors = useColors();
@@ -75,7 +77,7 @@ function Drawer({ navigation, route }) {
       position: "absolute",
       bottom: 0,
       width: "100%",
-      backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 60),
+      // backgroundColor: colors.lightenColor(colors.colors.backgroundColor, 60),
       borderBottomEndRadius: 10,
     },
     leftWhole: {
@@ -306,228 +308,230 @@ function Drawer({ navigation, route }) {
           </ScrollView>
         </SafeAreaView>
         <SafeAreaView style={styles.bottomwhole}>
-          <View
-            style={{
-              justifyContent: "space-around",
-              flexDirection: "row",
-              paddingTop: 20,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() =>
-                Linking.openURL("https://www.reddit.com/r/Semantle/")
-              }
+          <BlurView>
+            <View
+              style={{
+                justifyContent: "space-around",
+                flexDirection: "row",
+                paddingTop: 20,
+              }}
             >
-              <View
-                style={{
-                  backgroundColor: "#FF5700",
-                  width: 50,
-                  height: 50,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                }}
+              <TouchableOpacity
+                onPress={() =>
+                  Linking.openURL("https://www.reddit.com/r/Semantle/")
+                }
               >
-                <FontAwesome5
-                  name="reddit-alien"
-                  size={25}
-                  color={"white"}
-                  style={{ alignSelf: "center" }}
-                />
-              </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => Linking.openURL("https://discord.gg/Vh9dKRakv2")}
-            >
-              <View
-                style={{
-                  backgroundColor: "#7289DA",
-                  width: 50,
-                  height: 50,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                }}
-              >
-                <FontAwesome5
-                  name="discord"
-                  size={25}
-                  color={"white"}
-                  style={{ alignSelf: "center" }}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => onShare()}>
-              <View
-                style={{
-                  backgroundColor: "#A0A0A0",
-                  width: 50,
-                  height: 50,
-                  borderRadius: 50,
-                  justifyContent: "center",
-                }}
-              >
-                <EvilIcons
-                  name="share-apple"
-                  size={25}
-                  color={"white"}
-                  style={{ alignSelf: "center" }}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <Accordian
-            // expanded={true}
-            title={"Support Semantle"}
-            data={"sdfsfdsdasdfsd"}
-            titleIcon={
-              <AntDesign
-                name="heart"
-                size={22}
-                color={colors.darkenColor(colors.colors.backgroundColor, 80)}
-              />
-            }
-            children={
-              <View>
-                <TouchableOpacity
-                  onPress={() =>
-                    Platform.OS === "ios"
-                      ? Linking.openURL(
-                          "https://apps.apple.com/us/app/semantle/id1616130804"
-                        )
-                      : Linking.openURL(
-                          "https://play.google.com/store/apps/details?id=com.nateastone.semantle"
-                        )
-                  }
-                >
-                  <View
-                    style={[
-                      styles.tutorialwhole,
-                      {
-                        backgroundColor: "rgba(255,255,255,.3)",
-                        marginTop: 15,
-                      },
-                    ]}
-                  >
-                    <FontAwesome
-                      name="star"
-                      size={30}
-                      color={colors.darkenColor(
-                        colors.colors.backgroundColor,
-                        80
-                      )}
-                      style={{ marginLeft: 10 }}
-                    />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
-                      Rate Semantle
-                    </AppText>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() =>
-                    Linking.openURL("https://semantle.app/requestfeature")
-                  }
-                >
-                  <View
-                    style={[
-                      styles.tutorialwhole,
-                      {
-                        backgroundColor: "rgba(255,255,255,.3)",
-                        marginTop: 0,
-                      },
-                    ]}
-                  >
-                    <FontAwesome5
-                      name="lightbulb"
-                      size={30}
-                      color={colors.darkenColor(
-                        colors.colors.backgroundColor,
-                        80
-                      )}
-                      style={{ marginLeft: 10 }}
-                    />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
-                      Request Feature
-                    </AppText>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            }
-          />
-          <Accordian
-            title={"Help"}
-            data={"sdfsfdsdasdfsd"}
-            titleIcon={
-              <Entypo
-                name="help"
-                size={22}
-                color={colors.darkenColor(colors.colors.backgroundColor, 80)}
-              />
-            }
-            children={
-              <View>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Tutorial")}
-                >
-                  <View style={styles.tutorialwhole}>
-                    <Foundation
-                      name="guide-dog"
-                      size={44}
-                      color={colors.darkenColor(
-                        colors.colors.backgroundColor,
-                        80
-                      )}
-                      style={{ marginLeft: 10 }}
-                    />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
-                      Tutorial
-                    </AppText>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  onPress={() => {
-                    async function openSaysMe() {
-                      let userObj = await cache.getData(
-                        "SEMANTLE::USER",
-                        false
-                      );
-                      const USER_ID = userObj?.userID || "NULL";
-                      Linking.openURL(
-                        "https://semantle.app/bug-report?userID=" + USER_ID
-                      );
-                    }
-                    openSaysMe();
+                <View
+                  style={{
+                    backgroundColor: "#FF5700",
+                    width: 50,
+                    height: 50,
+                    borderRadius: 50,
+                    justifyContent: "center",
                   }}
                 >
-                  <View
-                    style={[
-                      styles.tutorialwhole,
-                      { backgroundColor: "rgba(255,255,255,.3)" },
-                    ]}
+                  <FontAwesome5
+                    name="reddit-alien"
+                    size={25}
+                    color={"white"}
+                    style={{ alignSelf: "center" }}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => Linking.openURL("https://discord.gg/Vh9dKRakv2")}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#7289DA",
+                    width: 50,
+                    height: 50,
+                    borderRadius: 50,
+                    justifyContent: "center",
+                  }}
+                >
+                  <FontAwesome5
+                    name="discord"
+                    size={25}
+                    color={"white"}
+                    style={{ alignSelf: "center" }}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => onShare()}>
+                <View
+                  style={{
+                    backgroundColor: "#A0A0A0",
+                    width: 50,
+                    height: 50,
+                    borderRadius: 50,
+                    justifyContent: "center",
+                  }}
+                >
+                  <EvilIcons
+                    name="share-apple"
+                    size={25}
+                    color={"white"}
+                    style={{ alignSelf: "center" }}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <Accordian
+              // expanded={true}
+              title={"Support Semantle"}
+              data={"sdfsfdsdasdfsd"}
+              titleIcon={
+                <AntDesign
+                  name="heart"
+                  size={22}
+                  color={colors.darkenColor(colors.colors.backgroundColor, 80)}
+                />
+              }
+              children={
+                <View>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Platform.OS === "ios"
+                        ? Linking.openURL(
+                            "https://apps.apple.com/us/app/semantle/id1616130804"
+                          )
+                        : Linking.openURL(
+                            "https://play.google.com/store/apps/details?id=com.nateastone.semantle"
+                          )
+                    }
                   >
-                    <Entypo
-                      name="bug"
-                      size={26}
-                      color={colors.darkenColor(
-                        colors.colors.backgroundColor,
-                        80
-                      )}
-                      style={{ marginLeft: 10 }}
-                    />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
-                      Report Problem
-                    </AppText>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            }
-          />
-          <SettingsAccordian
-            colors={colors}
-            styles={styles}
-            showYesterdays={showYesterdayWord}
-            setShowYesterdayWord={setShowYesterdayWord}
-          />
+                    <View
+                      style={[
+                        styles.tutorialwhole,
+                        {
+                          backgroundColor: "rgba(255,255,255,.3)",
+                          marginTop: 15,
+                        },
+                      ]}
+                    >
+                      <FontAwesome
+                        name="star"
+                        size={30}
+                        color={colors.darkenColor(
+                          colors.colors.backgroundColor,
+                          80
+                        )}
+                        style={{ marginLeft: 10 }}
+                      />
+                      <AppText fontWeight={550} style={styles.tutorialText}>
+                        Rate Semantle
+                      </AppText>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL("https://semantle.app/requestfeature")
+                    }
+                  >
+                    <View
+                      style={[
+                        styles.tutorialwhole,
+                        {
+                          backgroundColor: "rgba(255,255,255,.3)",
+                          marginTop: 0,
+                        },
+                      ]}
+                    >
+                      <FontAwesome5
+                        name="lightbulb"
+                        size={30}
+                        color={colors.darkenColor(
+                          colors.colors.backgroundColor,
+                          80
+                        )}
+                        style={{ marginLeft: 10 }}
+                      />
+                      <AppText fontWeight={550} style={styles.tutorialText}>
+                        Request Feature
+                      </AppText>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              }
+            />
+            <Accordian
+              title={"Help"}
+              data={"sdfsfdsdasdfsd"}
+              titleIcon={
+                <Entypo
+                  name="help"
+                  size={22}
+                  color={colors.darkenColor(colors.colors.backgroundColor, 80)}
+                />
+              }
+              children={
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Tutorial")}
+                  >
+                    <View style={styles.tutorialwhole}>
+                      <Foundation
+                        name="guide-dog"
+                        size={44}
+                        color={colors.darkenColor(
+                          colors.colors.backgroundColor,
+                          80
+                        )}
+                        style={{ marginLeft: 10 }}
+                      />
+                      <AppText fontWeight={550} style={styles.tutorialText}>
+                        Tutorial
+                      </AppText>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    onPress={() => {
+                      async function openSaysMe() {
+                        let userObj = await cache.getData(
+                          "SEMANTLE::USER",
+                          false
+                        );
+                        const USER_ID = userObj?.userID || "NULL";
+                        Linking.openURL(
+                          "https://semantle.app/bug-report?userID=" + USER_ID
+                        );
+                      }
+                      openSaysMe();
+                    }}
+                  >
+                    <View
+                      style={[
+                        styles.tutorialwhole,
+                        { backgroundColor: "rgba(255,255,255,.3)" },
+                      ]}
+                    >
+                      <Entypo
+                        name="bug"
+                        size={26}
+                        color={colors.darkenColor(
+                          colors.colors.backgroundColor,
+                          80
+                        )}
+                        style={{ marginLeft: 10 }}
+                      />
+                      <AppText fontWeight={550} style={styles.tutorialText}>
+                        Report Problem
+                      </AppText>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              }
+            />
+            <SettingsAccordian
+              colors={colors}
+              styles={styles}
+              showYesterdays={showYesterdayWord}
+              setShowYesterdayWord={setShowYesterdayWord}
+            />
+          </BlurView>
         </SafeAreaView>
       </View>
       <TouchableWithoutFeedback onPress={() => navigation.navigate("Home")}>

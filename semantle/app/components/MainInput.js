@@ -9,6 +9,7 @@ import {
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
 import useColors from "../configs/useColors";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function MainInput(props) {
   var textInputRef = useRef();
@@ -117,7 +118,20 @@ function MainInput(props) {
           //   {props.input || "Enter your guess"}
           // </AppText>
         )}
+        <View
+          style={{
+            position: "absolute",
+            right: 0,
+            alignSelf: "center",
+            // backgroundColor: "rgba(255,255,255,0.5)",
+            borderRadius: 20,
+            padding: 2,
+          }}
+        >
+          <MaterialCommunityIcons name="wifi-off" size={20} color="grey" />
+        </View>
       </View>
+
       <TouchableOpacity
         activeOpacity={1}
         onPressIn={() => {

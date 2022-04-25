@@ -33,7 +33,7 @@ export default function Accordian({ data, children, titleIcon, title }) {
       fontSize: 20,
       // marginLeft: 10,
       fontWeight: "500",
-      color: colors.darkenColor(colors.colors.backgroundColor, 20),
+      // color: colors.darkenColor(colors.colors.backgroundColor, 20),
     },
     row: {
       flexDirection: "row",
