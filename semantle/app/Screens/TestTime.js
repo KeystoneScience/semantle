@@ -22,6 +22,7 @@ import AppText from "../components/AppText";
 import colors from "../configs/colors";
 import cache from "../utility/cache";
 import { AntDesign } from "@expo/vector-icons";
+import Screen from "../components/Screen";
 
 function TestTime({ navigation, route }) {
   const [testCache, setTestCache] = useState("");
@@ -94,12 +95,11 @@ function TestTime({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView
+    <Screen
       style={{
         width: "100%",
         height: "100%",
         backgroundColor: colors.colors.backgroundColor,
-        padding: 30,
       }}
     >
       <AntDesign
@@ -254,7 +254,7 @@ function TestTime({ navigation, route }) {
         />
         <View style={{ paddingBottom: 100 }} />
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
