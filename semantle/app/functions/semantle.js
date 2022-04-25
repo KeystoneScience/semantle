@@ -9,7 +9,7 @@ import { logger, transportFunctionType } from "react-native-logs";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.6.4";
+const VERSION_CODE = "1.0.6.5";
 
 var USER_ID = null;
 
