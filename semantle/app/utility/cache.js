@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 import { logger, transportFunctionType } from "react-native-logs";
-import client from "../api/client";
+import client from "../api/client"; //causes require cycle
 
 var USER_ID = null;
 const customTransport = (props) => {

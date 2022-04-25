@@ -641,6 +641,11 @@ export default function semantle() {
         place: "HOME",
         action: "customColor",
       };
+    } else if (guess === "testscreen") {
+      return {
+        place: "NAVIGATE",
+        location: "TestTime",
+      };
     }
   }
 

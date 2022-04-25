@@ -106,6 +106,8 @@ function Home({ navigation, route }) {
           setShowDiagnostics(true);
           return;
         }
+      } else if (easterEgg.place === "NAVIGATE") {
+        navigation.navigate(easterEgg.location);
       }
     } else {
       setHeaderEasteregg(false);
