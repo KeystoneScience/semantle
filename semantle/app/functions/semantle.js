@@ -9,6 +9,7 @@ import { logger, transportFunctionType } from "react-native-logs";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
+const VERSION_CODE = "1.0.6.4";
 
 var USER_ID = null;
 
@@ -410,6 +411,7 @@ export default function semantle() {
           similarityStory: similarityStory,
           yesterdayClosest: yesterdayClosest,
           guessData: guessData,
+          VERSION_CODE: VERSION_CODE,
           cacheString: "SEMANTLE_" + day,
         })
     );
@@ -447,7 +449,6 @@ export default function semantle() {
   }
 
   function generateDiagnostics() {
-    log.debug("Generating diagnostics...");
     let diagnosticsString = "";
     diagnosticsString += `Secret word: ${"REDACTED"}\n`;
     diagnosticsString += `time until next puzzle: ${formatTime(
@@ -465,6 +466,7 @@ export default function semantle() {
     diagnosticsString += `streak cache data: ${JSON.stringify(
       streakCacheData
     )}\n`;
+    diagnosticsString += "VERSION: " + VERSION_CODE + "\n";
     diagnosticsString += "UserID: " + USER_ID + "\n";
     Clipboard.setString(diagnosticsString);
     return diagnosticsString;

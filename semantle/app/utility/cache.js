@@ -11,7 +11,7 @@ const customTransport = (props) => {
 
 async function handleTransport(props) {
   if (!USER_ID) {
-    let userObj = await cache.getData("SEMANTLE::USER", false);
+    let userObj = await getData("SEMANTLE::USER", false);
     USER_ID = userObj?.userID;
   }
 
