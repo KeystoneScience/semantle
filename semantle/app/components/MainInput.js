@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
@@ -74,7 +75,11 @@ function MainInput(props) {
               text = text.trim();
               //remove any spaces in the middle of the string and replace with a single space
               text = text.replace(/\s+/g, "_");
-              props.onSubmit(text);
+              if (isConnected) {
+                props.onSubmit(text);
+              } else {
+                Alert.alert("You are not connected to the internet.");
+              }
               setValue("");
             }}
             onFocus={props.onFocus}
@@ -101,7 +106,11 @@ function MainInput(props) {
               text = text.trim();
               //remove any spaces in the middle of the string and replace with a single space
               text = text.replace(/\s+/g, "_");
-              props.onSubmit(text);
+              if (isConnected) {
+                props.onSubmit(text);
+              } else {
+                Alert.alert("You are not connected to the internet.");
+              }
               setValue("");
             }}
             onFocus={props.onFocus}
@@ -161,7 +170,11 @@ function MainInput(props) {
           text = text.trim();
           //remove any spaces in the middle of the string and replace with a single space
           text = text.replace(/\s+/g, "_");
-          props.onSubmit(text);
+          if (isConnected) {
+            props.onSubmit(text);
+          } else {
+            Alert.alert("You are not connected to the internet.");
+          }
           setValue("");
         }}
         onPressOut={() => {
