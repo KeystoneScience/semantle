@@ -85,7 +85,7 @@ function TestTime({ navigation, route }) {
         guessCount: guesses.length - 1,
         similarity: 0,
       });
-      await cache.setData("SEMANTLE_" + testGuessCacheNum, guesses);
+      await cache.storeData("SEMANTLE_" + testGuessCacheNum, guesses);
       testCacheLog = `Added ${testGuessCacheWord} to SEMANTLE_${testGuessCacheNum}, the new cache has ${guesses.length} items.`;
       setTestGuessCacheWordText(testCacheLog);
     } catch (e) {
