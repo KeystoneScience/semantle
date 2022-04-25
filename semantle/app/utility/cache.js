@@ -1,5 +1,29 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
+import { logger, transportFunctionType } from "react-native-logs";
+import client from "../api/client";
+
+var USER_ID = null;
+const customTransport = (props) => {
+  handleTransport(props);
+  console.log(props.msg);
+};
+
+async function handleTransport(props) {
+  if (!USER_ID) {
+    let userObj = await cache.getData("SEMANTLE::USER", false);
+    USER_ID = userObj?.userID;
+  }
+
+  props.msg += " |USER: " + USER_ID;
+  return await client.post("log", props, {}, false);
+}
+
+const config = {
+  transport: customTransport,
+};
+
+var log = logger.createLogger(config);
 
 const prefix = "cache";
 const expiryInMinutes = 10080;
@@ -36,6 +60,7 @@ const getData = async (key, checkExpired = true, expireyTime) => {
   try {
     const value = await AsyncStorage.getItem(prefix + key);
     const item = JSON.parse(value);
+    log.debug("getData" + JSON.stringify({ key, value, item }));
     if (!item) return null;
     if (expireyTime) {
       if (isExpired(item, expireyTime) && checkExpired) {
@@ -49,6 +74,14 @@ const getData = async (key, checkExpired = true, expireyTime) => {
     }
     return item.value;
   } catch (error) {
+    log.error(
+      `An error occurred: \n ${JSON.stringify({
+        key: key,
+        checkExpired,
+        expireyTime,
+        error: error,
+      })}`
+    );
     console.log(error);
   }
 };

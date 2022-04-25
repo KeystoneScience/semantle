@@ -14,7 +14,7 @@ var USER_ID = null;
 
 const customTransport = (props) => {
   handleTransport(props);
-  // console.log(props.msg);
+  console.log(props.msg);
 };
 
 async function handleTransport(props) {
@@ -218,8 +218,8 @@ export default function semantle() {
       setLastGuess({ ...newEntry, lastGuess: true });
       let newGuesses = [...guesses, newEntry];
       newGuesses.sort((a, b) => b.similarity - a.similarity);
-      cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
       setGuesses(newGuesses);
+      await cache.storeData("SEMANTLE_" + puzzleNumber, newGuesses);
       const foundWord = guess.toLowerCase() === secret.toLowerCase();
       editStats(newEntry, foundWord);
       if (foundWord) {
@@ -244,7 +244,7 @@ export default function semantle() {
         return true;
       }
     }
-    log.debug("GUESS ALREADY MADE: " + guess);
+    log.debug("GUESS ALREADY MADE: " + guess + "\n GUESSES: " + guesses.length);
     return false;
   }
 
@@ -380,28 +380,39 @@ export default function semantle() {
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
-    log.debug("puzzle number is " + day);
     const secretWord = secretWords[day % secretWords.length];
-    log.debug("secret word is " + secretWord);
     setSecret(secretWord);
     const similarity = getSimilarityStory(secretWord);
-    log.debug("similarity is " + JSON.stringify(similarity));
     setSimilarityStory(similarity);
     const guessData = await cache.getData("SEMANTLE_" + day, false);
     if (guessData) {
       setGuesses(guessData);
-      log.debug("guess data is of length: " + guessData.length);
       //for each guess in guessData, add it to guessed
       for (let i = 0; i < guessData.length; i++) {
         guessed.add(guessData[i].guess);
       }
     } else {
-      log.debug("no guess data");
       setGuesses([]);
     }
     countdown(day);
     getAndSetYesterdayClosest(day);
     getStreak(day);
+    log.debug(
+      "Initialization Data: " +
+        JSON.stringify({
+          guesses: guesses,
+          guessed: guessed,
+          secretVec: secretVec,
+          secretWord: secretWord,
+          lastGuess: lastGuess,
+          puzzleNumber: puzzleNumber,
+          similarity: similarity,
+          similarityStory: similarityStory,
+          yesterdayClosest: yesterdayClosest,
+          guessData: guessData,
+          cacheString: "SEMANTLE_" + day,
+        })
+    );
   }
 
   function formatTime(time) {
