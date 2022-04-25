@@ -1,23 +1,23 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 import { logger, transportFunctionType } from "react-native-logs";
-import client from "../api/client"; //causes require cycle
+// import client from "../api/client"; //causes require cycle
 
 var USER_ID = null;
 const customTransport = (props) => {
-  handleTransport(props);
+  // handleTransport(props);
   console.log(props.msg);
 };
 
-async function handleTransport(props) {
-  if (!USER_ID) {
-    let userObj = await getData("SEMANTLE::USER", false);
-    USER_ID = userObj?.userID;
-  }
+// async function handleTransport(props) {
+//   if (!USER_ID) {
+//     let userObj = await getData("SEMANTLE::USER", false);
+//     USER_ID = userObj?.userID;
+//   }
 
-  props.msg += " |USER: " + USER_ID;
-  return await client.post("log", props, {}, false);
-}
+//   props.msg += " |USER: " + USER_ID;
+//   return await client.post("log", props, {}, false);
+// }
 
 const config = {
   transport: customTransport,
