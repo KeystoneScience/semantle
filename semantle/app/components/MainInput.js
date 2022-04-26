@@ -10,8 +10,7 @@ import {
 import { BlurView } from "expo-blur";
 import AppText from "./AppText";
 import useColors from "../configs/useColors";
-import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
-import NetInfo from "@react-native-community/netinfo";
+
 function MainInput(props) {
   var textInputRef = useRef();
   const colors = useColors();
@@ -84,7 +83,7 @@ function MainInput(props) {
               setValue("");
             }}
             onFocus={props.onFocus}
-            placeholder="enter your guess here"
+            placeholder="Enter your guess (click here)"
             returnKeyType="go"
             keyboardType="default"
             blurOnSubmit={false}
@@ -137,29 +136,7 @@ function MainInput(props) {
           //   {props.input || "Enter your guess"}
           // </AppText>
         )}
-        {!isConnected && (
-          <View
-            style={{
-              position: "absolute",
-              right: 0,
-              alignSelf: "center",
-              backgroundColor: colors.convertColorToRGBA(
-                colors.colors.backgroundColor,
-                0.85
-              ),
-              // borderRadius: 20,
-              padding: 2,
-            }}
-          >
-            <MaterialCommunityIcons
-              name="wifi-off"
-              size={19}
-              color={"rgba(255, 84, 46, 1)"}
-            />
-          </View>
-        )}
       </View>
-
       <TouchableOpacity
         activeOpacity={1}
         onPressIn={() => {
