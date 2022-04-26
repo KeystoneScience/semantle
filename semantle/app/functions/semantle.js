@@ -9,13 +9,13 @@ import { logger, transportFunctionType } from "react-native-logs";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.6.5";
+const VERSION_CODE = "1.0.6.7.1";
 
 var USER_ID = null;
 
 const customTransport = (props) => {
   handleTransport(props);
-  console.log(props.msg);
+  // console.log(props.msg);
 };
 
 async function handleTransport(props) {
@@ -260,6 +260,22 @@ export default function semantle() {
     }
     setGuesses(newGuesses);
   }
+  //deletes old guesses to ensure we do not pass the 6mb limit on android.
+  async function sanatizeGuessCache(currentDay) {
+    for (let i = 50; i < currentDay - 2; i++) {
+      await cache.removeData("SEMANTLE_" + i);
+    }
+    const keys = await cache.getAllKeys();
+    //for each key
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      //check if the key contains 'model2'
+      if (key.includes("model2")) {
+        //if it does, remove it
+        await cache.rawRemoveData(key);
+      }
+    }
+  }
 
   async function getStreak(puzzleNumber = this.puzzleNumber) {
     const data = await cache.getData("SEMANTLE_STREAK", false);
@@ -381,6 +397,7 @@ export default function semantle() {
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
+    sanatizeGuessCache(day);
     const secretWord = secretWords[day % secretWords.length];
     setSecret(secretWord);
     const similarity = getSimilarityStory(secretWord);

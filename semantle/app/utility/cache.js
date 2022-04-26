@@ -42,12 +42,16 @@ const storeData = async (key, value) => {
     };
     await AsyncStorage.setItem(prefix + key, JSON.stringify(item));
   } catch (e) {
-    console.log(error);
+    console.log(e);
   }
 };
 
 const removeData = async (key) => {
   await AsyncStorage.removeItem(prefix + key);
+};
+
+const rawRemoveData = async (key) => {
+  await AsyncStorage.removeItem(key);
 };
 
 const isExpired = (item, time) => {
@@ -131,12 +135,23 @@ const addToData = async (key, value) => {
   }
 };
 
+const getAllKeys = async () => {
+  try {
+    const keys = await AsyncStorage.getAllKeys();
+    return keys;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   storeData,
   getData,
   getUpdateData,
   checkNewGetData,
   clearAsyncStorage,
+  getAllKeys,
+  rawRemoveData,
   removeData,
   addToData,
 };

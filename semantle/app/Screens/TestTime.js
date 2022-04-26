@@ -23,6 +23,7 @@ import colors from "../configs/colors";
 import cache from "../utility/cache";
 import { AntDesign } from "@expo/vector-icons";
 import Screen from "../components/Screen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function TestTime({ navigation, route }) {
   const [testCache, setTestCache] = useState("");
@@ -30,6 +31,21 @@ function TestTime({ navigation, route }) {
   const [testGuessCacheNum, setTestGuessCacheNum] = useState(0);
   const [testGuessCacheWord, setTestGuessCacheWord] = useState("");
   const [testGuessCacheWordText, setTestGuessCacheWordText] = useState("");
+  const [keys, setKeys] = useState("");
+
+  const storeData = async (key, value) => {
+    const prefix = "cache";
+    try {
+      const item = {
+        value,
+        timestamp: Date.now(),
+      };
+      await AsyncStorage.setItem(prefix + key, JSON.stringify(item));
+    } catch (e) {
+      console.log(e);
+      throw e;
+    }
+  };
 
   async function handleTestCache() {
     let testCacheLog = "";
@@ -86,12 +102,18 @@ function TestTime({ navigation, route }) {
         guessCount: guesses.length - 1,
         similarity: 0,
       });
-      await cache.storeData("SEMANTLE_" + testGuessCacheNum, guesses);
+      await storeData("SEMANTLE_" + testGuessCacheNum, guesses);
       testCacheLog = `Added ${testGuessCacheWord} to SEMANTLE_${testGuessCacheNum}, the new cache has ${guesses.length} items.`;
       setTestGuessCacheWordText(testCacheLog);
     } catch (e) {
       setTestGuessCacheWordText(e.message);
     }
+  }
+
+  async function getAllKeys() {
+    const gotKeys = await AsyncStorage.getAllKeys();
+    console.log(gotKeys);
+    setKeys("NUM KEYS: " + gotKeys.length + "\n" + JSON.stringify(gotKeys));
   }
 
   return (
@@ -242,6 +264,36 @@ function TestTime({ navigation, route }) {
           placeholderTextColor={colors.colors.textInputColor}
         />
         <Button onPress={handleTestGuessCacheSubmit} />
+
+        <View
+          style={{
+            width: "90%",
+            alignSelf: "center",
+            borderWidth: 1,
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        />
+        <AppText
+          style={{ fontSize: 14, width: "90%", color: colors.colors.textColor }}
+        >
+          Get All Cache Keys:
+        </AppText>
+        <AntDesign
+          name="copy1"
+          size={24}
+          color="black"
+          onPress={() => {
+            Clipboard.setString(keys);
+            Alert.alert("Copied to clipboard!");
+          }}
+        />
+        <AppText
+          style={{ fontSize: 14, width: "90%", color: colors.colors.textColor }}
+        >
+          {keys}
+        </AppText>
+        <Button onPress={getAllKeys} />
 
         <View
           style={{
