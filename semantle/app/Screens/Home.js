@@ -14,6 +14,7 @@ import {
   Pressable,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
   Share,
   Modal,
 } from "react-native";
@@ -37,6 +38,7 @@ import AppText from "../components/AppText";
 import { ColorPicker } from "react-native-color-picker";
 import i18n from "i18n-js";
 import translate from "../configs/translate";
+
 function Home({ navigation, route }) {
   const semantleGame = semantle();
   const [pushToken, setPushToken] = useState("");
@@ -105,6 +107,8 @@ function Home({ navigation, route }) {
           setShowDiagnostics(true);
           return;
         }
+      } else if (easterEgg.place === "NAVIGATE") {
+        navigation.navigate(easterEgg.location);
       }
     } else {
       setHeaderEasteregg(false);
@@ -512,24 +516,37 @@ function Home({ navigation, route }) {
       )}
 
       {showDiagnostics && (
-        <Pressable
+        <View
           onPress={() => {
             setShowDiagnostics(false);
           }}
           pointerEvents="box-none"
           style={{
             position: "absolute",
-            justifyContent: "space-evenly",
             height: "100%",
             width: "100%",
             alignItems: "center",
+            justifyContent: "center",
             flex: 1,
-            backgroundColor: "rgba(0,0,0,0.5)",
             zIndex: 100,
           }}
         >
+          <Pressable
+            onPress={() => {
+              setShowDiagnostics(false);
+            }}
+            style={{
+              position: "absolute",
+              justifyContent: "space-evenly",
+              height: "100%",
+              width: "100%",
+              alignItems: "center",
+              flex: 1,
+              backgroundColor: "rgba(0,0,0,0.5)",
+            }}
+          />
+
           <View
-            pointerEvents="box"
             style={{
               width: "90%",
               height: "70%",
@@ -537,12 +554,21 @@ function Home({ navigation, route }) {
               backgroundColor: "white",
             }}
           >
+            {/* <AntDesign
+              name="copy1"
+              size={24}
+              color="black"
+              onPress={() => {
+                Clipboard.setString(semantleGame.generateDiagnostics());
+                Alert.alert("Copied to clipboard");
+              }}
+            /> */}
             <ScrollView>
               <Text>DIAGNOSTICS</Text>
               <Text>{semantleGame.generateDiagnostics()}</Text>
             </ScrollView>
           </View>
-        </Pressable>
+        </View>
       )}
       {customThemeModal && (
         <Modal

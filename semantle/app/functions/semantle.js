@@ -2,13 +2,38 @@
 import { useState, useEffect } from "react";
 import client from "../api/client";
 import cache from "../utility/cache";
-import { Alert } from "react-native";
+import { Alert, Clipboard } from "react-native";
 import i18n from "i18n-js";
+import { logger, transportFunctionType } from "react-native-logs";
 import translate from "../configs/translate";
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
+const VERSION_CODE = "1.0.6.7.1";
+
 var SECRET_WORDS = [];
 
+var USER_ID = null;
+
+const customTransport = (props) => {
+  // handleTransport(props);
+  console.log(props.msg);
+};
+
+async function handleTransport(props) {
+  if (!USER_ID) {
+    let userObj = await cache.getData("SEMANTLE::USER", false);
+    USER_ID = userObj?.userID;
+  }
+
+  props.msg += " |USER: " + USER_ID;
+  return await client.post("log", props, {}, false);
+}
+
+const config = {
+  transport: customTransport,
+};
+
+var log = logger.createLogger(config);
 //returns the 10 nearest words.
 async function getNearby(word) {
   const url = "model2/nearby?secret=" + word + "&language=" + i18n.locale;
@@ -57,7 +82,6 @@ async function fetchSimilarityStory(secret, language = "en") {
     `SEMANTLE::SIMILARITY_STORY::${secret}::${language}`,
     false
   );
-  console.log(simStory);
   if (simStory) {
     return simStory;
   }
@@ -66,7 +90,6 @@ async function fetchSimilarityStory(secret, language = "en") {
   const response = await client.get(url);
   const body = response?.data?.body;
   const json = await JSON.parse(body);
-  console.log("JSON", json);
   cache.storeData(`SEMANTLE::SIMILARITY_STORY::${secret}::${language}`, json);
   return json;
 }
@@ -195,7 +218,7 @@ export default function semantle() {
   const [yesterdayClosest, setYesterdayClosest] = useState([]);
   const [streakCacheData, setStreakCacheData] = useState(null);
 
-  async function submit(guess) {
+  async function submit(guess, test = false) {
     if (guess.toLowerCase() === "hardreset") {
       hardReset();
       return;
@@ -233,6 +256,10 @@ export default function semantle() {
     // cache[guess] = guessData;
 
     let similarity = getCosSim(guessVec, secretVec) * 100.0;
+    return await handleSubmit({ guess, similarity, percentile });
+  }
+
+  async function handleSubmit({ guess, similarity, percentile }) {
     if (!guessed.has(guess)) {
       guessed.add(guess);
 
@@ -280,7 +307,7 @@ export default function semantle() {
         return true;
       }
     }
-
+    log.debug("GUESS ALREADY MADE: " + guess + "\n GUESSES: " + guesses.length);
     return false;
   }
 
@@ -294,6 +321,22 @@ export default function semantle() {
       newGuesses.sort((a, b) => b[metric] - a[metric]);
     }
     setGuesses(newGuesses);
+  }
+  //deletes old guesses to ensure we do not pass the 6mb limit on android.
+  async function sanatizeGuessCache(currentDay) {
+    for (let i = 50; i < currentDay - 2; i++) {
+      await cache.removeData("SEMANTLE_" + i);
+    }
+    const keys = await cache.getAllKeys();
+    //for each key
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      //check if the key contains 'model2'
+      if (key.includes("model2")) {
+        //if it does, remove it
+        await cache.rawRemoveData(key);
+      }
+    }
   }
 
   async function getStreak(puzzleNumber = this.puzzleNumber) {
@@ -315,7 +358,7 @@ export default function semantle() {
 
   function hardReset() {
     //prompt user to confirm
-    Alert.alert("Reset all data?", "this will reset all your in-app data.", [
+    Alert.alert("Reset all data?", "this will reset all your Semantle data.", [
       {
         text: "Cancel",
         onPress: () => {},
@@ -423,6 +466,7 @@ export default function semantle() {
   }
 
   async function initialize() {
+    log.debug("initializing");
     // check to see if there is information cached.
     guessed = new Set();
     secretVec = null;
@@ -430,10 +474,10 @@ export default function semantle() {
     setLastGuess(null);
     const day = getPuzzleNumber();
     setPuzzleNumber(day);
+    sanatizeGuessCache(day);
 
     const secretWord = await fetchSecretWords(day, i18n.locale);
     const simStory = await fetchSimilarityStory(secretWord, i18n.locale);
-
     setSecret(secretWord);
     setSimilarityStory(simStory);
 
@@ -453,6 +497,23 @@ export default function semantle() {
     countdown(day);
     getAndSetYesterdayClosest(day);
     getStreak(day);
+    log.debug(
+      "Initialization Data: " +
+        JSON.stringify({
+          guesses: guesses,
+          guessed: guessed,
+          secretVec: secretVec,
+          secretWord: secretWord,
+          lastGuess: lastGuess,
+          puzzleNumber: puzzleNumber,
+          similarity: simStory,
+          similarityStory: similarityStory,
+          yesterdayClosest: yesterdayClosest,
+          guessData: guessData,
+          VERSION_CODE: VERSION_CODE,
+          cacheString: "SEMANTLE_" + day,
+        })
+    );
   }
 
   function formatTime(time) {
@@ -504,7 +565,9 @@ export default function semantle() {
     diagnosticsString += `streak cache data: ${JSON.stringify(
       streakCacheData
     )}\n`;
-
+    diagnosticsString += "VERSION: " + VERSION_CODE + "\n";
+    diagnosticsString += "UserID: " + USER_ID + "\n";
+    Clipboard.setString(diagnosticsString);
     return diagnosticsString;
   }
 
@@ -514,8 +577,64 @@ export default function semantle() {
     return secretWord;
   }
 
+  async function fillTestData(command) {
+    //prompt user for number of days to fill
+    const partitions = command.split("+");
+    //parse string to int
+
+    const daysToFill = parseInt(partitions[2]) || 1;
+    const guessesPerDay = parseInt(partitions[1]) || 100;
+
+    for (let j = 0; j < daysToFill; j++) {
+      const testGuessData = [];
+      for (let i = 0; i < guessesPerDay; i++) {
+        //generate a random 5 character string
+        let randomString = "";
+        for (let j = 0; j < 5; j++) {
+          randomString += String.fromCharCode(
+            Math.floor(Math.random() * 26) + 97
+          );
+        }
+        randomString += i;
+        //generate a random similarity
+        let randomSimilarity = Math.floor(Math.random() * 100);
+        testGuessData.push({
+          guess: randomString,
+          similarity: randomSimilarity,
+          percentile: null,
+          guessCount: guesses.length + 1 + i,
+        });
+        if (j == 0) {
+          setGuesses(testGuessData);
+          guessed.add(randomString);
+        }
+      }
+      await cache.storeData("SEMANTLE_" + (puzzleNumber - j), testGuessData);
+    }
+    const data = await cache.getData("SEMANTLE_STATS", false);
+    var daysMap = data?.daysMap ? data.daysMap : {};
+    for (let z = 0; z < daysToFill; z++) {
+      const existingData =
+        daysMap["STATS_DAY_" + (puzzleNumber - z).toString()] || {};
+      existingData.found = false;
+      existingData.day = puzzleNumber - z;
+      existingData.numberOfGuesses = guessesPerDay;
+      existingData.averageSimilarity = 0.42069;
+
+      daysMap["STATS_DAY_" + (puzzleNumber - z).toString()] = existingData;
+    }
+    await cache.storeData("SEMANTLE_STATS", { daysMap: daysMap });
+    Alert.alert(
+      `Done filling ${daysToFill} days of data, with ${guessesPerDay} guesses per day.`
+    );
+  }
+
   function checkEasterEggs(guess = "") {
     guess = guess.toLowerCase();
+    if (guess.includes("testdata")) {
+      fillTestData(guess);
+      return;
+    }
     if (guess === "semantlepro") {
       return {
         place: "HOME",
@@ -620,6 +739,11 @@ export default function semantle() {
       return {
         place: "HOME",
         action: "customColor",
+      };
+    } else if (guess === "testscreen") {
+      return {
+        place: "NAVIGATE",
+        location: "TestTime",
       };
     }
   }

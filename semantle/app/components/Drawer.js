@@ -494,9 +494,19 @@ function Drawer({ navigation, route }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  onPress={() =>
-                    Linking.openURL("https://semantle.app/bug-report")
-                  }
+                  onPress={() => {
+                    async function openSaysMe() {
+                      let userObj = await cache.getData(
+                        "SEMANTLE::USER",
+                        false
+                      );
+                      const USER_ID = userObj?.userID || "NULL";
+                      Linking.openURL(
+                        "https://semantle.app/bug-report?userID=" + USER_ID
+                      );
+                    }
+                    openSaysMe();
+                  }}
                 >
                   <View
                     style={[

@@ -13,12 +13,10 @@ apiClient.get = async (url, params, axiosConfig) => {
   const response = await get(url, params, axiosConfig);
 
   if (response.ok) {
-    cache.storeData(url, response.data);
     return response;
   }
 
-  const data = await cache.getData(url);
-  return data ? { ok: true, data } : response;
+  return response;
 };
 
 const post = apiClient.post;
@@ -34,16 +32,12 @@ apiClient.post = async (
     console.log("RESPONSE_RAW", response);
   }
   if (response.ok) {
-    if (setCache) {
-      cache.storeData(url, response.data);
-    }
     return response;
   } else if (!setCache) {
     return response;
   }
 
-  const dataFound = await cache.getData(url);
-  return data ? { ok: true, data: dataFound } : { ok: true, data: [] };
+  return { ok: true, data: [] };
 };
 
 const patch = apiClient.patch;

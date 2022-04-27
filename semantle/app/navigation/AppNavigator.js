@@ -7,6 +7,7 @@ import { Animated } from "react-native";
 
 import Home from "../screens/Home";
 import Tutorial from "../screens/Tutorial";
+import TestTime from "../screens/TestTime";
 import Drawer from "../components/Drawer";
 
 const Stack = createStackNavigator();
@@ -71,6 +72,11 @@ const AppNavigator = () => (
     <Stack.Screen
       name="Home"
       component={Home}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="TestTime"
+      component={TestTime}
       options={{ headerShown: false }}
     />
 

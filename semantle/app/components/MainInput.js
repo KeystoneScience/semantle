@@ -18,6 +18,7 @@ function MainInput(props) {
   const colors = useColors();
   const [value, setValue] = useState("");
   const [isPressed, setIsPressed] = useState(false);
+
   return (
     <View
       style={{
