@@ -309,8 +309,11 @@ export default function semantle() {
         }
         return true;
       }
+    } else {
+      log.debug(
+        "GUESS ALREADY MADE: " + guess + "\n GUESSES: " + guesses.length
+      );
     }
-    log.debug("GUESS ALREADY MADE: " + guess + "\n GUESSES: " + guesses.length);
     return false;
   }
 
@@ -325,11 +328,9 @@ export default function semantle() {
     }
     setGuesses(newGuesses);
   }
+
   //deletes old guesses to ensure we do not pass the 6mb limit on android.
   async function sanatizeGuessCache(currentDay) {
-    for (let i = 50; i < currentDay - 1; i++) {
-      await cache.removeData("SEMANTLE_" + i);
-    }
     const keys = await cache.getAllKeys();
     //for each key
     for (let i = 0; i < keys.length; i++) {
@@ -338,10 +339,17 @@ export default function semantle() {
       if (key.includes("model2")) {
         //if it does, remove it
         await cache.rawRemoveData(key);
-      } else if (key.includes("SEMANTLE::SIMILARITY_STORY")) {
-        //split the key by ::
-        const split = key.split("::");
-        if (split[split.length - 1] < currentDay - 1) {
+        continue;
+      }
+      let numberString = "";
+      for (let j = 0; j < key.length; j++) {
+        if (key[j] >= "0" && key[j] <= "9") {
+          numberString += key[j];
+        }
+      }
+      if (numberString) {
+        const num = parseInt(numberString);
+        if (num < currentDay - 1) {
           await cache.rawRemoveData(key);
         }
       }
