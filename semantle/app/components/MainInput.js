@@ -32,6 +32,7 @@ function MainInput(props) {
         marginBottom: 10,
         flexDirection: "row",
         // justifyContent: "center",
+        backgroundColor: colors.colors.backgroundColor,
       }}
     >
       <View

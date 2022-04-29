@@ -104,7 +104,11 @@ function WalkthroughScreen({ navigation, route }) {
     const loginToken = route.params ? route.params.firstTimeLoginInfo : false;
     //firstTimeLoginInfo
     if (!loginToken) {
-      navigation.navigate("Home");
+      navigation.navigate({
+        name: "Home",
+        params: { isFromTutorial: true },
+        // merge: true,
+      });
     }
   };
   return (

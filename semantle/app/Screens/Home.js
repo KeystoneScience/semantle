@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import MainInput from "../components/MainInput";
+
 import {
   StyleSheet,
   Text,
@@ -17,6 +18,7 @@ import {
   Alert,
   Share,
   Modal,
+  StatusBar,
 } from "react-native";
 import * as Device from "expo-device";
 import GuessList from "../components/GuessList";
@@ -38,6 +40,9 @@ import AppText from "../components/AppText";
 import { ColorPicker } from "react-native-color-picker";
 import i18n from "i18n-js";
 import translate from "../configs/translate";
+import Tooltip from "react-native-walkthrough-tooltip";
+import { Col } from "react-native-table-component";
+import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
@@ -54,6 +59,17 @@ function Home({ navigation, route }) {
   const [customThemeModal, setCustomThemeModal] = useState(false);
 
   const colors = useColors();
+
+  const [tooltips, setTooltips] = useState(0);
+
+  function tutorial() {
+    setTooltips(tooltips + 1);
+    if (tooltips == 3) {
+      // console.log("tooltips", tooltips);
+      confettiRef.current.play();
+      setTooltips(0);
+    }
+  }
 
   useEffect(() => {
     AppState.addEventListener("change", _handleAppStateChange);
@@ -180,6 +196,14 @@ function Home({ navigation, route }) {
     checkFirstTime();
     getAndPushToken();
   }, []);
+  useEffect(() => {
+    if (route?.params?.isFromTutorial) {
+      setTimeout(() => {
+        setTooltips(1);
+        route.params.isFromTutorial = false;
+      }, 1000);
+    }
+  }, [route?.params?.isFromTutorial]);
 
   async function getAndPushToken() {
     const previousToken = await cache.getData("SEMANTLE::PUSH_TOKEN", false);
@@ -271,16 +295,51 @@ function Home({ navigation, route }) {
           timeUntilNextPuzzle={semantleGame.timeUntilNextPuzzle}
           easterEgg={headerEasteregg}
         />
-
-        <MainInput
-          input={inputField}
-          onSubmit={(value) => {
-            handleSubmit(value);
+        <Tooltip
+          isVisible={tooltips === 1}
+          backgroundColor="rgba(0,0,0,.1)"
+          childrenWrapperStyle={{
+            borderRadius: 10,
+            overflow: "hidden",
+            borderWidth: 3,
+            borderColor: colors.colors.grooveColorPallet[1],
           }}
-          onFocus={() => {
-            setIsKeyboardVisible(true);
+          closeOnChildInteraction={false}
+          disableShadow={true}
+          contentStyle={{
+            backgroundColor: colors.colors.grooveColorPallet[0],
+            width: "100%",
           }}
-        />
+          content={
+            <View>
+              <AppText
+                fontWeight={"600"}
+                style={{
+                  fontSize: 18,
+                  color: "rgba(255,255,255,.8)",
+                }}
+              >
+                Enter your guesses here!
+              </AppText>
+            </View>
+          }
+          onClose={tutorial}
+          placement="bottom"
+          // below is for the status bar of react navigation bar
+          topAdjustment={
+            Platform.OS === "android" ? -StatusBar.currentHeight : 0
+          }
+        >
+          <MainInput
+            input={inputField}
+            onSubmit={(value) => {
+              handleSubmit(value);
+            }}
+            onFocus={() => {
+              setIsKeyboardVisible(true);
+            }}
+          />
+        </Tooltip>
         {isKeyboardVisible && (
           <View
             style={{
@@ -320,12 +379,59 @@ function Home({ navigation, route }) {
             // backgroundColor: "rgba(0,0,0,0)",
           }}
         >
-          <GuessListHeader
-            onSort={(metric) => {
-              semantleGame.sortGuesses(metric);
+          <Tooltip
+            isVisible={tooltips === 2}
+            backgroundColor="rgba(0,0,0,.1)"
+            childrenWrapperStyle={{
+              borderRadius: 10,
+              overflow: "hidden",
+              borderWidth: 3,
+              borderColor: colors.colors.grooveColorPallet[1],
             }}
-          />
-
+            closeOnChildInteraction={false}
+            disableShadow={true}
+            contentStyle={{
+              backgroundColor: colors.colors.grooveColorPallet[0],
+              width: "100%",
+              height: "100%",
+            }}
+            tooltipStyle={{
+              marginTop: 60,
+            }}
+            content={
+              <View>
+                <AppText
+                  fontWeight={"600"}
+                  style={{
+                    fontSize: 18,
+                    color: "rgba(255,255,255,.8)",
+                    lineHeight: 30,
+                  }}
+                >
+                  get info on your guesses here! {"\n"}
+                  {"\n"}#: the guess number{"\n"}
+                  {"\n"}
+                  Guess: displays the word you entered{"\n"}
+                  {"\n"}
+                  similarity: is how similar your guess is to the word{"\n"}
+                  {"\n"}
+                  Distance: the distance of your word compared to the top 1000
+                  most similar words.
+                </AppText>
+              </View>
+            }
+            onClose={tutorial}
+            placement="bottom"
+            topAdjustment={
+              Platform.OS === "android" ? -StatusBar.currentHeight : 0
+            }
+          >
+            <GuessListHeader
+              onSort={(metric) => {
+                semantleGame.sortGuesses(metric);
+              }}
+            />
+          </Tooltip>
           <ScrollView style={{ flexGrow: 1 }}>
             {[semantleGame.lastGuess, ...semantleGame.guesses].map(
               (obj, index) => (
@@ -338,7 +444,49 @@ function Home({ navigation, route }) {
             )}
           </ScrollView>
         </View>
-        <Similarities {...semantleGame.similarityStory} />
+        <Tooltip
+          isVisible={tooltips === 3}
+          backgroundColor="rgba(0,0,0,.1)"
+          childrenWrapperStyle={{
+            borderRadius: 10,
+            overflow: "hidden",
+            borderWidth: 3,
+            borderColor: colors.colors.grooveColorPallet[1],
+          }}
+          closeOnChildInteraction={false}
+          disableShadow={true}
+          contentStyle={{
+            backgroundColor: colors.colors.grooveColorPallet[0],
+            width: "100%",
+            height: "100%",
+          }}
+          content={
+            <View>
+              <AppText
+                fontWeight={"600"}
+                style={{
+                  fontSize: 18,
+                  color: "rgba(255,255,255,.8)",
+                  lineHeight: 30,
+                }}
+              >
+                This displays the 1st, 10th, and 1000th most similar words
+                similarity ranking.
+              </AppText>
+            </View>
+          }
+          onClose={tutorial}
+          placement="top"
+          // arrowStyle={{
+          //   marginLeft: 10,
+          // }}
+          // below is for the status bar of react navigation bar
+          topAdjustment={
+            Platform.OS === "android" ? -StatusBar.currentHeight : 0
+          }
+        >
+          <Similarities {...semantleGame.similarityStory} />
+        </Tooltip>
         {/* <VirtualKeyboard
           onKey={(key) => {
             setInputField(inputField + key);
