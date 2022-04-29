@@ -8,7 +8,7 @@ import { logger, transportFunctionType } from "react-native-logs";
 import translate from "../configs/translate";
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.6.7.1";
+const VERSION_CODE = "1.0.7";
 
 var SECRET_WORDS = [];
 
@@ -71,7 +71,7 @@ async function fetchSecretWords(day, language = "en") {
   return body[day % body.length];
 }
 
-async function fetchSimilarityStory(secret, language = "en") {
+async function fetchSimilarityStory(secret, day, language = "en") {
   //simStory:
   // {
   //   "top": .89238749223423,
@@ -79,7 +79,7 @@ async function fetchSimilarityStory(secret, language = "en") {
   //   "rest": .3081197440624237
   //}
   const simStory = await cache.getData(
-    `SEMANTLE::SIMILARITY_STORY::${secret}::${language}`,
+    `SEMANTLE::SIMILARITY_STORY::${secret}::${language}::${day}`,
     false
   );
   if (simStory) {
@@ -90,7 +90,10 @@ async function fetchSimilarityStory(secret, language = "en") {
   const response = await client.get(url);
   const body = response?.data?.body;
   const json = await JSON.parse(body);
-  cache.storeData(`SEMANTLE::SIMILARITY_STORY::${secret}::${language}`, json);
+  cache.storeData(
+    `SEMANTLE::SIMILARITY_STORY::${secret}::${language}::${day}`,
+    json
+  );
   return json;
 }
 
@@ -324,7 +327,7 @@ export default function semantle() {
   }
   //deletes old guesses to ensure we do not pass the 6mb limit on android.
   async function sanatizeGuessCache(currentDay) {
-    for (let i = 50; i < currentDay - 2; i++) {
+    for (let i = 50; i < currentDay - 1; i++) {
       await cache.removeData("SEMANTLE_" + i);
     }
     const keys = await cache.getAllKeys();
@@ -335,6 +338,12 @@ export default function semantle() {
       if (key.includes("model2")) {
         //if it does, remove it
         await cache.rawRemoveData(key);
+      } else if (key.includes("SEMANTLE::SIMILARITY_STORY")) {
+        //split the key by ::
+        const split = key.split("::");
+        if (split[split.length - 1] < currentDay - 1) {
+          await cache.rawRemoveData(key);
+        }
       }
     }
   }
@@ -477,7 +486,7 @@ export default function semantle() {
     sanatizeGuessCache(day);
 
     const secretWord = await fetchSecretWords(day, i18n.locale);
-    const simStory = await fetchSimilarityStory(secretWord, i18n.locale);
+    const simStory = await fetchSimilarityStory(secretWord, day, i18n.locale);
     setSecret(secretWord);
     setSimilarityStory(simStory);
 
