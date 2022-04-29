@@ -297,9 +297,9 @@ function Home({ navigation, route }) {
         />
         <Tooltip
           isVisible={tooltips === 1}
-          closeOnContentInteraction={false}
+          closeOnContentInteraction={true}
           closeOnChildInteraction={false}
-          backgroundColor="rgba(0,0,0,.1)"
+          backgroundColor="rgba(0,0,0,.2)"
           childrenWrapperStyle={{
             borderRadius: 10,
             overflow: "hidden",
@@ -406,8 +406,9 @@ function Home({ navigation, route }) {
         >
           <Tooltip
             isVisible={tooltips === 2}
-            backgroundColor="rgba(0,0,0,.1)"
-            closeOnChildInteraction={false}
+            backgroundColor="rgba(0,0,0,.2)"
+            closeOnChildInteraction={true}
+            closeOnContentInteraction={true}
             disableShadow={true}
             contentStyle={{
               backgroundColor: colors.colors.grooveColorPallet[0],
@@ -491,7 +492,7 @@ function Home({ navigation, route }) {
         </View>
         <Tooltip
           isVisible={tooltips === 3}
-          backgroundColor="rgba(0,0,0,.1)"
+          backgroundColor="rgba(0,0,0,.2)"
           childrenWrapperStyle={{
             borderRadius: 10,
             overflow: "hidden",
@@ -500,7 +501,7 @@ function Home({ navigation, route }) {
             borderColor: colors.colors.grooveColorPallet[1],
             backgroundColor: colors.colors.backgroundColor,
           }}
-          closeOnChildInteraction={false}
+          closeOnChildInteraction={true}
           disableShadow={true}
           contentStyle={{
             backgroundColor: colors.colors.grooveColorPallet[0],
@@ -552,10 +553,6 @@ function Home({ navigation, route }) {
           onBackspace={() => setInputField(inputField.slice(0, -1))}
         /> */}
       </Screen>
-
-      {
-        //Animation stuff
-      }
 
       {showWin && (
         <View
