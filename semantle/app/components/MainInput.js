@@ -29,7 +29,7 @@ function MainInput(props) {
         justifyContent: "center",
         display: "flex",
         marginTop: 0,
-        marginBottom: 10,
+        paddingBottom: 10,
         flexDirection: "row",
         // justifyContent: "center",
         backgroundColor: colors.colors.backgroundColor,

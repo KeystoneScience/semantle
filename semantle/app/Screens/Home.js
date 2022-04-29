@@ -201,7 +201,7 @@ function Home({ navigation, route }) {
       setTimeout(() => {
         setTooltips(1);
         route.params.isFromTutorial = false;
-      }, 1000);
+      }, 500);
     }
   }, [route?.params?.isFromTutorial]);
 
@@ -297,23 +297,35 @@ function Home({ navigation, route }) {
         />
         <Tooltip
           isVisible={tooltips === 1}
+          closeOnContentInteraction={false}
+          closeOnChildInteraction={false}
           backgroundColor="rgba(0,0,0,.1)"
           childrenWrapperStyle={{
             borderRadius: 10,
             overflow: "hidden",
             borderWidth: 3,
+            // paddingBottom: -10,
             borderColor: colors.colors.grooveColorPallet[1],
           }}
-          closeOnChildInteraction={false}
           disableShadow={true}
           contentStyle={{
             backgroundColor: colors.colors.grooveColorPallet[0],
+            overflow: "visible",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 2,
+            elevation: 3,
+
             width: "100%",
+            height: "100%",
           }}
           content={
             <View>
               <AppText
-                fontWeight={"600"}
+                fontWeight={"800"}
                 style={{
                   fontSize: 18,
                   color: "rgba(255,255,255,.8)",
@@ -321,9 +333,19 @@ function Home({ navigation, route }) {
               >
                 Enter your guesses here!
               </AppText>
+              <AppText
+                fontWeight={"500"}
+                style={{
+                  fontSize: 18,
+                  color: "rgba(255,255,255,.6)",
+                  textAlign: "center",
+                }}
+              >
+                (enter word to continue)
+              </AppText>
             </View>
           }
-          onClose={tutorial}
+          onClose={() => {}}
           placement="bottom"
           // below is for the status bar of react navigation bar
           topAdjustment={
@@ -334,6 +356,9 @@ function Home({ navigation, route }) {
             input={inputField}
             onSubmit={(value) => {
               handleSubmit(value);
+              if (tooltips === 1) {
+                setTooltips(2);
+              }
             }}
             onFocus={() => {
               setIsKeyboardVisible(true);
@@ -382,18 +407,19 @@ function Home({ navigation, route }) {
           <Tooltip
             isVisible={tooltips === 2}
             backgroundColor="rgba(0,0,0,.1)"
-            childrenWrapperStyle={{
-              borderRadius: 10,
-              overflow: "hidden",
-              borderWidth: 3,
-              borderColor: colors.colors.grooveColorPallet[1],
-            }}
             closeOnChildInteraction={false}
             disableShadow={true}
             contentStyle={{
               backgroundColor: colors.colors.grooveColorPallet[0],
               width: "100%",
               height: "100%",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 2,
+              elevation: 3,
             }}
             tooltipStyle={{
               marginTop: 60,
@@ -401,22 +427,41 @@ function Home({ navigation, route }) {
             content={
               <View>
                 <AppText
-                  fontWeight={"600"}
+                  fontWeight={"800"}
+                  style={{
+                    fontSize: 18,
+                    color: "rgba(255,255,255,.8)",
+                    lineHeight: 30,
+                    alignSelf: "center",
+                    marginBottom: 10,
+                  }}
+                >
+                  Get info on your guesses here!
+                </AppText>
+
+                <AppText
+                  fontWeight={"500"}
+                  style={{
+                    fontSize: 18,
+                    color: "rgba(255,255,255,.8)",
+                    lineHeight: 30,
+                    marginBottom: 10,
+                  }}
+                >
+                  <AppText fontWeight={"800"}>Similarity:</AppText> how alike
+                  your guess is to the secret word
+                </AppText>
+
+                <AppText
+                  fontWeight={"500"}
                   style={{
                     fontSize: 18,
                     color: "rgba(255,255,255,.8)",
                     lineHeight: 30,
                   }}
                 >
-                  get info on your guesses here! {"\n"}
-                  {"\n"}#: the guess number{"\n"}
-                  {"\n"}
-                  Guess: displays the word you entered{"\n"}
-                  {"\n"}
-                  similarity: is how similar your guess is to the word{"\n"}
-                  {"\n"}
-                  Distance: the distance of your word compared to the top 1000
-                  most similar words.
+                  <AppText fontWeight={"800"}>Distance:</AppText> An indicator
+                  if your guess is in the top 1000 closest words to the secret
                 </AppText>
               </View>
             }
@@ -451,7 +496,9 @@ function Home({ navigation, route }) {
             borderRadius: 10,
             overflow: "hidden",
             borderWidth: 3,
+            paddingBottom: 10,
             borderColor: colors.colors.grooveColorPallet[1],
+            backgroundColor: colors.colors.backgroundColor,
           }}
           closeOnChildInteraction={false}
           disableShadow={true}
@@ -459,6 +506,13 @@ function Home({ navigation, route }) {
             backgroundColor: colors.colors.grooveColorPallet[0],
             width: "100%",
             height: "100%",
+            shadowOffset: {
+              width: 0,
+              height: -2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 2,
+            elevation: 3,
           }}
           content={
             <View>
@@ -470,8 +524,8 @@ function Home({ navigation, route }) {
                   lineHeight: 30,
                 }}
               >
-                This displays the 1st, 10th, and 1000th most similar words
-                similarity ranking.
+                How similar the 1st, 10th, and 1000th closest words are to the
+                secret
               </AppText>
             </View>
           }
@@ -757,7 +811,7 @@ function Home({ navigation, route }) {
                 }}
                 fontWeight="600"
               >
-                Press Center to change the color.
+                Press the center to change the color
               </AppText>
               <ColorPicker
                 defaultColor={"#ACCAFD"}
