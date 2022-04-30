@@ -230,6 +230,7 @@ function Drawer({ navigation, route }) {
                   <AppText
                     fontWeight={600}
                     style={{ fontSize: 16, color: "rgba(0,0,0,.6)" }}
+                    adjustFont={true}
                   >
                     (click for similar words)
                   </AppText>
@@ -426,7 +427,11 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
+                    <AppText
+                      fontWeight={550}
+                      style={styles.tutorialText}
+                      adjustFont={true}
+                    >
                       Rate Semantle
                     </AppText>
                   </View>
@@ -454,7 +459,11 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
+                    <AppText
+                      fontWeight={550}
+                      style={styles.tutorialText}
+                      adjustFont={true}
+                    >
                       Request Feature
                     </AppText>
                   </View>
@@ -523,7 +532,11 @@ function Drawer({ navigation, route }) {
                       )}
                       style={{ marginLeft: 10 }}
                     />
-                    <AppText fontWeight={550} style={styles.tutorialText}>
+                    <AppText
+                      fontWeight={550}
+                      style={styles.tutorialText}
+                      adjustFont={true}
+                    >
                       Report Problem
                     </AppText>
                   </View>

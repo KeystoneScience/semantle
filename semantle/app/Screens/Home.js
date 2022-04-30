@@ -449,8 +449,8 @@ function Home({ navigation, route }) {
                     marginBottom: 10,
                   }}
                 >
-                  <AppText fontWeight={"800"}>Similarity:</AppText> how alike
-                  your guess is to the secret word
+                  <AppText fontWeight={"800"}>Similarity:</AppText>
+                  how alike your guess is to the secret word
                 </AppText>
 
                 <AppText
@@ -461,8 +461,9 @@ function Home({ navigation, route }) {
                     lineHeight: 30,
                   }}
                 >
-                  <AppText fontWeight={"800"}>Distance:</AppText> An indicator
-                  if your guess is in the top 1000 closest words to the secret
+                  <AppText fontWeight={"800"}>Distance:</AppText>
+                  An indicator if your guess is in the top 1000 closest words to
+                  the secret
                 </AppText>
               </View>
             }

@@ -53,7 +53,7 @@ function GuessListHeader(props) {
           onPress={() => {
             props.onSort("guess");
           }}
-          style={[styles.tableHead]}
+          style={styles.tableHead}
         >
           Guess
         </AppText>
@@ -66,12 +66,7 @@ function GuessListHeader(props) {
           onPress={() => {
             props.onSort("similarity");
           }}
-          style={[
-            styles.tableHead,
-            {
-              // width: "20%",
-            },
-          ]}
+          style={styles.tableHead}
         >
           Similarity
         </AppText>
@@ -84,12 +79,7 @@ function GuessListHeader(props) {
           onPress={() => {
             props.onSort("similarity");
           }}
-          style={[
-            styles.tableHead,
-            {
-              // width: "30%",
-            },
-          ]}
+          style={styles.tableHead}
         >
           Distance
         </AppText>

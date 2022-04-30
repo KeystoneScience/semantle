@@ -175,6 +175,7 @@ function MainInput(props) {
             padding: 0,
             textTransform: "uppercase",
           }}
+          adjustFont={true}
         >
           Guess
         </AppText>
