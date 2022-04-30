@@ -52,6 +52,8 @@ function AppText({
             }
             setAdjustedStyle(adjStyle);
           }
+        } else {
+          setAdjustedChildren(children);
         }
       } else {
         setAdjustedChildren(children);
