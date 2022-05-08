@@ -19,7 +19,8 @@ export default function useColors() {
       "rgb(72,149,239)",
       "rgb(76,201,240)",
     ],
-    black: theme === "original" ? "#E8E8E8" : "#222222",
+    black:
+      theme === "original" || theme === "darktheme" ? "#E8E8E8" : "#222222",
     white: "#E8E8E8",
     gray: "#f0f0f0",
     lightGray: "#fafafa",
@@ -42,13 +43,25 @@ export default function useColors() {
     darkPink: "#ff1493",
     darkBrown: "#a52a2a",
     lightBlue: "#add8e6",
-    textInputColor: theme === "original" ? "#A0A0A0" : "rgba(0,0,0,0.4)",
+    textInputColor:
+      theme === "original" || theme === "darktheme"
+        ? "#A0A0A0"
+        : "rgba(0,0,0,0.4)",
     lightGreen: "#90ee90",
     backgroundColor:
-      theme === "original" ? "#202020" : theme ? theme : "#ACCAFD", //"rgba(150, 174, 213, 1)",
-    textColor: theme === "original" ? "#E8E8E8" : darkenColor("#ACCAFD", 45),
+      theme === "original" || theme === "darktheme"
+        ? "#202020"
+        : theme
+        ? theme
+        : "#ACCAFD", //"rgba(150, 174, 213, 1)",
+    textColor:
+      theme === "original" || theme === "darktheme"
+        ? "#E8E8E8"
+        : darkenColor("#ACCAFD", 45),
     checkButtonColor:
-      theme === "original" ? "#505050" : "rgba(137,  154,  226, 1)",
+      theme === "original" || theme === "darktheme"
+        ? "#505050"
+        : "rgba(137,  154,  226, 1)",
     keybordBttnColor: "rgba(137,  174,  226, 1)",
     fadeListColor: "#5ada44",
   };

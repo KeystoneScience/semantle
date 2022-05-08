@@ -664,6 +664,12 @@ export default function semantle() {
         change: "THEME",
         text: "",
       };
+    } else if (guess === "darktheme" || guess === "kamaradokodo") {
+      return {
+        place: "HOME",
+        change: "THEME",
+        text: "darktheme",
+      };
     } else if (guess === "rundiagnostics") {
       return {
         place: "HOME",
