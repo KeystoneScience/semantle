@@ -34,6 +34,7 @@ i18n.translations = {
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "How similar the 1st, 10th, and 1000th closest words are to the secret",
     "enter your guess (click here)": "enter your guess (click here)",
+    "(click here)": "(click here)",
     "1st": "1st",
     "10th": "10th",
     "1000th": "1000th",

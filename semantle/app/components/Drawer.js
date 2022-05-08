@@ -311,6 +311,17 @@ function Drawer({ navigation, route }) {
                   </View>
                 </View>
                 <AppText style={{ fontSize: 20 }}>🧪 STATS</AppText>
+                <AppText
+                  fontWeight={600}
+                  style={{
+                    fontSize: 16,
+                    color: "rgba(0,0,0,.6)",
+                    marginTop: -15,
+                  }}
+                  adjustFont={true}
+                >
+                  (click here)
+                </AppText>
               </TouchableOpacity>
             </View>
           </ScrollView>
