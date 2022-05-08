@@ -1,6 +1,9 @@
 import * as Localization from "expo-localization";
 import cache from "../utility/cache";
 import i18n from "i18n-js";
+
+i18n.defaultSeparator = "=+=";
+
 i18n.translations = {
   en: {
     "0": "0",
