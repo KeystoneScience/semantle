@@ -7,6 +7,7 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import i18n from "i18n-js";
 import translate from "../configs/translate";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 /**
  * A slide can be created with the following properties:
  * @param {string} title - The title of the slide
@@ -111,11 +112,31 @@ function WalkthroughScreen({ navigation, route }) {
       });
     }
   };
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <AntDesign
+          name="arrowright"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+        />
+      </View>
+    );
+  };
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Entypo name="check" size={24} color="rgba(255, 255, 255, .9)" />
+      </View>
+    );
+  };
   return (
     <AppIntroSlider
       renderItem={this._renderItem}
       data={slides}
       onDone={this._onDone}
+      renderDoneButton={this._renderDoneButton}
+      renderNextButton={this._renderNextButton}
     />
   );
 }
@@ -125,6 +146,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttonCircle: {
+    width: 40,
+    height: 40,
+    backgroundColor: "rgba(0, 0, 0, .2)",
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   title: {
     fontSize: 30,
