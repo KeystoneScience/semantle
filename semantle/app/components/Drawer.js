@@ -966,11 +966,23 @@ function StatsModal({ data, onClose, colors }) {
             }}
           >
             <AppText style={{ width: "15%", textAlign: "center" }}>#</AppText>
-            <AppText style={{ width: "30%", textAlign: "center" }}>
-              μSIMILARITY
+            <AppText
+              style={{
+                width: "30%",
+                textAlign: "center",
+                textTransform: "uppercase",
+              }}
+            >
+              Similarity
             </AppText>
-            <AppText style={{ width: "30%", textAlign: "center" }}>
-              GUESSES
+            <AppText
+              style={{
+                width: "30%",
+                textAlign: "center",
+                textTransform: "uppercase",
+              }}
+            >
+              guesses
             </AppText>
             <AppText style={{ width: "20%", textAlign: "center" }}>
               FOUND

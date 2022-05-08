@@ -49,6 +49,7 @@ i18n.translations = {
     "far": "far",
     "Next word in": "Next word in",
     "YESTERDAY'S WORD": "YESTERDAY'S WORD",
+    "Yesterday's 10 closest words": "Yesterday's 10 closest words",
     "(click for similar words)": "(click for similar words)",
     "SOLVED": "SOLVED",
     "AVG GUESSES": "AVG GUESSES",
@@ -65,6 +66,7 @@ i18n.translations = {
     "in only one guess": "in only one guess!",
     "Download Semantle": "Download Semantle",
     "in": "in",
+    "Statistics": "Statistics",
     "guesses My first guess had a similarity of":
       "guesses. My first guess had a similarity of",
     "My first guess in the top 1000 was at guess":
@@ -80,7 +82,7 @@ i18n.translations = {
       "Enter a word and receive how similar it is to the daily word. Similarity is determined by context, not by spelling.",
     "Can you find the word": "Can you find the word?",
     "Play with the community": "Play with the community",
-    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!",
   },
   es: {
@@ -159,8 +161,6 @@ i18n.translations = {
       "Un indicador si su suposición está en las 1000 mejores palabras más cercanas al secreto",
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "Cuán similares son las palabras 1, 10 y 1000 más cercanas al secreto",
-    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities":
-      "Jugar Semantle con tus amigos es una gran experiencia. También puedes interactuar con las comunidades de Reddit y Discord.",
   },
   sv: {
     "0": "0",
@@ -370,6 +370,7 @@ i18n.translations = {
       "Meine vorletzte Vermutung hatte eine Ähnlichkeit von",
     "Language:": "Sprache:",
     "FOUND": "GEFUNDEN",
+
     "Welcome to Semantle": "Willkommen in Semantle.",
     "The context-based word puzzle game":
       "Das kontextbasierte Wort-Puzzle-Spiel.",
