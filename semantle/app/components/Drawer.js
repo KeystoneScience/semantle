@@ -684,49 +684,6 @@ function SettingsAccordian({
     );
   }
 
-  function SettingMultiChoice({ value, onChange, text }) {
-    return (
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          alignSelf: "center",
-          position: "relative",
-          width: "80%",
-          marginBottom: 20,
-        }}
-      >
-        <AppText
-          style={{
-            color: colors.darkenColor(colors.colors.backgroundColor, 50),
-            fontSize: 17,
-            marginBottom: -7,
-          }}
-          fontWeight={500}
-        >
-          {text}
-        </AppText>
-        <View style={{ position: "absolute", right: 0 }}>
-          <AppText
-            style={{
-              color: colors.darkenColor(colors.colors.backgroundColor, 50),
-              fontSize: 17,
-              marginBottom: -7,
-            }}
-            fontWeight={500}
-            onPress={() => {
-              setLanguageModal(true);
-            }}
-          >
-            {value}
-          </AppText>
-        </View>
-      </View>
-    );
-  }
-
   return (
     <Accordian
       title={"Settings"}
@@ -753,11 +710,24 @@ function SettingsAccordian({
               onChange={toggleShowYesterdayWord}
               text={"Hide Yesterday's Word"}
             />
-            <SettingMultiChoice
-              value={language}
-              onChange={() => {}}
-              text={"Language:"}
-            />
+
+            <TouchableOpacity
+              onPress={() => {
+                setLanguageModal(true);
+              }}
+            >
+              <View style={styles.tutorialwhole}>
+                <Ionicons
+                  name="language"
+                  size={30}
+                  color={colors.darkenColor(colors.colors.backgroundColor, 80)}
+                  style={{ marginLeft: 10 }}
+                />
+                <AppText fontWeight={550} style={styles.tutorialText}>
+                  {language}
+                </AppText>
+              </View>
+            </TouchableOpacity>
           </ScrollView>
           {languageModal && (
             <View
