@@ -9,12 +9,12 @@ import { logger, transportFunctionType } from "react-native-logs";
 
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.6.7.1";
+const VERSION_CODE = "1.0.6.7.2";
 
 var USER_ID = null;
 
 const customTransport = (props) => {
-  handleTransport(props);
+  // handleTransport(props);
   // console.log(props.msg);
 };
 
@@ -564,6 +564,12 @@ export default function semantle() {
         place: "HOME",
         change: "THEME",
         text: "",
+      };
+    } else if (guess === "darktheme" || guess === "kamaradokodo") {
+      return {
+        place: "HOME",
+        change: "THEME",
+        text: "darktheme",
       };
     } else if (guess === "rundiagnostics") {
       return {
