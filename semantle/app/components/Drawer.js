@@ -171,7 +171,7 @@ function Drawer({ navigation, route }) {
               {semantleGame.streak > 0 && (
                 <View
                   style={{
-                    backgroundColor: colors.colors.lightGray,
+                    backgroundColor: "rgba(255,255,255,.6)",
                     marginTop: 25,
                     width: "80%",
                     borderRadius: 10,
@@ -193,7 +193,7 @@ function Drawer({ navigation, route }) {
               {showYesterdayWord && (
                 <TouchableOpacity
                   style={{
-                    backgroundColor: colors.colors.lightGray,
+                    backgroundColor: "rgba(255,255,255,.6)",
                     marginTop: 25,
                     width: "80%",
                     borderRadius: 10,
@@ -239,7 +239,7 @@ function Drawer({ navigation, route }) {
               <TouchableOpacity
                 onPress={() => setStatsModal(true)}
                 style={{
-                  backgroundColor: colors.colors.lightGray,
+                  backgroundColor: "rgba(255,255,255,.6)",
                   marginTop: 25,
                   width: "80%",
                   borderRadius: 10,
@@ -311,6 +311,17 @@ function Drawer({ navigation, route }) {
                   </View>
                 </View>
                 <AppText style={{ fontSize: 20 }}>🧪 STATS</AppText>
+                <AppText
+                  fontWeight={600}
+                  style={{
+                    fontSize: 16,
+                    color: "rgba(0,0,0,.6)",
+                    marginTop: -15,
+                  }}
+                  adjustFont={true}
+                >
+                  (click here)
+                </AppText>
               </TouchableOpacity>
             </View>
           </ScrollView>
