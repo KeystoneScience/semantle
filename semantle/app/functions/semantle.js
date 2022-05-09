@@ -35,7 +35,8 @@ const config = {
 
 var log = logger.createLogger(config);
 //returns the 10 nearest words.
-async function getNearby(word) {
+async function getNearby(rawWord) {
+  const word = encodeURIComponent(rawWord);
   const url = "model2/nearby?secret=" + word + "&language=" + i18n.locale;
   const response = await client.get(url);
   const body = response?.data?.body;
@@ -71,13 +72,14 @@ async function fetchSecretWords(day, language = "en") {
   return body[day % body.length];
 }
 
-async function fetchSimilarityStory(secret, day, language = "en") {
+async function fetchSimilarityStory(rawSecret, day, language = "en") {
   //simStory:
   // {
   //   "top": .89238749223423,
   //   "top10": .5816293698798723,
   //   "rest": .3081197440624237
   //}
+  const secret = encodeURIComponent(rawSecret);
   const simStory = await cache.getData(
     `SEMANTLE::SIMILARITY_STORY::${secret}::${language}::${day}`,
     false
@@ -98,13 +100,19 @@ async function fetchSimilarityStory(secret, day, language = "en") {
 }
 
 async function getModel(word, secret) {
+  //encode word as UTF-8 and secret as UTF-8
+  const wordUTF8 = encodeURIComponent(word.replace(/\ /gi, "_"));
+  const secretUTF8 = encodeURIComponent(secret);
+
   const url =
     "model2?secret=" +
-    secret +
+    secretUTF8 +
     "&word=" +
-    word.replace(/\ /gi, "_") +
+    wordUTF8 +
     "&language=" +
     i18n.locale;
+
+  console.log("URL", url);
   const response = await client.get(url);
   const body = response?.data?.body;
   const json = JSON.parse(body);
