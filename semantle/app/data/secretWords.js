@@ -100,7 +100,7 @@ const secretWords = [
   "speculation",
   "softly",
   "job",
-  "title",
+  "entitle",
   "debate",
   "landing",
   "match",
