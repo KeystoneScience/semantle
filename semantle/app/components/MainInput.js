@@ -11,13 +11,13 @@ import AppText from "./AppText";
 import useColors from "../configs/useColors";
 import i18n from "i18n-js";
 import translate from "../configs/translate";
-const placeholder = i18n.t("enter your guess (click here)");
 
 function MainInput(props) {
   var textInputRef = useRef();
   const colors = useColors();
   const [value, setValue] = useState("");
   const [isPressed, setIsPressed] = useState(false);
+  const placeholder = i18n.t("enter your guess (click here)");
 
   return (
     <View
