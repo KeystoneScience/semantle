@@ -39,6 +39,7 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import { ColorPicker } from "react-native-color-picker";
 import i18n from "i18n-js";
+import AnimatedText from "../components/AnimatedText";
 import translate from "../configs/translate";
 import Tooltip from "react-native-walkthrough-tooltip";
 import { Col } from "react-native-table-component";
@@ -51,7 +52,6 @@ function Home({ navigation, route }) {
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const confettiRef = useRef(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  const greatRef = useRef(null);
   const [showWin, setShowWin] = useState(false);
   const appState = useRef(AppState.currentState);
   const [headerEasteregg, setHeaderEasteregg] = useState(false);
@@ -171,9 +171,6 @@ function Home({ navigation, route }) {
   function onWin() {
     Keyboard.dismiss();
     setShowWin(true);
-    setTimeout(() => {
-      greatRef.current.play();
-    }, 100);
 
     setTimeout(() => {
       confettiRef.current.play();
@@ -622,16 +619,25 @@ function Home({ navigation, route }) {
             zIndex: 100,
           }}
         >
-          <LottieView
-            pointerEvents="none"
-            ref={greatRef}
-            resizeMode="cover"
+          <View
             style={{
-              width: "104%",
+              width: "100%",
+              height: 300,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            loop={false}
-            source={require("../../assets/animations/wordFound.json")}
-          />
+          >
+            <AnimatedText
+              fontSize={90}
+              height={150}
+              scale={"GREAT!"}
+              color={colors.colors.grooveColorPallet[2]}
+            >
+              {i18n.t("GREAT!")}
+            </AnimatedText>
+          </View>
+
           <View
             pointerEvents="box-none"
             style={{
