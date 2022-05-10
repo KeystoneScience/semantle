@@ -240,6 +240,8 @@ export default function semantle() {
     }
     if (guess.toLowerCase() === "showmethesecret") {
       Alert.alert("Secret", secret);
+      //copy to clipboard
+      Clipboard.setString(secret);
       return;
     }
     if (secretVec === null) {
