@@ -165,6 +165,8 @@ i18n.translations = {
     "Statistics": "Estadísticas",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Jugar Semantle con tus amigos es una gran experiencia.",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Ingrese una palabra para ver qué tan similar es a la palabra diaria.",
   },
   sv: {
     "0": "0",
@@ -244,6 +246,8 @@ i18n.translations = {
     "Statistics": "Statistik",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Att spela Semantle med dina vänner är en fantastisk upplevelse.",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Ange ett ord för att se hur liknande det är till det dagliga ordet.",
   },
   tr: {
     "0": "0",
@@ -260,16 +264,16 @@ i18n.translations = {
     "Settings": "Ayarlar",
     "Puzzle": "Bulmaca",
     "Similarity": "Benzerlik",
-    "Guess": "Tahmin etmek",
+    "Guess": "Tahmin Et",
     "Distance": "Mesafe",
     "enter your guess (click here)": "Tahmininizi girin",
     "1st": "1 inci",
     "10th": "10.",
-    "1000th": "1000",
+    "1000th": "1000.",
     "GREAT!": "İYİ!",
     "Day Streak": "Gündüz",
     "Word found in": "Kelime bulundu",
-    "guesses": "tahmin etmek",
+    "guesses": "tahminler",
     "Next puzzle In": "Sonraki Bulma",
     "You may continue exploring guesses without it affecting your score":
       "Tahminleri puanınızı etkilemeden keşfetmeye devam edebilirsiniz.",
@@ -322,6 +326,8 @@ i18n.translations = {
     "Statistics": "İstatistik",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Arkadaşlarınızla semantle oynamak harika bir deneyim.",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Günlük kelimeye ne kadar benzer olduğunu görmek için bir kelime girin.",
   },
   de: {
     "0": "0.",
@@ -402,6 +408,8 @@ i18n.translations = {
     "Statistics": "Statistiken",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Semantle mit Ihren Freunden zu spielen ist eine großartige Erfahrung.",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Geben Sie ein Wort ein, um zu sehen, wie ähnlich es dem täglichen Wort ist.",
   },
   nl: {
     "0": "0",
@@ -436,13 +444,13 @@ i18n.translations = {
     "far": "ver",
     "Next word in": "Volgend woord in",
     "YESTERDAY'S WORD": "Woord van gisteren",
-    "(click for similar words)": "(Klik voor vergelijkbare woorden)",
+    "(click for similar words)": "(Klik hier)",
     "SOLVED": "Opgelost",
     "AVG GUESSES": "µ GISSINGEN",
     "🧪 STATS": "🧪 statistieken",
     "Support Semantle": "Steun semantle",
-    "Rate Semantle": "Tarief semantle",
-    "Request Feature": "Aanvraagfunctie",
+    "Rate Semantle": "Tarief Semantle",
+    "Request Feature": "Functie aanvragen",
     "Help": "Helpen",
     "Tutorial": "Tutorial",
     "Report Problem": "Meld een probleem",
@@ -452,7 +460,8 @@ i18n.translations = {
     "in only one guess": "in slechts één gok!",
     "Download Semantle": "Semantle downloaden",
     "in": "in",
-    "guesses My first guess had a similarity of": "gissingen.",
+    "guesses My first guess had a similarity of":
+      "gissingen. Mijn eerste gok had een gelijkenis van",
     "My first guess in the top 1000 was at guess":
       "Mijn eerste gok in de top 1000 was op gok",
     "My penultimate guess had a similarity of":
@@ -482,7 +491,9 @@ i18n.translations = {
       "De 10 dichtstbijzijnde woorden van gisteren",
     "Statistics": "Statistieken",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
-      "Semantle spelen met je vrienden is een geweldige ervaring.",
+      "Semantle spelen met je vrienden is een geweldige ervaring. Je kunt ook deelnemen aan de Reddit- en Discord-community's!",
+    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
+      "Voer een woord in om te zien hoe vergelijkbaar het is met het dagelijkse woord. Overeenkomsten worden bepaald door de context, niet door spelling.",
   },
 };
 async function checkAndSetLocalization() {
