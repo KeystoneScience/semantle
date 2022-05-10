@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import client from "../api/client";
 import cache from "../utility/cache";
-import { Alert, Clipboard } from "react-native";
+import { Alert, Clipboard, Platform } from "react-native";
 import i18n from "i18n-js";
 import { logger, transportFunctionType } from "react-native-logs";
 import translate from "../configs/translate";

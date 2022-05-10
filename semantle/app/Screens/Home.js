@@ -135,7 +135,6 @@ function Home({ navigation, route }) {
     try {
       const result = await Share.share({
         message: semantleGame.getWinShareString(),
-        url: "https://www.semantle.app/download",
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
