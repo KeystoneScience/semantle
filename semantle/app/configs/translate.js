@@ -135,7 +135,8 @@ i18n.translations = {
     "in only one guess": "¡En solo una conjetura!",
     "Download Semantle": "Descargar Semantle",
     "in": "en",
-    "guesses My first guess had a similarity of": "suposiciones.",
+    "guesses My first guess had a similarity of":
+      "suposiciones. Mi primera conjetura tenía una similitud de",
     "My first guess in the top 1000 was at guess":
       "Mi primera suposición en el Top 1000 estaba en Supongo",
     "My penultimate guess had a similarity of":
@@ -164,9 +165,9 @@ i18n.translations = {
     "Yesterday's 10 closest words": "Las 10 palabras más cercanas de ayer",
     "Statistics": "Estadísticas",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
-      "Jugar Semantle con tus amigos es una gran experiencia.",
+      "Jugar Semantle con tus amigos es una gran experiencia. ¡También puedes interactuar con las comunidades de Reddit y Discord!",
     "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Ingrese una palabra para ver qué tan similar es a la palabra diaria.",
+      "Ingrese una palabra y reciba qué tan similar es a la palabra diaria. La similitud está determinada por el contexto, no por la ortografía.",
   },
   sv: {
     "0": "0",
@@ -294,11 +295,12 @@ i18n.translations = {
     "Report Problem": "Sorunu bildir",
     "Legacy Theme": "Miras teması",
     "Hide Yesterday's Word": "Dünün sözcüğünü gizle",
-    "I solved Semantle": "İymantayı çözdüm",
+    "I solved Semantle": "Semantle'ı çözdüm",
     "in only one guess": "Sadece bir tahmin!",
     "Download Semantle": "İndir semantel",
     "in": "içinde",
-    "guesses My first guess had a similarity of": "Tahmin eder.",
+    "guesses My first guess had a similarity of":
+      "tahminler. İlk tahminim şuna benziyordu:",
     "My first guess in the top 1000 was at guess":
       "İlk 1000'deki ilk tahminim tahmindeydi",
     "My penultimate guess had a similarity of":
@@ -317,17 +319,17 @@ i18n.translations = {
     "Similarity:": "Benzerlik:",
     "Distance:": "Mesafe:",
     "An indicator if your guess is in the top 1000 closest words to the secret":
-      "Tahmininiz sırrın en yakın 1000 kelimesinde ise bir gösterge",
+      "Tahmininizin sırra en yakın 1000 kelime içinde olup olmadığını gösterir",
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
-      "1., 10. ve 1000'inci en yakın kelimeler sırrına ne kadar benzer",
+      "1., 10. ve 1000. en yakın kelimelerin gizli kelimeye ne kadar benzer olduğu",
     "Play with the community": "Toplulukla Oynayın",
     "(click here)": "(buraya tıklayın)",
     "Yesterday's 10 closest words": "Dünün en yakın 10 kelimesi",
     "Statistics": "İstatistik",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
-      "Arkadaşlarınızla semantle oynamak harika bir deneyim.",
+      "Arkadaşlarınızla Semantle oynamak harika bir deneyim. Reddit ve Discord topluluklarıyla da etkileşime geçebilirsiniz!",
     "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Günlük kelimeye ne kadar benzer olduğunu görmek için bir kelime girin.",
+      "Bir kelime girin ve günlük kelimeye ne kadar benzediğini görün Benzerlik, yazımla değil bağlama göre belirlenir",
   },
   de: {
     "0": "0.",
