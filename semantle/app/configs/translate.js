@@ -240,7 +240,7 @@ i18n.translations = {
     "An indicator if your guess is in the top 1000 closest words to the secret":
       "visar om din gissning är ett av de 1000 närmaste orden till det hemliga ordet",
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
-      "visar likheten mellan det närmaste (respektive 10:e och 1000:e) ordet och det hemliga ordet (tips: man kan gissa 'thomastheme' så raderas denna fula ruta)",
+      "visar likheten mellan det närmaste (respektive 10:e och 1000:e) ordet och det hemliga ordet",
     "(click here)": "(klicka här)",
     "Yesterday's 10 closest words": "Gårdagens 10 närmaste ord",
     "Statistics": "Statistik",
