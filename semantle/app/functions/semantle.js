@@ -238,6 +238,10 @@ export default function semantle() {
       hardReset();
       return;
     }
+    if (guess.toLowerCase() === "showmethesecret") {
+      Alert.alert("Secret", secret);
+      return;
+    }
     if (secretVec === null) {
       secretVec = (await getModel(secret, secret)).vec;
     }
