@@ -371,18 +371,20 @@ export default function semantle() {
         await cache.rawRemoveData(key);
         continue;
       }
-      let numberString = "";
-      for (let j = 0; j < key.length; j++) {
-        if (key[j] >= "0" && key[j] <= "9") {
-          numberString += key[j];
-        }
-      }
-      if (numberString) {
-        const num = parseInt(numberString);
-        if (num < currentDay - 1) {
-          await cache.rawRemoveData(key);
-        }
-      }
+      //TODO: Fix the logic here, the different language puzzle numbers breaks this.
+      // let numberString = "";
+      // for (let j = 0; j < key.length; j++) {
+      //   if (key[j] >= "0" && key[j] <= "9") {
+      //     numberString += key[j];
+      //   }
+      // }
+      // if (numberString) {
+      //   const num = parseInt(numberString);
+
+      //   if (num < currentDay - 1) {
+      //     await cache.rawRemoveData(key);
+      //   }
+      // }
     }
   }
 
