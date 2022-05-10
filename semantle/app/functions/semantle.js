@@ -571,6 +571,11 @@ export default function semantle() {
         change: "THEME",
         text: "darktheme",
       };
+    } else if (guess === "thomastheme") {
+      return {
+        place: "HOME",
+        action: "hideStats",
+      };
     } else if (guess === "rundiagnostics") {
       return {
         place: "HOME",
