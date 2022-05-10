@@ -602,7 +602,7 @@ function SettingsAccordian({
       abbr: "en",
     },
     {
-      name: "Espanol",
+      name: "Español",
       abbr: "es",
     },
     {

@@ -467,9 +467,11 @@ export default function semantle() {
 
   function getWinShareString() {
     //check if guesses contains the secret word, if so, return the index of the secret word
+    const APPENDED_URL = "\n\nhttps://www.semantle.app/download";
+
     const index = guesses.findIndex((g) => g.guess === secret);
     if (index === -1) {
-      return i18n.t("Download Semantle");
+      return i18n.t("Download Semantle") + APPENDED_URL;
     }
     //get guesses whose guessNumber is 0
     let temporallySorted = [...guesses];
@@ -477,17 +479,21 @@ export default function semantle() {
     const solutionIndex = temporallySorted.findIndex((g) => g.guess === secret);
     temporallySorted = temporallySorted.slice(0, solutionIndex + 1);
     if (temporallySorted.length == 0) {
-      return "I haven't found any words yet!";
+      return "I haven't found any words yet!" + APPENDED_URL;
     }
     if (temporallySorted.length == 1) {
-      return `${i18n.t("I solved Semantle")} #${puzzleNumber} ${i18n.t(
-        "in only one guess"
-      )}`;
+      return (
+        `${i18n.t("I solved Semantle")} #${puzzleNumber} ${i18n.t(
+          "in only one guess"
+        )}` + APPENDED_URL
+      );
     }
     function similarityString(guess) {
-      return `${guess.similarity.toFixed(2)}%${
-        guess.percentile ? ` (${guess.percentile}/1000)` : ""
-      }`;
+      return (
+        `${guess.similarity.toFixed(2)}%${
+          guess.percentile ? ` (${guess.percentile}/1000)` : ""
+        }` + APPENDED_URL
+      );
     }
 
     //get the first guess who has a non-null percentile
@@ -507,7 +513,7 @@ export default function semantle() {
     shareString += ` ${i18n.t(
       "My penultimate guess had a similarity of"
     )} ${similarityString(secondToLast)}.`;
-    return shareString;
+    return shareString + APPENDED_URL;
   }
 
   async function getAndSetYesterdayClosest(day = puzzleNumber) {
