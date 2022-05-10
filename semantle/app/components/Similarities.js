@@ -77,7 +77,7 @@ function Segment({ n, percent, colors }) {
         style={{ color: colors.colors.white, fontSize: 25, lineHeight: 40 }}
         fontWeight={900}
       >
-        {(percent * 100).toFixed(1)}%
+        {percent > 0 ? `${(percent * 100).toFixed(1)}%` : "_"}
       </AppText>
       <AppText
         style={{ color: colors.colors.white, fontSize: 14, lineHeight: 20 }}

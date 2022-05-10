@@ -221,7 +221,11 @@ var guessed = new Set();
 export default function semantle() {
   const [guesses, setGuesses] = useState([]);
   const [secret, setSecret] = useState("");
-  const [similarityStory, setSimilarityStory] = useState(null);
+  const [similarityStory, setSimilarityStory] = useState({
+    top: 0,
+    top10: 0,
+    rest: 0,
+  });
   const [puzzleNumber, setPuzzleNumber] = useState(0);
   const [lastGuess, setLastGuess] = useState(null);
   const [timeUntilNextPuzzle, setTimeUntilNextPuzzle] = useState(10000000000);
