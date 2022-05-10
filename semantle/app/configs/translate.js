@@ -162,6 +162,9 @@ i18n.translations = {
       "Un indicador si su suposición está en las 1000 mejores palabras más cercanas al secreto",
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "Cuán similares son las palabras 1, 10 y 1000 más cercanas al secreto",
+    "(click here)": "(haga clic aquí)",
+    "Yesterday's 10 closest words": "Las 10 palabras más cercanas de ayer",
+    "Statistics": "Estadísticas",
   },
   sv: {
     "0": "0",
@@ -238,6 +241,8 @@ i18n.translations = {
       "En indikator om din gissning är i de bästa 1000 närmaste orden till hemligheten",
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "Hur lik den 1: a, 10: e och 1000: e närmaste orden är hemligheten",
+    "(click here)": "(Klicka här)",
+    "Yesterday's 10 closest words": "Gårdagens 10 närmaste ord",
   },
   tr: {
     "0": "0",
@@ -313,6 +318,8 @@ i18n.translations = {
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "1., 10. ve 1000'inci en yakın kelimeler sırrına ne kadar benzer",
     "Play with the community": "Toplulukla Oynayın",
+    "(click here)": "(buraya tıklayın)",
+    "Yesterday's 10 closest words": "Dünün en yakın 10 kelimesi",
   },
   de: {
     "0": "0.",
@@ -370,7 +377,6 @@ i18n.translations = {
       "Meine vorletzte Vermutung hatte eine Ähnlichkeit von",
     "Language:": "Sprache:",
     "FOUND": "GEFUNDEN",
-
     "Welcome to Semantle": "Willkommen in Semantle.",
     "The context-based word puzzle game":
       "Das kontextbasierte Wort-Puzzle-Spiel.",
@@ -391,6 +397,8 @@ i18n.translations = {
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "Wie ähnlich sind die engsten Worte der 1., 10. und 1000. Wörter zum Geheimnis",
     "Play with the community": "Spielen Sie mit der Community",
+    "(click here)": "(Klicke hier)",
+    "Yesterday's 10 closest words": "Die 10 engsten Worte von gestern",
   },
   nl: {
     "0": "0",
@@ -468,6 +476,9 @@ i18n.translations = {
     "How similar the 1st, 10th, and 1000th closest words are to the secret":
       "Hoe vergelijkbaar de 1e, 10e en 1000e dichtstbijzijnde woorden zijn met het geheim",
     "Play with the community": "Speel met de gemeenschap",
+    "(click here)": "(Klik hier)",
+    "Yesterday's 10 closest words":
+      "De 10 dichtstbijzijnde woorden van gisteren",
   },
 };
 async function checkAndSetLocalization() {
