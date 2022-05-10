@@ -138,7 +138,7 @@ function Drawer({ navigation, route }) {
   const fontSizeofYesterdaysWord =
     semantleGame.getYesterdaysWord().length <= 8
       ? 50
-      : 50 - Math.floor(semantleGame.getYesterdaysWord().length);
+      : 50 - Math.floor(semantleGame.getYesterdaysWord().length) * 1.6;
   return (
     <View style={{ flex: 1, flexDirection: "row" }}>
       <View style={styles.leftWhole}>
