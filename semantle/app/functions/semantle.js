@@ -29,8 +29,8 @@ var SECRET_WORDS = [];
 var USER_ID = null;
 
 const customTransport = (props) => {
-  // handleTransport(props);
-  console.log(props.msg);
+  handleTransport(props);
+  // console.log(props.msg);
 };
 
 async function handleTransport(props) {
@@ -343,10 +343,6 @@ export default function semantle() {
         }
         return true;
       }
-    } else {
-      log.debug(
-        "GUESS ALREADY MADE: " + guess + "\n GUESSES: " + guesses.length
-      );
     }
     return false;
   }
