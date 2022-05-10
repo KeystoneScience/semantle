@@ -23,7 +23,7 @@ const slides = [
   {
     key: 1,
     title: "Welcome to Semantle",
-    text: i18n.t("The context-based word puzzle game"),
+    text: "The context-based word puzzle game",
     animation: require("../../assets/animations/FindAWord.json"),
     loop: true,
     backgroundColor: colors.lightenColor(
@@ -34,10 +34,8 @@ const slides = [
   {
     key: 2,
     title: "How to play",
-    text: i18n.t(
-      "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling"
-    ),
-    text2: i18n.t("Can you find the word"),
+    text: "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling",
+    text2: "Can you find the word",
     animation: require("../../assets/animations/thinking.json"),
     loop: true,
     backgroundColor: colors.lightenColor(
