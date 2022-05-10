@@ -213,7 +213,7 @@ i18n.translations = {
     "Report Problem": "Rapportera fel",
     "Legacy Theme": "Flott tema",
     "Hide Yesterday's Word": "Göm gårdagens ord",
-    "I solved Semantle": "Jag löste Swemantle",
+    "I solved Semantle": "Jag löste Semantle",
     "in only one guess": "på bara ett försök!",
     "Download Semantle": "Ladda ner Semantle",
     "in": "på",
