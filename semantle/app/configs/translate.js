@@ -80,7 +80,7 @@ i18n.translations = {
     "The context-based word puzzle game": "The context-based word puzzle game.",
     "How to play": "How to play",
     "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Enter a word and receive how similar it is to the daily word. Similarity is determined by context, not by spelling.",
+      "Enter a word to see how similar it is to the daily word. Similarity is determined by context, not by spelling.",
     "Can you find the word": "Can you find the word?",
     "Play with the community": "Play with the community",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
@@ -146,8 +146,6 @@ i18n.translations = {
     "The context-based word puzzle game":
       "El juego de rompecabezas de palabras basado en contexto.",
     "How to play": "Cómo jugar",
-    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Ingrese una palabra y reciba lo similar que es para la palabra diaria.",
     "Can you find the word": "¿Puedes encontrar la palabra?",
     "Play with the community": "Jugar con la comunidad",
     "Enter your guesses here!": "¡Ingrese sus suposiciones aquí!",
@@ -228,8 +226,6 @@ i18n.translations = {
     "The context-based word puzzle game":
       "Det kontextbaserade ordet pusselspel.",
     "How to play": "Hur man spelar",
-    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Ange ett ord och få hur lika det är till det dagliga ordet.",
     "Can you find the word": "Kan du hitta ordet?",
     "Play with the community": "Spela med samhället",
     "Enter your guesses here!": "Ange dina gissningar här!",
@@ -308,8 +304,6 @@ i18n.translations = {
     "Welcome to Semantle": "Semantle'ye hoş geldiniz",
     "The context-based word puzzle game": "Bağlam tabanlı kelime puzzle oyunu.",
     "How to play": "Nasıl oynanır",
-    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Bir kelime girin ve günlük kelimenin ne kadar benzer olduğunu alınız.",
     "Can you find the word": "Kelimeyi bulabilir misin?",
     "Enter your guesses here!": "Tahminlerinizi buraya girin!",
     "(enter word to continue)": "(devam etmek için kelimeyi girin)",
@@ -389,8 +383,6 @@ i18n.translations = {
     "The context-based word puzzle game":
       "Das kontextbasierte Wort-Puzzle-Spiel.",
     "How to play": "Spielanleitung",
-    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Geben Sie ein Wort ein und empfangen Sie, wie ähnlich das tägliche Wort ist.",
     "Can you find the word": "Kannst du das Wort finden?",
     "Enter your guesses here!": "Geben Sie hier Ihre Vermutungen ein!",
     "(enter word to continue)": "(Geben Sie ein Wort ein, um fortzufahren)",
@@ -471,8 +463,6 @@ i18n.translations = {
     "The context-based word puzzle game":
       "Het op context gebaseerde woordpuzzelspel.",
     "How to play": "Hoe te spelen",
-    "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Voer een woord in en ontvang hoe vergelijkbaar het is met het dagelijkse woord.",
     "Can you find the word": "Kun je het woord vinden?",
     "Enter your guesses here!": "Voer hier uw gissingen in!",
     "(enter word to continue)": "(Voer Word in om door te gaan)",
