@@ -8,7 +8,7 @@ import { logger, transportFunctionType } from "react-native-logs";
 import translate from "../configs/translate";
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.7";
+const VERSION_CODE = "1.0.7.1";
 
 const LANGUAGE_DAY_OFFSET = {
   en: 0,
@@ -69,7 +69,7 @@ async function fetchSecretWords(day, language = "en") {
     false
   );
   //if wordset exists and is not older than 10 days, return it
-  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 10) {
+  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 5) {
     SECRET_WORDS = wordSet.secretWords;
     return wordSet.secretWords[day % wordSet.secretWords.length];
   }
