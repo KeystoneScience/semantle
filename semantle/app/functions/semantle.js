@@ -10,6 +10,20 @@ const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
 const VERSION_CODE = "1.0.7";
 
+const LANGUAGE_DAY_OFFSET = {
+  en: 0,
+  de: 68,
+  fr: 2,
+  it: 3,
+  es: 23,
+  nl: 0,
+  tr: 49,
+  pt: 5,
+  ru: 6,
+  hebrew: 22,
+  sv: 21,
+};
+
 var SECRET_WORDS = [];
 
 var USER_ID = null;
@@ -156,7 +170,7 @@ async function postStreak(streak, puzzleNumber) {
   return client.post("streak", dataJson, {}, false);
 }
 
-function getPuzzleNumber() {
+function getPuzzleNumber(language = "en") {
   //get millis since epoch
   const millis = Date.now();
   //get millis since SEMANTLE_START_MILLIS_SINCE_EPOCH
@@ -165,7 +179,7 @@ function getPuzzleNumber() {
   const daysSinceSemantleStart = Math.floor(
     millisSinceSemantleStart / 1000 / 60 / 60 / 24
   );
-  return daysSinceSemantleStart;
+  return daysSinceSemantleStart - LANGUAGE_DAY_OFFSET[language];
 }
 
 function mag(a) {
@@ -505,19 +519,19 @@ export default function semantle() {
     // check to see if there is information cached.
     guessed = new Set();
     secretVec = null;
-
+    const language = i18n.locale;
     setLastGuess(null);
-    const day = getPuzzleNumber();
+    const day = getPuzzleNumber(language);
     setPuzzleNumber(day);
     sanatizeGuessCache(day);
 
-    const secretWord = await fetchSecretWords(day, i18n.locale);
-    const simStory = await fetchSimilarityStory(secretWord, day, i18n.locale);
+    const secretWord = await fetchSecretWords(day, language);
+    const simStory = await fetchSimilarityStory(secretWord, day, language);
     setSecret(secretWord);
     setSimilarityStory(simStory);
 
     const guessData = await cache.getData(
-      "SEMANTLE_" + day + (i18n.locale === "en" ? "" : i18n.locale),
+      "SEMANTLE_" + day + (language === "en" ? "" : language),
       false
     );
     if (guessData) {
@@ -573,8 +587,10 @@ export default function semantle() {
   }
 
   function getTimeUntilNextPuzzle(day = puzzleNumber) {
+    const dayOffSet = LANGUAGE_DAY_OFFSET[i18n.locale || "en"] || 0;
     const timestampOfNextPuzzle =
-      SEMANTLE_START_MILLIS_SINCE_EPOCH + (day + 1) * MILLIS_PER_DAY;
+      SEMANTLE_START_MILLIS_SINCE_EPOCH +
+      (day + dayOffSet + 1) * MILLIS_PER_DAY;
     const calculatedTimeUntilNextPuzzle = timestampOfNextPuzzle - Date.now();
     if (calculatedTimeUntilNextPuzzle < 0) {
       initialize();
