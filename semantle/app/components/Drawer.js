@@ -665,6 +665,7 @@ function SettingsAccordian({
           width: "80%",
           marginBottom: 10,
           marginTop: 10,
+          paddingRight: 40,
         }}
       >
         <AppText
