@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 import cache from "../utility/cache";
 
-const ENVIORMENT = "staging"; //prod
+const ENVIORMENT = "prod";
 
 const apiClient = create({
   baseURL: `https://btztcea8r6.execute-api.us-east-2.amazonaws.com/${ENVIORMENT}/`, //"https://api.themoviedb.org/3/discover/", //"https://44tq0n57v6.execute-api.us-east-1.amazonaws.com/Staging",
