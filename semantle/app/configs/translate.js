@@ -165,6 +165,8 @@ i18n.translations = {
     "(click here)": "(haga clic aquí)",
     "Yesterday's 10 closest words": "Las 10 palabras más cercanas de ayer",
     "Statistics": "Estadísticas",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
+      "Jugar Semantle con tus amigos es una gran experiencia.",
   },
   sv: {
     "0": "0",
@@ -243,6 +245,9 @@ i18n.translations = {
       "Hur lik den 1: a, 10: e och 1000: e närmaste orden är hemligheten",
     "(click here)": "(Klicka här)",
     "Yesterday's 10 closest words": "Gårdagens 10 närmaste ord",
+    "Statistics": "Statistik",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
+      "Att spela Semantle med dina vänner är en fantastisk upplevelse.",
   },
   tr: {
     "0": "0",
@@ -320,6 +325,9 @@ i18n.translations = {
     "Play with the community": "Toplulukla Oynayın",
     "(click here)": "(buraya tıklayın)",
     "Yesterday's 10 closest words": "Dünün en yakın 10 kelimesi",
+    "Statistics": "İstatistik",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
+      "Arkadaşlarınızla semantle oynamak harika bir deneyim.",
   },
   de: {
     "0": "0.",
@@ -399,6 +407,9 @@ i18n.translations = {
     "Play with the community": "Spielen Sie mit der Community",
     "(click here)": "(Klicke hier)",
     "Yesterday's 10 closest words": "Die 10 engsten Worte von gestern",
+    "Statistics": "Statistiken",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
+      "Semantle mit Ihren Freunden zu spielen ist eine großartige Erfahrung.",
   },
   nl: {
     "0": "0",
@@ -479,6 +490,9 @@ i18n.translations = {
     "(click here)": "(Klik hier)",
     "Yesterday's 10 closest words":
       "De 10 dichtstbijzijnde woorden van gisteren",
+    "Statistics": "Statistieken",
+    "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
+      "Semantle spelen met je vrienden is een geweldige ervaring.",
   },
 };
 async function checkAndSetLocalization() {

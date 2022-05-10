@@ -47,7 +47,6 @@ import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAt
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
-  const [pushToken, setPushToken] = useState("");
   const [inputField, setInputField] = useState("");
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const confettiRef = useRef(null);
