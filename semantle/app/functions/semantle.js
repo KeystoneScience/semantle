@@ -134,10 +134,12 @@ async function getModel(word, secret) {
 }
 
 async function postPushToken(pushToken, deviceNugget, userID) {
+  const language = i18n.locale;
   const dataJson = {
     token: userID,
     deviceNugget: deviceNugget,
     pushToken: pushToken,
+    language: language,
   };
 
   return client.post("token", dataJson, {}, false);
