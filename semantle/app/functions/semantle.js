@@ -489,11 +489,9 @@ export default function semantle() {
       );
     }
     function similarityString(guess) {
-      return (
-        `${guess.similarity.toFixed(2)}%${
-          guess.percentile ? ` (${guess.percentile}/1000)` : ""
-        }` + APPENDED_URL
-      );
+      return `${guess.similarity.toFixed(2)}%${
+        guess.percentile ? ` (${guess.percentile}/1000)` : ""
+      }`;
     }
 
     //get the first guess who has a non-null percentile
