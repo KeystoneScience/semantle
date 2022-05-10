@@ -346,7 +346,7 @@ i18n.translations = {
     "Similarity": "Ähnlichkeit",
     "Guess": "Erraten",
     "Distance": "Distanz",
-    "enter your guess (click here)": "Geben Sie Ihre Vermutung ein",
+    "enter your guess (click here)": "vermutung eingeben",
     "1st": "1",
     "10th": "10.",
     "1000th": "1000.",
@@ -362,7 +362,7 @@ i18n.translations = {
     "far": "weit",
     "Next word in": "Nächstes Wort in.",
     "YESTERDAY'S WORD": "Gesternes Wort",
-    "(click for similar words)": "(Klicken Sie auf ähnliche Wörter)",
+    "(click for similar words)": "(klicke hier)",
     "SOLVED": "Gelöst",
     "AVG GUESSES": "µ VERMUTUNGEN",
     "🧪 STATS": "🧪 Statistiken",
@@ -372,13 +372,14 @@ i18n.translations = {
     "Help": "Hilfe",
     "Tutorial": "Lernprogramm",
     "Report Problem": "Problem melden",
-    "Legacy Theme": "Legacy -Thema",
+    "Legacy Theme": "Legacy-Thema",
     "Hide Yesterday's Word": "Verstecken Sie das Wort von gestern",
-    "I solved Semantle": "Ich habe Semantle gelöst.",
+    "I solved Semantle": "Ich habe Semantle gelöst",
     "in only one guess": "in nur einer raten!",
-    "Download Semantle": "Semantel herunterladen",
+    "Download Semantle": "Laden Sie Semantle herunter",
     "in": "in",
-    "guesses My first guess had a similarity of": "Vermutungen.",
+    "guesses My first guess had a similarity of":
+      "vermutungen. Meine erste Vermutung hatte eine Ähnlichkeit von",
     "My first guess in the top 1000 was at guess":
       "Meine erste Vermutung in der Top 1000 war erraten",
     "My penultimate guess had a similarity of":
@@ -407,9 +408,9 @@ i18n.translations = {
     "Yesterday's 10 closest words": "Die 10 engsten Worte von gestern",
     "Statistics": "Statistiken",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
-      "Semantle mit Ihren Freunden zu spielen ist eine großartige Erfahrung.",
+      "Semantle mit deinen Freunden zu spielen ist eine großartige Erfahrung. Sie können auch mit den Reddit- und Discord-Communitys interagieren!",
     "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Geben Sie ein Wort ein, um zu sehen, wie ähnlich es dem täglichen Wort ist.",
+      "Geben Sie ein Wort ein und erfahren Sie, wie ähnlich es dem alltäglichen Wort ist. Die Ähnlichkeit wird durch den Kontext bestimmt, nicht durch die Schreibweise",
   },
   nl: {
     "0": "0",
