@@ -247,7 +247,7 @@ i18n.translations = {
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Att spela Semantle med vänner är en fantastisk upplevelse. Gå gärna med vår grupp på Reddit och Discord!",
     "Enter a word and receive how similar it is to the daily word Similarity is determined by context not by spelling":
-      "Ange ett ord för att se hur liknande det är till det dagliga ordet.",
+      "Ange ett ord för att se likheten med det hemliga ordet. Likheten beror på ordens bruk i olika sammanhang.",
   },
   tr: {
     "0": "0",
