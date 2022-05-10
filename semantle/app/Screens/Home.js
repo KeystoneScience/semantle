@@ -47,11 +47,11 @@ import { color } from "react-native/Libraries/Components/View/ReactNativeStyleAt
 
 function Home({ navigation, route }) {
   const semantleGame = semantle();
-  const [pushToken, setPushToken] = useState("");
   const [inputField, setInputField] = useState("");
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const confettiRef = useRef(null);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+  const [isStatsVisible, setIsStatsVisible] = useState(true);
   const [showWin, setShowWin] = useState(false);
   const appState = useRef(AppState.currentState);
   const [headerEasteregg, setHeaderEasteregg] = useState(false);
@@ -113,6 +113,8 @@ function Home({ navigation, route }) {
         } else if (easterEgg?.action === "customColor") {
           setCustomThemeModal(true);
           Keyboard.dismiss();
+        } else if (easterEgg?.action === "hideStats") {
+          setIsStatsVisible(false);
         }
         if (easterEgg?.change === "THEME") {
           cache.storeData("theme", { theme: easterEgg.text });
@@ -393,7 +395,7 @@ function Home({ navigation, route }) {
             overflow: "hidden",
             width: "95%",
             alignSelf: "center",
-            height: colors.checkTheme("original") ? "60%" : "60%", //if using virtual keyboard, make it smaller 250
+            height: isStatsVisible ? "60%" : "80%", //if using virtual keyboard, make it smaller 250
             backgroundColor: colors.darkenColor(
               colors.colors.backgroundColor,
               90
@@ -538,7 +540,7 @@ function Home({ navigation, route }) {
             Platform.OS === "android" ? -StatusBar.currentHeight : 0
           }
         >
-          <Similarities {...semantleGame.similarityStory} />
+          {isStatsVisible && <Similarities {...semantleGame.similarityStory} />}
         </Tooltip>
         {/* <VirtualKeyboard
           onKey={(key) => {
