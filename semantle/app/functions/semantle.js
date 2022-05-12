@@ -69,7 +69,7 @@ async function fetchSecretWords(day, language = "en") {
     false
   );
   //if wordset exists and is not older than 10 days, return it
-  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 5) {
+  if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 0.6) {
     SECRET_WORDS = wordSet.secretWords;
     return wordSet.secretWords[day % wordSet.secretWords.length];
   }
