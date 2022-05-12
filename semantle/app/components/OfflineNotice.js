@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Modal, Linking } from "react-native";
+import { View, Text, Modal, Linking, Alert } from "react-native";
 import * as Network from "expo-network";
 import AppText from "./AppText";
 import { Feather } from "@expo/vector-icons";
@@ -12,9 +12,13 @@ function OfflineNotice(props) {
         if (!connection) {
           setIsConnected(false);
         } else {
-          fetch("https://www.google.com/").then((res) =>
-            setIsConnected(res.status !== 200 ? false : true)
-          );
+          fetch("https://www.google.com/")
+            .then((res) => {
+              setIsConnected(res.status !== 200 ? false : true);
+            })
+            .catch((err) => {
+              setIsConnected(false);
+            });
         }
       });
     };
@@ -22,21 +26,6 @@ function OfflineNotice(props) {
     const interval = setInterval(checkInternet, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  async function checkConnection() {
-    const connect = await Network.getNetworkStateAsync();
-    if (connect.isConnected) {
-      console.log("Network is connected");
-      console.log(connect.type);
-      console.log(connect.isConnected);
-      setIsConnected(true);
-    } else {
-      console.log("Network is not connected");
-      console.log(connect.type);
-      setIsConnected(false);
-      console.log(connect.isConnected);
-    }
-  }
 
   return (
     <View>
