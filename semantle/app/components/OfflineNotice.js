@@ -32,7 +32,7 @@ function OfflineNotice(props) {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={isConnected}
+        visible={!isConnected}
         //   onRequestClose={() => {
         //     setModalVisible(!customThemeModal);
         //   }}
