@@ -8,7 +8,7 @@ import { logger, transportFunctionType } from "react-native-logs";
 import translate from "../configs/translate";
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.7.2";
+const VERSION_CODE = "1.0.7.4.6";
 
 const LANGUAGE_DAY_OFFSET = {
   en: 0,
@@ -71,7 +71,9 @@ async function fetchSecretWords(day, language = "en") {
   //if wordset exists and is not older than 10 days, return it
   if (wordSet && wordSet.timestamp > Date.now() - MILLIS_PER_DAY * 0.6) {
     SECRET_WORDS = wordSet.secretWords;
-    return wordSet.secretWords[day % wordSet.secretWords.length];
+    if (SECRET_WORDS) {
+      return wordSet.secretWords[day % wordSet.secretWords.length];
+    }
   }
 
   const url = `https://semantle.s3.us-east-2.amazonaws.com/secrets/${language}.json`;
@@ -521,52 +523,63 @@ export default function semantle() {
   async function initialize() {
     log.debug("initializing");
     // check to see if there is information cached.
-    guessed = new Set();
-    secretVec = null;
-    const language = i18n.locale;
-    setLastGuess(null);
-    const day = getPuzzleNumber(language);
-    setPuzzleNumber(day);
-    sanatizeGuessCache(day);
+    try {
+      guessed = new Set();
+      secretVec = null;
+      const language = i18n.locale;
+      setLastGuess(null);
+      const day = getPuzzleNumber(language);
+      setPuzzleNumber(day);
+      sanatizeGuessCache(day);
 
-    const secretWord = await fetchSecretWords(day, language);
-    const simStory = await fetchSimilarityStory(secretWord, day, language);
-    setSecret(secretWord);
-    setSimilarityStory(simStory);
+      const secretWord = await fetchSecretWords(day, language);
 
-    const guessData = await cache.getData(
-      "SEMANTLE_" + day + (language === "en" ? "" : language),
-      false
-    );
-    if (guessData) {
-      setGuesses(guessData);
-      //for each guess in guessData, add it to guessed
-      for (let i = 0; i < guessData.length; i++) {
-        guessed.add(guessData[i].guess);
+      const simStory = await fetchSimilarityStory(secretWord, day, language);
+
+      setSecret(secretWord);
+      setSimilarityStory(simStory);
+
+      const guessData = await cache.getData(
+        "SEMANTLE_" + day + (language === "en" ? "" : language),
+        false
+      );
+
+      if (guessData) {
+        setGuesses(guessData);
+        //for each guess in guessData, add it to guessed
+        for (let i = 0; i < guessData.length; i++) {
+          guessed.add(guessData[i].guess);
+        }
+      } else {
+        setGuesses([]);
       }
-    } else {
-      setGuesses([]);
+
+      countdown(day);
+
+      getAndSetYesterdayClosest(day);
+
+      getStreak(day);
+
+      log.debug(
+        "Initialization Data: " +
+          JSON.stringify({
+            guesses: guesses,
+            guessed: guessed,
+            secretVec: secretVec,
+            secretWord: secretWord,
+            lastGuess: lastGuess,
+            puzzleNumber: puzzleNumber,
+            similarity: simStory,
+            similarityStory: similarityStory,
+            yesterdayClosest: yesterdayClosest,
+            guessData: guessData,
+            VERSION_CODE: VERSION_CODE,
+            cacheString: "SEMANTLE_" + day,
+          })
+      );
+    } catch (e) {
+      log.debug(e.message);
     }
-    countdown(day);
-    getAndSetYesterdayClosest(day);
-    getStreak(day);
-    log.debug(
-      "Initialization Data: " +
-        JSON.stringify({
-          guesses: guesses,
-          guessed: guessed,
-          secretVec: secretVec,
-          secretWord: secretWord,
-          lastGuess: lastGuess,
-          puzzleNumber: puzzleNumber,
-          similarity: simStory,
-          similarityStory: similarityStory,
-          yesterdayClosest: yesterdayClosest,
-          guessData: guessData,
-          VERSION_CODE: VERSION_CODE,
-          cacheString: "SEMANTLE_" + day,
-        })
-    );
   }
 
   function formatTime(time) {
@@ -591,7 +604,7 @@ export default function semantle() {
   }
 
   function getTimeUntilNextPuzzle(day = puzzleNumber) {
-    const dayOffSet = 0;
+    const dayOffSet = LANGUAGE_DAY_OFFSET[i18n.locale || "en"] || 0;
     const timestampOfNextPuzzle =
       SEMANTLE_START_MILLIS_SINCE_EPOCH +
       (day + dayOffSet + 1) * MILLIS_PER_DAY;
