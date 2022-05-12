@@ -1,12 +1,26 @@
 import React from "react";
-import { View, Text, Modal } from "react-native";
+import { View, Text, Modal, Linking } from "react-native";
 import * as Network from "expo-network";
 import AppText from "./AppText";
 import { Feather } from "@expo/vector-icons";
 function OfflineNotice(props) {
-  const [isConnected, setIsConnected] = React.useState(false);
+  const [isConnected, setIsConnected] = React.useState(true);
   React.useEffect(() => {
-    checkConnection();
+    //every second, ping google.com to see if we are connected
+    const checkInternet = () => {
+      Linking.canOpenURL("https://www.google.com/").then((connection) => {
+        if (!connection) {
+          setIsConnected(false);
+        } else {
+          fetch("https://www.google.com/").then((res) =>
+            setIsConnected(res.status !== 200 ? false : true)
+          );
+        }
+      });
+    };
+
+    const interval = setInterval(checkInternet, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   async function checkConnection() {
