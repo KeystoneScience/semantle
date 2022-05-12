@@ -591,7 +591,7 @@ export default function semantle() {
   }
 
   function getTimeUntilNextPuzzle(day = puzzleNumber) {
-    const dayOffSet = LANGUAGE_DAY_OFFSET[i18n.locale || "en"] || 0;
+    const dayOffSet = 0;
     const timestampOfNextPuzzle =
       SEMANTLE_START_MILLIS_SINCE_EPOCH +
       (day + dayOffSet + 1) * MILLIS_PER_DAY;
