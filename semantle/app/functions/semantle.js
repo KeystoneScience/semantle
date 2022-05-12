@@ -8,7 +8,7 @@ import { logger, transportFunctionType } from "react-native-logs";
 import translate from "../configs/translate";
 const SEMANTLE_START_MILLIS_SINCE_EPOCH = 1643414400000;
 const MILLIS_PER_DAY = 86400000;
-const VERSION_CODE = "1.0.7.1";
+const VERSION_CODE = "1.0.7.2";
 
 const LANGUAGE_DAY_OFFSET = {
   en: 0,
