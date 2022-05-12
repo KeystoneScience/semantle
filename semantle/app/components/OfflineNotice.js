@@ -8,22 +8,26 @@ function OfflineNotice(props) {
   React.useEffect(() => {
     //every second, ping google.com to see if we are connected
     const checkInternet = () => {
-      Linking.canOpenURL("https://www.google.com/").then((connection) => {
-        if (!connection) {
-          setIsConnected(false);
-        } else {
-          fetch("https://www.google.com/")
-            .then((res) => {
-              setIsConnected(res.status !== 200 ? false : true);
-            })
-            .catch((err) => {
-              setIsConnected(false);
-            });
-        }
-      });
+      Linking.canOpenURL("https://www.google.com/")
+        .then((connection) => {
+          if (!connection) {
+            setIsConnected(false);
+          } else {
+            fetch("https://www.google.com/")
+              .then((res) => {
+                setIsConnected(res.status !== 200 ? false : true);
+              })
+              .catch((err) => {
+                setIsConnected(false);
+              });
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     };
 
-    const interval = setInterval(checkInternet, 1000);
+    const interval = setInterval(checkInternet, 2000);
     return () => clearInterval(interval);
   }, []);
 

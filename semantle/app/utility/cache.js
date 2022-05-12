@@ -34,11 +34,12 @@ const clearAsyncStorage = async () => {
   AsyncStorage.clear();
 };
 
-const storeData = async (key, value) => {
+const storeData = async (key, value, expiration) => {
   try {
     const item = {
       value,
       timestamp: Date.now(),
+      expiration: expiration ? Date.now() + expiration : null,
     };
     await AsyncStorage.setItem(prefix + key, JSON.stringify(item));
   } catch (e) {
@@ -60,23 +61,42 @@ const isExpired = (item, time) => {
   return now.diff(storedTime, "minute") > time;
 };
 
-const getData = async (key, checkExpired = true, expireyTime) => {
+//depreciateing checkExpired
+const getData = async (key, checkExpired = false, expireyTime) => {
   try {
     const value = await AsyncStorage.getItem(prefix + key);
     const item = JSON.parse(value);
     // log.debug("getData" + JSON.stringify({ key, value, item }));
     if (!item) return null;
-    if (expireyTime) {
-      if (isExpired(item, expireyTime) && checkExpired) {
-        await AsyncStorage.removeItem(prefix + key);
-        return null;
-      }
-    } else if (isExpired(item, updateExpiryInMinutes) && checkExpired) {
-      // Command Query Separation (CQS)
-      await AsyncStorage.removeItem(prefix + key);
-      return null;
-    }
+    // if (expireyTime) {
+    //   if (isExpired(item, expireyTime) && checkExpired) {
+    //     await AsyncStorage.removeItem(prefix + key);
+    //     return null;
+    //   }
+    // } else if (isExpired(item, updateExpiryInMinutes) && checkExpired) {
+    //   // Command Query Separation (CQS)
+    //   await AsyncStorage.removeItem(prefix + key);
+    //   return null;
+    // }
     return item.value;
+  } catch (error) {
+    log.error(
+      `An error occurred: \n ${JSON.stringify({
+        key: key,
+        checkExpired,
+        expireyTime,
+        error: error,
+      })}`
+    );
+    console.log(error);
+  }
+};
+
+const getRawData = async (key, checkExpired = false, expireyTime) => {
+  try {
+    const value = await AsyncStorage.getItem(key);
+    const item = JSON.parse(value);
+    return item;
   } catch (error) {
     log.error(
       `An error occurred: \n ${JSON.stringify({
@@ -147,6 +167,7 @@ const getAllKeys = async () => {
 export default {
   storeData,
   getData,
+  getRawData,
   getUpdateData,
   checkNewGetData,
   clearAsyncStorage,

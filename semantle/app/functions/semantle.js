@@ -50,11 +50,28 @@ const config = {
 var log = logger.createLogger(config);
 //returns the 10 nearest words.
 async function getNearby(rawWord) {
+  const storedData = await cache.getData(
+    `SEMANTLE::NEARBY::${rawWord}::${i18n.locale}`,
+    false
+  );
+
+  if (storedData && storedData.value && storedData.value.length > 0) {
+    return storedData.value;
+  }
+
   const word = encodeURIComponent(rawWord);
   const url = "model2/nearby?secret=" + word + "&language=" + i18n.locale;
   const response = await client.get(url);
+  if (!response.ok) {
+    return [];
+  }
   const body = response?.data?.body;
   const json = JSON.parse(body);
+  cache.storeData(
+    `SEMANTLE::NEARBY::${rawWord}::${i18n.locale}`,
+    body,
+    MILLIS_PER_DAY * 3
+  );
   return json;
 }
 
@@ -110,7 +127,8 @@ async function fetchSimilarityStory(rawSecret, day, language = "en") {
   const json = await JSON.parse(body);
   cache.storeData(
     `SEMANTLE::SIMILARITY_STORY::${secret}::${language}::${day}`,
-    json
+    json,
+    MILLIS_PER_DAY * 3
   );
   return json;
 }
@@ -313,7 +331,8 @@ export default function semantle() {
       newGuesses.sort((a, b) => b.similarity - a.similarity);
       cache.storeData(
         "SEMANTLE_" + puzzleNumber + (i18n.locale === "en" ? "" : i18n.locale),
-        newGuesses
+        newGuesses,
+        MILLIS_PER_DAY * 3
       );
       setGuesses(newGuesses);
       const foundWord = guess.toLowerCase() === secret.toLowerCase();
@@ -373,6 +392,23 @@ export default function semantle() {
         await cache.rawRemoveData(key);
         continue;
       }
+      //get the data for the key
+      const data = await cache.getRawData(key, false);
+      if (!data) {
+        //remove the key
+        console.log(data);
+        console.log("removing key", key);
+        await cache.rawRemoveData(key);
+        continue;
+      }
+      if (data.expiration) {
+        if (Date.now > data.expiration) {
+          console.log("removing key ~", key);
+          await cache.rawRemoveData(key);
+          continue;
+        }
+      }
+
       //TODO: Fix the logic here, the different language puzzle numbers breaks this.
       // let numberString = "";
       // for (let j = 0; j < key.length; j++) {

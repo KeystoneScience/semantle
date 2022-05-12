@@ -70,13 +70,6 @@ export default function App() {
         await Updates.fetchUpdateAsync();
         //prompt the user that an update is available. Ask them if they want to update
         //check the cache to see if we asked them within the last hour
-        const lastChecked = await cache.getData(
-          "SEMANTLE_lastUpdateCheck",
-          true
-        );
-        // if (lastChecked) {
-        //   return;
-        // }
         Alert.alert(
           "Update Available",
           "Restart the app to apply the update?",
