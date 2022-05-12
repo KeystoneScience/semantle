@@ -42,7 +42,7 @@ import i18n from "i18n-js";
 import AnimatedText from "../components/AnimatedText";
 import translate from "../configs/translate";
 import Tooltip from "react-native-walkthrough-tooltip";
-
+import OfflineNotice from "../components/OfflineNotice";
 function Home({ navigation, route }) {
   const semantleGame = semantle();
   const [inputField, setInputField] = useState("");
@@ -840,6 +840,7 @@ function Home({ navigation, route }) {
           </View>
         </Modal>
       )}
+      <OfflineNotice />
     </View>
   );
 }
