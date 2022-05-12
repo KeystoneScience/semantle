@@ -30,7 +30,6 @@ import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 import VirtualKeyboard from "../components/VirtualKeyboard";
 import { BlurView } from "expo-blur";
-import PagerView from "react-native-pager-view";
 import Similarities from "../components/Similarities";
 import * as StoreReview from "expo-store-review";
 import useColors from "../configs/useColors";
@@ -183,7 +182,7 @@ function Home({ navigation, route }) {
     }
     cache.storeData("firstTime", { firstTime: true });
     setTimeout(() => {
-      navigation.navigate("Tutorial");
+      // navigation.navigate("Tutorial");
     }, 100);
   }
 
