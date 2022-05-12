@@ -85,6 +85,9 @@ i18n.translations = {
     "Play with the community": "Play with the community",
     "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!":
       "Playing Semantle with your friends is a great experience. You can also engage with the Reddit and Discord communities!",
+    "You're currently offline": "You're currently offline",
+    "Make sure wifi or data is turned on and try again.":
+      "Make sure wifi or data is turned on and try again.",
   },
   es: {
     "0": "0",

@@ -32,7 +32,7 @@ function OfflineNotice(props) {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={!isConnected}
+        visible={isConnected}
         //   onRequestClose={() => {
         //     setModalVisible(!customThemeModal);
         //   }}
@@ -56,9 +56,18 @@ function OfflineNotice(props) {
               justifyContent: "center",
             }}
           >
-            <Feather name="wifi-off" size={200} color="grey" />
-            <AppText style={{ color: "grey", fontSize: 20 }}>
-              no internet connection.
+            <Feather name="wifi-off" size={200} color="rgba(0,0,0,.6)" />
+            <AppText style={{ color: "rgba(0,0,0,.8)", fontSize: 20 }}>
+              You're currently offline
+            </AppText>
+            <AppText
+              style={{
+                color: "rgba(0,0,0,.6)",
+                fontSize: 18,
+                textAlign: "center",
+              }}
+            >
+              Make sure wifi or data is turned on and try again.
             </AppText>
           </View>
         </View>
