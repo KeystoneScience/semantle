@@ -18,8 +18,11 @@ import {
   Alert,
   Share,
   Modal,
+  Linking,
   StatusBar,
 } from "react-native";
+import Toast from "react-native-toast-message";
+
 import * as Device from "expo-device";
 import GuessList from "../components/GuessList";
 import GuessListHeader from "../components/GuessListHeader";
@@ -66,6 +69,34 @@ function Home({ navigation, route }) {
       // console.log("tooltips", tooltips);
       confettiRef.current.play();
       setTooltips(0);
+    }
+  }
+
+  async function displayToast() {
+    //the current time
+    const currentTime = new Date().getTime();
+    //the time when the user last rated the app
+    const lastDisplay = await cache.getData("lastPIFTime", false);
+    //if the last prompt was more than 2 weeks ago
+    const names = [
+      "Susan",
+      "Michelle",
+      "The Stones",
+      "Jackson",
+      "Lisa",
+      "Elizabeth",
+    ];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+
+    if (!lastDisplay || currentTime - lastDisplay.time > 8) {
+      Toast.show({
+        type: "info",
+        text1: "Pay it forward",
+        text2: `❤️ Semantle is made free to you by ${randomName}`,
+      });
+      cache.storeData("lastPIFTime", {
+        time: currentTime,
+      });
     }
   }
 
@@ -191,6 +222,7 @@ function Home({ navigation, route }) {
     semantleGame.initialize();
     checkFirstTime();
     getAndPushToken();
+    displayToast();
   }, []);
   useEffect(() => {
     if (route?.params?.isFromTutorial) {
@@ -840,6 +872,11 @@ function Home({ navigation, route }) {
           </View>
         </Modal>
       )}
+      <Toast
+        onPress={() => {
+          Linking.openURL("https://www.patreon.com/semantleapp");
+        }}
+      />
     </View>
   );
 }
