@@ -409,6 +409,38 @@ function Drawer({ navigation, route }) {
             children={
               <View>
                 <TouchableOpacity
+                  onPress={() => {
+                    Linking.openURL("https://www.patreon.com/semantleapp");
+                  }}
+                >
+                  <View
+                    style={[
+                      styles.tutorialwhole,
+                      {
+                        backgroundColor: "rgba(255,255,255,.3)",
+                        marginTop: 15,
+                      },
+                    ]}
+                  >
+                    <FontAwesome5
+                      name="hand-holding-heart"
+                      size={30}
+                      color={colors.darkenColor(
+                        colors.colors.backgroundColor,
+                        80
+                      )}
+                      style={{ marginLeft: 10 }}
+                    />
+                    <AppText
+                      fontWeight={550}
+                      style={styles.tutorialText}
+                      adjustFont={true}
+                    >
+                      Pay it forward
+                    </AppText>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity
                   onPress={() =>
                     Platform.OS === "ios"
                       ? Linking.openURL(
@@ -424,7 +456,7 @@ function Drawer({ navigation, route }) {
                       styles.tutorialwhole,
                       {
                         backgroundColor: "rgba(255,255,255,.3)",
-                        marginTop: 15,
+                        marginTop: 0,
                       },
                     ]}
                   >
