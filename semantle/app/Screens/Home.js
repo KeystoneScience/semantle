@@ -86,9 +86,10 @@ function Home({ navigation, route }) {
       "Lisa",
       "Elizabeth",
     ];
-    const randomName = names[Math.floor(Math.random() * names.length)];
+    //get a random name
+    const randomName = names[Math.floor(Math.random() * 10000) % names.length];
 
-    if (!lastDisplay || currentTime - lastDisplay.time > 8) {
+    if (!lastDisplay || currentTime - lastDisplay.time > 3600000) {
       Toast.show({
         type: "info",
         text1: "Pay it forward",
