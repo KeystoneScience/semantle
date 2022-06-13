@@ -223,7 +223,7 @@ function Home({ navigation, route }) {
     semantleGame.initialize();
     checkFirstTime();
     getAndPushToken();
-    displayToast();
+    // displayToast();
   }, []);
   useEffect(() => {
     if (route?.params?.isFromTutorial) {

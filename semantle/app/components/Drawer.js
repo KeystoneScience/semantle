@@ -408,7 +408,7 @@ function Drawer({ navigation, route }) {
             }
             children={
               <View>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   onPress={() => {
                     Linking.openURL("https://www.patreon.com/semantleapp");
                   }}
@@ -439,7 +439,7 @@ function Drawer({ navigation, route }) {
                       Pay it forward
                     </AppText>
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity
                   onPress={() =>
                     Platform.OS === "ios"
