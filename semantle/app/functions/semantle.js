@@ -1,4 +1,7 @@
-// import { getNearby, getModel, getSimilarityStory } from "../api/words.js";
+/*
+This is the brains of the app.
+*/
+
 import { useState, useEffect } from "react";
 import client from "../api/client";
 import cache from "../utility/cache";
@@ -76,7 +79,7 @@ async function fetchSecretWords(day, language = "en") {
     }
   }
 
-  const url = `https://semantle.s3.us-east-2.amazonaws.com/secrets/${language}.json`;
+  const url = `https://semantleapp.s3.us-west-1.amazonaws.com/secrets/${language}.json`;
   const response = await client.get(url);
   const body = response?.data;
   // store the wordset in the cache
@@ -89,12 +92,6 @@ async function fetchSecretWords(day, language = "en") {
 }
 
 async function fetchSimilarityStory(rawSecret, day, language = "en") {
-  //simStory:
-  // {
-  //   "top": .89238749223423,
-  //   "top10": .5816293698798723,
-  //   "rest": .3081197440624237
-  //}
   const secret = encodeURIComponent(rawSecret);
   const simStory = await cache.getData(
     `SEMANTLE::SIMILARITY_STORY::${secret}::${language}::${day}`,
@@ -373,20 +370,6 @@ export default function semantle() {
         await cache.rawRemoveData(key);
         continue;
       }
-      //TODO: Fix the logic here, the different language puzzle numbers breaks this.
-      // let numberString = "";
-      // for (let j = 0; j < key.length; j++) {
-      //   if (key[j] >= "0" && key[j] <= "9") {
-      //     numberString += key[j];
-      //   }
-      // }
-      // if (numberString) {
-      //   const num = parseInt(numberString);
-
-      //   if (num < currentDay - 1) {
-      //     await cache.rawRemoveData(key);
-      //   }
-      // }
     }
   }
 

@@ -25,8 +25,6 @@ import {
 } from "@expo-google-fonts/baloo-bhaina-2";
 import * as Updates from "expo-updates";
 import { useFonts } from "@expo-google-fonts/baloo-bhaina-2";
-import colors from "./app/configs/colors";
-import Toast from "react-native-toast-message";
 
 import "react-native-gesture-handler";
 import cache from "./app/utility/cache";

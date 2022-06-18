@@ -4,14 +4,13 @@ import cache from "../utility/cache";
 const ENVIORMENT = "prod";
 
 const apiClient = create({
-  baseURL: `https://btztcea8r6.execute-api.us-east-2.amazonaws.com/${ENVIORMENT}/`, //"https://api.themoviedb.org/3/discover/", //"https://44tq0n57v6.execute-api.us-east-1.amazonaws.com/Staging",
+  baseURL: `https://4m9ls7nsk5.execute-api.us-east-2.amazonaws.com/prod/`,
 });
 
 //caches get requests
 const get = apiClient.get;
 apiClient.get = async (url, params, axiosConfig) => {
   const response = await get(url, params, axiosConfig);
-
   if (response.ok) {
     return response;
   }
